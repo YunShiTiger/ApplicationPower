@@ -162,7 +162,7 @@ public class CreateBaseMapping {
 
 	public void createDao(String tableName,String basePackage,String targetDir){
 		String entityName = StringUtils.toCapitalizeCamelCase(tableName);
-		String name = basePackage+"."+entityName;
+		String name = basePackage+".model."+entityName;
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("package ").append(basePackage).append(".dao;\n\n");
 		buffer.append("import java.util.List;\n");
@@ -182,22 +182,22 @@ public class CreateBaseMapping {
 	}
 	public void createService(String tableName,String basePackage,String targetDir){
 		String entityName = StringUtils.toCapitalizeCamelCase(tableName);
-		String name = basePackage+"."+entityName;
+		String name = basePackage+".model."+entityName;
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("package ").append(basePackage).append(".service;\n\n");
 		buffer.append("import java.util.List;\n");
 		buffer.append("import ").append(name).append(";\n\n");
 		buffer.append("public interface ").append(entityName).append("Service{\n\n");
 		// 构造保存方法
-		buffer.append("	boolean save(").append(entityName);
+		buffer.append("	int save(").append(entityName);
 		buffer.append(" ").append(StringUtils.firstToLowerCase(entityName));
 		buffer.append(");\n\n");
 		// 构造更新接口
-		buffer.append("	boolean update(").append(entityName);
+		buffer.append("	int update(").append(entityName);
 		buffer.append(" ").append(StringUtils.firstToLowerCase(entityName));
 		buffer.append(");\n\n");
 		// 构造删除数据接口
-		buffer.append("	boolean delete(int id);\n\n");
+		buffer.append("	int delete(int id);\n\n");
 		buffer.append("	").append(entityName).append(" queryById(int id);\n\n");
 		buffer.append("	List<").append(entityName).append("> queryAll();\n");
 		buffer.append("}");
