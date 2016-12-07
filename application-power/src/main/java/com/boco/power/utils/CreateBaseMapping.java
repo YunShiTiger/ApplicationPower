@@ -134,7 +134,7 @@ public class CreateBaseMapping {
 				builder.append(StringUtils.underlineToCamel(columnName)).append(";\n");
 
 				gettersAndSetters.append("	public ").append(columnType).append(" get");
-				gettersAndSetters.append(StringUtils.toCapitalizeCamelCase(tableName)).append("(){\n");
+				gettersAndSetters.append(StringUtils.toCapitalizeCamelCase(columnName)).append("(){\n");
 				gettersAndSetters.append("		return ").append(StringUtils.underlineToCamel(columnName)).append(";\n");
 				gettersAndSetters.append("	}\n");
 
