@@ -1,6 +1,5 @@
 package ${basePackage}.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -11,8 +10,8 @@ import ${basePackage}.service.${entitySimpleName}Service;
 
 /**
  *
- * @author
- *
+ * @author ${authorName}
+ * @date ${createTime}
  *
  */
 @Service("${firstLowerName}Service")

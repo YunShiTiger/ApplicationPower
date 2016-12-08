@@ -14,6 +14,7 @@ import ${basePackage}.model.${entitySimpleName};
  */
 
 public interface ${entitySimpleName}Dao{
+
 	/**
 	 * 保存数据
 	 * @param entity

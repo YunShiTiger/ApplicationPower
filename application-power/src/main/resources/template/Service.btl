@@ -6,11 +6,12 @@ import ${basePackage}.model.${entitySimpleName};
 /**
  *
  * @author ${authorName}
- *
+ * @date ${createTime}
  *
  */
 
 public interface ${entitySimpleName}Service{
+
 	/**
 	 * 保存数据
 	 * @param entity

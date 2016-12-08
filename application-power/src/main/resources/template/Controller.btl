@@ -1,5 +1,7 @@
 package ${basePackage}.controller;
 
+
+import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -77,5 +79,11 @@ public class ${entitySimpleName}Controller{
 			result.setMessage("没有找到匹配数据");
 		}
 		return result;
+	}
+
+	@ResponseBody
+	@RequestMapping(value="/query/list",method = RequestMethod.GET)
+	public List<${entitySimpleName}> query${entitySimpleName}List(){
+	    return ${firstLowerName}Service.queryAll();
 	}
 }
