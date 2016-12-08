@@ -1,0 +1,51 @@
+package ${basePackage}.service;
+
+import javax.annotation.Resource;
+import java.util.List;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import ${basePackage}.model.${entitySimpleName};
+import ${basePackage}.service.${entitySimpleName}Service;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:spring-mybatis.xml"})
+public class ${entitySimpleName}ServiceTest{
+
+	@Resource
+	private ${entitySimpleName}Service ${firstLowerName}Service;
+
+	@Test
+	public void testSave(){
+		${entitySimpleName} entity = new ${entitySimpleName}();
+		int num = ${firstLowerName}Service.save(entity);
+	}
+
+	@Test
+	public void testUpdate(){
+		${entitySimpleName} entity = new ${entitySimpleName}();
+		int num = ${firstLowerName}Service.update(entity);
+	}
+
+	@Test
+	public void testDelete(){
+		int num = ${firstLowerName}Service.delete(1);
+	}
+
+	@Test
+	public void testQueryById(){
+		${entitySimpleName} entity = ${firstLowerName}Service.queryById(1);
+	}
+
+	@Test
+	public void testQueryAll(){
+ 		List<${entitySimpleName}> list = ${firstLowerName}Service.queryAll();
+		//不想通过遍历看数据，建议使用fastjson或者gson的toString方法查看数据
+		for(${entitySimpleName} entity:list){
+
+		}
+	}
+
+}

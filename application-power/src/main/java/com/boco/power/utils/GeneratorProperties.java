@@ -4,15 +4,8 @@ package com.boco.power.utils;
  * @author sunyu 2016/12/5.
  */
 public class GeneratorProperties {
-    private static final PropertiesUtils props = new PropertiesUtils("generator.properties");
 
-    /**
-     * 获取用户名
-     * @return
-     */
-    public static String authorName(){
-        return props.getProperty("generator.author");
-    }
+    private static PropertiesUtils props = new PropertiesUtils("generator.properties");
 
     /**
      * 是否需要添加注释
@@ -44,5 +37,21 @@ public class GeneratorProperties {
      */
     public static String applicationName(){
         return props.getProperty("generator.applicationName");
+    }
+
+    /**
+     * 获取需要生成的代码层
+     * @return
+     */
+    public static String layers(){
+        return props.getProperty("generator.layers");
+    }
+
+    /**
+     * 代码数据目录
+     * @return
+     */
+    public static String outDir(){
+        return props.getProperty("generator.outDir");
     }
 }

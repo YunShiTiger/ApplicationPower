@@ -5,15 +5,16 @@
         <groupId>com.boco.health</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>boco-health-gms</artifactId>
+    <artifactId>${applicationName}</artifactId>
     <packaging>war</packaging>
-    <name>boco-health-gms</name>
+    <name>${applicationName}</name>
     <url>http://maven.apache.org</url>
 
     <properties>
         <!-- spring版本号 -->
-        <spring.version>4.2.2.RELEASE</spring.version>
+        <spring.version>4.2.5.RELEASE</spring.version>
         <!-- mybatis版本号 -->
         <mybatis.version>3.2.6</mybatis.version>
         <!-- log4j日志文件管理包版本 -->
@@ -39,54 +40,54 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>${spring.version}</version>
+            <version>${springVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <version>${spring.version}</version>
+            <version>${springVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-oxm</artifactId>
-            <version>${spring.version}</version>
+            <version>${springVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-tx</artifactId>
-            <version>${spring.version}</version>
+            <version>${springVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>${spring.version}</version>
+            <version>${springVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
-            <version>${spring.version}</version>
+            <version>${springVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
-            <version>${spring.version}</version>
+            <version>${springVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
-            <version>${spring.version}</version>
+            <version>${springVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>${spring.version}</version>
+            <version>${springVersion}</version>
             <scope>test</scope>
         </dependency>
         <!-- mybatis核心包 -->
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
-            <version>${mybatis.version}</version>
+            <version>${mybatisVersion}</version>
         </dependency>
         <!-- mybatis/spring包 -->
         <dependency>
@@ -99,17 +100,17 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
-            <version>${jackson.version}</version>
+            <version>${jacksonVersion}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-            <version>${jackson.version}</version>
+            <version>${jacksonVersion}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
+            <version>${jacksonVersion}</version>
         </dependency>
         <!-- 导入Mysql数据库链接jar包 -->
         <dependency>
@@ -143,7 +144,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
+            <version>${slf4jVersion}</version>
         </dependency>
         <!-- 格式化对象，方便输出日志 -->
         <dependency>
@@ -155,7 +156,7 @@
         <dependency>
             <groupId>com.boco.health</groupId>
             <artifactId>boco-health-common</artifactId>
-            <version>${project.version}</version>
+            <version>${projectVersion}</version>
         </dependency>
 
     </dependencies>
@@ -183,6 +184,6 @@
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>boco-health-gms</finalName>
+        <finalName>${applicationName}</finalName>
     </build>
 </project>

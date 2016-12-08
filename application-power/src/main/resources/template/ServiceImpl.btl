@@ -1,0 +1,49 @@
+package ${basePackage}.service.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Resource;
+import org.springframework.stereotype.Service;
+import ${basePackage}.model.${entitySimpleName};
+import ${basePackage}.dao.${entitySimpleName}Dao;
+import ${basePackage}.service.${entitySimpleName}Service;
+
+/**
+ *
+ * @author
+ *
+ *
+ */
+@Service("${firstLowerName}Service")
+public class ${entitySimpleName}ServiceImpl  implements ${entitySimpleName}Service{
+
+	@Resource
+	private ${entitySimpleName}Dao ${firstLowerName}Dao;
+
+	@Override
+	public int save(${entitySimpleName} entity){
+		return ${firstLowerName}Dao.save(entity);
+	}
+
+	@Override
+	public int update(${entitySimpleName} entity){
+		return ${firstLowerName}Dao.update(entity);
+	}
+
+	@Override
+	public int delete(int id){
+		return ${firstLowerName}Dao.delete(id);
+	}
+
+	@Override
+	public List<${entitySimpleName}> queryAll(){
+		return ${firstLowerName}Dao.queryAll();
+	}
+
+	@Override
+	public ${entitySimpleName} queryById(int id){
+		return ${firstLowerName}Dao.queryById(id);
+	}
+
+}

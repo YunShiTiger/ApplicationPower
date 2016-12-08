@@ -13,7 +13,7 @@
 
     <properties>
         <!-- spring版本号 -->
-        <spring.version>4.2.2.RELEASE</spring.version>
+        <spring.version>4.2.5.RELEASE</spring.version>
         <!-- mybatis版本号 -->
         <mybatis.version>3.2.6</mybatis.version>
         <!-- log4j日志文件管理包版本 -->
@@ -57,10 +57,11 @@
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
+        <!--模板引擎-->
         <dependency>
-            <groupId>com.github.abel533</groupId>
-            <artifactId>ECharts</artifactId>
-            <version>3.0.0.2</version>
+            <groupId>com.ibeetl</groupId>
+            <artifactId>beetl</artifactId>
+            <version>2.7.1</version>
         </dependency>
         <!-- 格式化对象，方便输出日志 -->
         <dependency>
