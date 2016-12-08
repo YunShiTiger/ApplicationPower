@@ -29,6 +29,7 @@ public class DataBaseInfo {
             ResultSet colRet = meta.getColumns(null, "%", tableName, "%");
             while (colRet.next()) {
                 String columnName = colRet.getString("COLUMN_NAME");
+                String isAutoIncrement = colRet.getString("IS_AUTOINCREMENT");
                 int digits = colRet.getInt("DECIMAL_DIGITS");
                 int dataType = colRet.getInt("DATA_TYPE");
                 String remarks = colRet.getString("REMARKS");
@@ -38,6 +39,9 @@ public class DataBaseInfo {
                 column.setColumnName(columnName);
                 column.setColumnType(columnType);
                 column.setRemarks(remarks);
+                if("YES".equals(isAutoIncrement)){
+                    column.setAutoIncrement(true);
+                }
                 colMap.put(columnName,column);
             }
         } catch (Exception e) {
@@ -47,6 +51,8 @@ public class DataBaseInfo {
         }
         return colMap;
     }
+
+
 
     /**
      * 根据匹配的表名获取表名

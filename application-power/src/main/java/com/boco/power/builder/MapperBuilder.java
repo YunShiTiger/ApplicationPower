@@ -39,7 +39,7 @@ public class MapperBuilder {
     }
 
     /**
-     * 生成insert语句
+     * 生成insert语句，过滤掉则增列
      *
      * @param columnMap
      * @param tableName
@@ -52,13 +52,17 @@ public class MapperBuilder {
         StringBuilder insertValues = new StringBuilder();
         int i = 0;
         int size = columnMap.size();
+        Column column;
         for (Map.Entry<String, Column> entry : columnMap.entrySet()) {
-            if (i < size - 1) {
-                insertSql.append("			").append(entry.getKey()).append(",\n");
-                insertValues.append("			#{").append(StringUtils.underlineToCamel(entry.getKey())).append("},\n");
-            } else {
-                insertSql.append("			").append(entry.getKey()).append("\n");
-                insertValues.append("			#{").append(StringUtils.underlineToCamel(entry.getKey())).append("}\n");
+            column = entry.getValue();
+            if(!column.isAutoIncrement()) {
+                if (i < size - 1) {
+                    insertSql.append("			").append(entry.getKey()).append(",\n");
+                    insertValues.append("			#{").append(StringUtils.underlineToCamel(entry.getKey())).append("},\n");
+                } else {
+                    insertSql.append("			").append(entry.getKey()).append("\n");
+                    insertValues.append("			#{").append(StringUtils.underlineToCamel(entry.getKey())).append("}\n");
+                }
             }
             i++;
         }
@@ -69,7 +73,7 @@ public class MapperBuilder {
     }
 
     /**
-     * 生成update语句
+     * 生成update语句,过滤掉自增列
      *
      * @param columnMap
      * @param tableName
@@ -80,13 +84,17 @@ public class MapperBuilder {
         updateSql.append(" update ").append(tableName).append(" set\n");
         int i = 0;
         int size = columnMap.size();
+        Column column;
         for (Map.Entry<String, Column> entry : columnMap.entrySet()) {
-            if (i < size - 1) {
-                updateSql.append("			").append(entry.getKey()).append(" = #{");
-                updateSql.append(StringUtils.underlineToCamel(entry.getKey())).append("},\n");
-            } else {
-                updateSql.append("			").append(entry.getKey()).append(" = #{");
-                updateSql.append(StringUtils.underlineToCamel(entry.getKey())).append("}");
+            column = entry.getValue();
+            if(!column.isAutoIncrement()){
+                if (i < size - 1) {
+                    updateSql.append("			").append(entry.getKey()).append(" = #{");
+                    updateSql.append(StringUtils.underlineToCamel(entry.getKey())).append("},\n");
+                } else {
+                    updateSql.append("			").append(entry.getKey()).append(" = #{");
+                    updateSql.append(StringUtils.underlineToCamel(entry.getKey())).append("}");
+                }
             }
             i++;
         }

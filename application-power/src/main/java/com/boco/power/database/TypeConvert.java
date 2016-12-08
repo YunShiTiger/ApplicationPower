@@ -40,10 +40,13 @@ public class TypeConvert {
                 dataType = "BigDecimal";
                 break;
             case Types.TIME:  //91
-                dataType = "Date";
+                dataType = "Time";
                 break;
             case Types.DATE:  //91
                 dataType = "Date";
+                break;
+            case Types.TIMESTAMP:
+                dataType = "Timestamp";
                 break;
             default:
                 dataType = "String";
