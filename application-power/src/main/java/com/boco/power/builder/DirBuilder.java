@@ -50,6 +50,11 @@ public class DirBuilder {
         FileUtils.mkdirs(webInfoDir);
         dirsMap.put("webConfig",webInfoDir);
 
+        //创建error处理
+        String error = webappDir+fileSeparator+"error";//创建error处理页面
+        FileUtils.mkdir(error);
+        dirsMap.put("error",error);
+
         //更具指定的代码层创建目录
         String layers = GeneratorProperties.layers();
         String[] layerArr = layers.split(",");

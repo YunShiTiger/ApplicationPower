@@ -30,7 +30,6 @@ public class CodeWriter {
         String pomDir = dirMap.get("pom");
         if(StringUtils.isNotEmpty(pomDir)){
             String pomCode = new PomBuilder().generatePom();
-            System.out.println("pomDir:"+pomDir);
             FileUtils.writeFileNotAppend(pomCode,pomDir+"\\pom.xml");
         }
         //web.xml文件路径
@@ -39,7 +38,15 @@ public class CodeWriter {
             String webXmlCode = new WebXmlBuilder().generateWebXml();
             FileUtils.writeFileNotAppend(webXmlCode,webConfig+"\\web.xml");
         }
-        //recource路径
+        //生成错误处理页面
+        String error = dirMap.get("error");
+        if(StringUtils.isNotEmpty(error)){
+            String html404 = BeetlTemplateUtil.getByName("404.btl").render();
+            FileUtils.writeFileNotAppend(html404,error+"\\404.html");
+            String html500 = BeetlTemplateUtil.getByName("500.btl").render();
+            FileUtils.writeFileNotAppend(html500,error+"\\500.html");
+        }
+        //resource路径
         String resource = dirMap.get("resources");
         if(StringUtils.isNotEmpty(resource)){
             String springMvcCfg = new SpringMvcCfgBuilder().generateSpringMvcCfg();
