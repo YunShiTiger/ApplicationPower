@@ -1,5 +1,6 @@
-ApplicationPower 是一个基于单表Crud操作的一站式项目生成器，
-最终生成一个可运行的工程
+ApplicationPower 是一个基于数据库单表Crud操作的项目生成器，
+生成项目自动集成spring,spring mvc,mybatis框架，
+最终生成基于maven构建的可运行工程
 
  **使用说明：** 
   1.根据自己实际需求，修改generator.properties中的配置
