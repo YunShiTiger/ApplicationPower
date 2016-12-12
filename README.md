@@ -68,6 +68,15 @@
      ${gettersAndSetters}
   }
   ```
+  2.dao层模板
+ 
+
+  3.service层模板
+
+
+  4.service实现层模板
+  
+  5.controller层模板
 
 
 
