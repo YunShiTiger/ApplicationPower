@@ -4,9 +4,9 @@
         ApplicationPower是基于beetl模板来生成源代码的，因此可以灵活的修改模板来生成代码定义自己的开发接口规范。ApplicationPower相对
     mybatis generator来说配置更少、代码灵活性和可控性更高。
 
-***
     
  **功能：** 
+***
   1.根据连接的数据生成dao,model,service,controller,mapper,controllerTest,serviceTest代码
   2.项目的maven web基础骨架
   3.生成基于spring,spring mvc,mybatis框架结构项目所需的基础配置文件
