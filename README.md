@@ -48,27 +48,28 @@
  **使用模板介绍：** 
 
 1. model层模板
-```
-package ${basePackage}.model;
+  ```
+  package ${basePackage}.model;
 
-import java.io.Serializable;
-${modelImports}
+  import java.io.Serializable;
+  ${modelImports}
 
-/**
- *
- * @author ${authorName}
- * @date ${createTime}
- *
- */
-public class ${entitySimpleName} implements Serializable{
+  /**
+   *
+   * @author ${authorName}
+   * @date ${createTime}
+   *
+   */
+  public class ${entitySimpleName} implements Serializable{
 
-    private static final long serialVersionUID = ${SerialVersionUID}L;
+      private static final long serialVersionUID = ${SerialVersionUID}L;
 
-   ${fields}
-	//getters and setters
-   ${gettersAndSetters}
-}
-```
+     ${fields}
+  	//getters and setters
+     ${gettersAndSetters}
+  }
+  ```
+
 
 
 
