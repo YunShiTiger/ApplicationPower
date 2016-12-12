@@ -1,9 +1,11 @@
 package com.boco.power.builder;
 
 
+import com.boco.power.constant.ConstVal;
 import com.boco.power.constant.GeneratorConstant;
 import com.boco.power.database.Column;
-import com.boco.power.database.DataBaseInfo;
+import com.boco.power.database.DbProvider;
+import com.boco.power.factory.DbProviderFactory;
 import com.boco.power.utils.BeetlTemplateUtil;
 import com.boco.power.utils.DateTimeUtil;
 import com.boco.power.utils.GeneratorProperties;
@@ -25,13 +27,14 @@ public class ModelBuilder {
      * @return
      */
     public String generateModel(String tableName){
-        String entitySimpleName = StringUtils.toCapitalizeCamelCase(tableName);//类名
-        DataBaseInfo tableInfo = new DataBaseInfo();
-        Map<String,Column> columnMap = tableInfo.getColumnsInfo(tableName);
+        String tableTemp = StringUtils.removePrefix(tableName,GeneratorProperties.tablePrefix());
+        String entitySimpleName = StringUtils.toCapitalizeCamelCase(tableTemp);//类名
+        DbProvider dbProvider = new DbProviderFactory().getInstance();
+        Map<String, Column> columnMap = dbProvider.getColumnsInfo(tableName);
         String fields = generateFields(columnMap);
         String gettersAndSetters = generateSetAndGetMethods(columnMap);
         String imports = generateImport(columnMap);
-        Template template = BeetlTemplateUtil.getByName("model.btl");
+        Template template = BeetlTemplateUtil.getByName(ConstVal.TEMPLATE_ENTITY);
         template.binding(GeneratorConstant.AUTHOR,System.getProperty("user.name"));//作者
         template.binding(GeneratorConstant.ENTITY_SIMPLE_NAME,entitySimpleName);//类名
         template.binding(GeneratorConstant.BASE_PACKAGE,GeneratorProperties.basePackage());//基包名

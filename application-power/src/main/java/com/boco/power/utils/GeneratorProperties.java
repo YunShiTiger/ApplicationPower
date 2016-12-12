@@ -54,4 +54,20 @@ public class GeneratorProperties {
     public static String outDir(){
         return props.getProperty("generator.outDir");
     }
+
+    /**
+     * 是否开启mybatis二级缓存
+     * @return
+     */
+    public static String enableCache(){
+        return props.getProperty("generator.enableCache");
+    }
+
+    /**
+     * 获取需要生成代码的表名
+     * @return
+     */
+    public static String getTableName(){
+        return props.getProperty("generator.table.name");
+    }
 }

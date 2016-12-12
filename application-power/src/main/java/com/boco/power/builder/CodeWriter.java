@@ -1,10 +1,13 @@
 package com.boco.power.builder;
 
-import com.boco.power.database.DataBaseInfo;
+import com.boco.power.constant.ConstVal;
+import com.boco.power.constant.GeneratorConstant;
+import com.boco.power.database.TableInfo;
 import com.boco.power.utils.BeetlTemplateUtil;
 import com.boco.power.utils.FileUtils;
 import com.boco.power.utils.GeneratorProperties;
 import com.boco.power.utils.StringUtils;
+import org.beetl.core.Template;
 
 import java.io.File;
 import java.util.List;
@@ -13,96 +16,119 @@ import java.util.Map;
 /**
  * @author  on 2016/12/7.
  */
-public class CodeWriter {
+public class CodeWriter extends AbstractCodeWriter{
+
+
+    public void execute(){
+        //初始化配置
+        initConfig();
+        //java代码目录
+        mkdirs(config.getPathInfo());
+        //创建配置文件路径
+        mkdirs(config.getBaseConfigPathInfo());
+        //创建配置文件
+        writeBaseConfig(config.getBaseConfigFilesPath());
+        //创建代码
+        writeCode(config);
+    }
+    /**
+     * 处理输出目录
+     *
+     * @param pathInfo
+     *            路径信息
+     */
+    private void mkdirs(Map<String, String> pathInfo) {
+        for (Map.Entry<String, String> entry : pathInfo.entrySet()) {
+            File dir = new File(entry.getValue());
+            if (!dir.exists()) {
+               dir.mkdirs();
+            }
+        }
+    }
 
     /**
-     * 更具数据库生成代码
+     * 创建工程所需配置文件
+     * @param baseConfigFiles
+     *          web工程所需的配置文件
      */
-    public void writeCodeFromDataBase(){
-
-
-
-
-        DirBuilder dirBuilder = new DirBuilder();
-        Map<String,String> dirMap = dirBuilder.initAndGetDirs(GeneratorProperties.outDir());
-
-        //pom文件路径
-        String pomDir = dirMap.get("pom");
-        if(StringUtils.isNotEmpty(pomDir)){
-            String pomCode = new PomBuilder().generatePom();
-            FileUtils.writeFileNotAppend(pomCode,pomDir+"\\pom.xml");
+    private void writeBaseConfig(Map<String,String> baseConfigFiles){
+        String basePackage = GeneratorProperties.basePackage();
+        Template template;
+        String key;
+        for(Map.Entry<String,String> entry:baseConfigFiles.entrySet()){
+            key = entry.getKey();
+            if(ConstVal.TEMPLATE_JDBC.equals(key)){
+                String currentPath = Thread.currentThread().getContextClassLoader().getResource(ConstVal.JDBC).getPath();
+                FileUtils.nioTransferCopy(new File(currentPath),new File(entry.getValue()));
+            }else{
+                template = BeetlTemplateUtil.getByName(key);
+                template.binding(GeneratorConstant.BASE_PACKAGE,basePackage);
+                template.binding(GeneratorConstant.APPLICATION_NAME, GeneratorProperties.applicationName());
+                //spring config
+                template.binding("mappingDir",basePackage.replaceAll("[.]","/"));
+                template.binding("jdbcUrl","${jdbc.url}");
+                template.binding("jdbcUserName","${jdbc.username}");
+                template.binding("jdbcPassword","${jdbc.password}");
+                //pom
+                template.binding("projectVersion","${project.version}");
+                template.binding("springVersion","${spring.version}");
+                template.binding("mybatisVersion","${mybatis.version}");
+                template.binding("jacksonVersion","${jackson.version}");
+                template.binding("slf4jVersion","${slf4j.version}");
+                //mybatis config
+                template.binding("cacheEnabled",GeneratorProperties.enableCache());
+                FileUtils.writeFileNotAppend(template.render(),entry.getValue());
+            }
         }
-        //web.xml文件路径
-        String webConfig = dirMap.get("webConfig");
-        if(StringUtils.isNotEmpty(webConfig)){
-            String webXmlCode = new WebXmlBuilder().generateWebXml();
-            FileUtils.writeFileNotAppend(webXmlCode,webConfig+"\\web.xml");
-        }
-        //生成错误处理页面
-        String error = dirMap.get("error");
-        if(StringUtils.isNotEmpty(error)){
-            String html404 = BeetlTemplateUtil.getByName("404.btl").render();
-            FileUtils.writeFileNotAppend(html404,error+"\\404.html");
-            String html500 = BeetlTemplateUtil.getByName("500.btl").render();
-            FileUtils.writeFileNotAppend(html500,error+"\\500.html");
-        }
-        //resource路径
-        String resource = dirMap.get("resources");
-        if(StringUtils.isNotEmpty(resource)){
-            String springMvcCfg = new SpringMvcCfgBuilder().generateSpringMvcCfg();
-            FileUtils.writeFileNotAppend(springMvcCfg,resource+"\\spring-mvc.xml");
-            String springMybatis = new SpringMybatisCfgBuilder().generateSpringMyBatisCfg();
-            FileUtils.writeFileNotAppend(springMybatis,resource+"\\spring-mybatis.xml");
-            String currentPath = Thread.currentThread().getContextClassLoader().getResource("jdbc.properties").getPath();
-            FileUtils.nioTransferCopy(new File(currentPath),new File(resource+"\\jdbc.properties"));
+    }
 
-            String log4j = BeetlTemplateUtil.getByName("log4j.btl").render();
-            FileUtils.writeFileNotAppend(log4j,resource+"\\log4j.properties");
-
-            String mybatisCfg = BeetlTemplateUtil.getByName("mybatis-config.btl").render();
-            FileUtils.writeFileNotAppend(mybatisCfg,resource+"\\mybatis-config.xml");
-        }
-
-        DataBaseInfo info = new DataBaseInfo();
-        List<String> tables = info.listOfTablesByPrefix("");
-        for(String table:tables){
-            String entityName = StringUtils.toCapitalizeCamelCase(table);
+    /**
+     * 生成model,dao,service,controller,controllerTest,serviceTest代码
+     * @param config
+     */
+    public void writeCode(ConfigBuilder config){
+        Map<String,String> dirMap = config.getPathInfo();
+        List<TableInfo> tables = config.getTableInfo();
+        for(TableInfo tableInfo:tables){
+            String table = tableInfo.getName();
+            //实体名需要移除表前缀
+            String tableTemp = StringUtils.removePrefix(table,GeneratorProperties.tablePrefix());
+            String entityName = StringUtils.toCapitalizeCamelCase(tableTemp);
             for(Map.Entry<String,String> entry:dirMap.entrySet()){
                 String value = entry.getValue();
                 String key = entry.getKey();
-                if("dao".equals(key)){
-                    String daoCode = new DaoBuilder().generateDao(table);
+                if(ConstVal.DAO_PATH.equals(key)){
+                    String daoCode = new DaoBuilder().generateDao(entityName);
                     FileUtils.writeFileNotAppend(daoCode,value+"\\"+entityName+"Dao.java");
                 }
-                if("model".equals(key)){
+                if(ConstVal.ENTITY_PATH.equals(key)){
                     String modelCode = new ModelBuilder().generateModel(table);
                     FileUtils.writeFileNotAppend(modelCode,value+"\\"+entityName+".java");
                 }
-                if("service".equals(key)){
-                    String serviceCode = new ServiceBuilder().generateService(table);
+                if(ConstVal.SERIVCE_PATH.equals(key)){
+                    String serviceCode = new ServiceBuilder().generateService(entityName);
                     FileUtils.writeFileNotAppend(serviceCode,value+"\\"+entityName+"Service.java");
-                    String serviceImplCode = new ServiceImplBuilder().generateServiceImpl(table);
+                    String serviceImplCode = new ServiceImplBuilder().generateServiceImpl(entityName);
                     FileUtils.writeFileNotAppend(serviceImplCode,value+"\\impl\\"+entityName+"ServiceImpl.java");
                 }
-                if("serviceTest".equals(key)){
-                    String serviceTestCode = new ServiceTestBuilder().generateServiceTest(table);
+                if(ConstVal.SERVICE_TEST_PATH.equals(key)){
+                    String serviceTestCode = new ServiceTestBuilder().generateServiceTest(entityName);
                     FileUtils.writeFileNotAppend(serviceTestCode,value+"\\"+entityName+"ServiceTest.java");
                 }
-                if("controller".equals(key)){
-                    String controllerCode = new ControllerBuilder().generateController(table);
+                if(ConstVal.CONTROLLER_PATH.equals(key)){
+                    String controllerCode = new ControllerBuilder().generateController(entityName);
                     FileUtils.writeFileNotAppend(controllerCode,value+"\\"+entityName+"Controller.java");
                 }
-                if("controllerTest".equals(key)){
-                    String controllerCode = new ControllerTestBuilder().generateControllerTest(table);
+                if(ConstVal.CONTROLLER_TEST_PATH.equals(key)){
+                    String controllerCode = new ControllerTestBuilder().generateControllerTest(entityName);
                     FileUtils.writeFileNotAppend(controllerCode,value+"\\"+entityName+"ControllerTest.java");
                 }
 
-                if("mapper".equals(key)){
+                if(ConstVal.MAPPER_PATH.equals(key)){
                     String mapperCode = new MapperBuilder().generateMapper(table);
                     FileUtils.writeFileNotAppend(mapperCode,value+"\\"+entityName+"Dao.xml");
                 }
             }
         }
     }
-
 }

@@ -1,5 +1,6 @@
 package com.boco.power.builder;
 
+import com.boco.power.constant.ConstVal;
 import com.boco.power.constant.GeneratorConstant;
 import com.boco.power.utils.BeetlTemplateUtil;
 import com.boco.power.utils.DateTimeUtil;
@@ -13,13 +14,13 @@ import org.beetl.core.Template;
  */
 public class DaoBuilder {
     /**
-     * 生成dao
-     * @param tableName
+     * 实体名
+     * @param entityName
      * @return
      */
-    public String generateDao(String tableName){
-        String entitySimpleName = StringUtils.toCapitalizeCamelCase(tableName);//类名
-        Template daoTemplate = BeetlTemplateUtil.getByName("Dao.btl");
+    public String generateDao(String entityName){
+        String entitySimpleName = StringUtils.toCapitalizeCamelCase(entityName);//类名
+        Template daoTemplate = BeetlTemplateUtil.getByName(ConstVal.TEMPLATE_DAO);
         daoTemplate.binding(GeneratorConstant.AUTHOR,System.getProperty("user.name"));//作者
         daoTemplate.binding(GeneratorConstant.ENTITY_SIMPLE_NAME,entitySimpleName);//类名
         daoTemplate.binding(GeneratorConstant.BASE_PACKAGE, GeneratorProperties.basePackage());//基包名

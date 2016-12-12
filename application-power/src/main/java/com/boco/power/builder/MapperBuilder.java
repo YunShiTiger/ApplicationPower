@@ -1,8 +1,10 @@
 package com.boco.power.builder;
 
+import com.boco.power.constant.ConstVal;
 import com.boco.power.constant.GeneratorConstant;
 import com.boco.power.database.Column;
-import com.boco.power.database.DataBaseInfo;
+import com.boco.power.database.DbProvider;
+import com.boco.power.factory.DbProviderFactory;
 import com.boco.power.utils.BeetlTemplateUtil;
 import com.boco.power.utils.GeneratorProperties;
 import com.boco.power.utils.StringUtils;
@@ -18,15 +20,16 @@ import java.util.Map;
 public class MapperBuilder {
 
     public String generateMapper(String tableName) {
-        String entitySimpleName = StringUtils.toCapitalizeCamelCase(tableName);//类名
+        String tableTemp = StringUtils.removePrefix(tableName,GeneratorProperties.tablePrefix());
+        String entitySimpleName = StringUtils.toCapitalizeCamelCase(tableTemp);//类名
         String firstLowName = StringUtils.firstToLowerCase(entitySimpleName);
-        DataBaseInfo tableInfo = new DataBaseInfo();
-        Map<String, Column> columnMap = tableInfo.getColumnsInfo(tableName);
+        DbProvider dbProvider = new DbProviderFactory().getInstance();
+        Map<String, Column> columnMap = dbProvider.getColumnsInfo(tableName);
         String insertSql = generateInsertSql(columnMap, tableName);
         String updateSql = generateUpdateSql(columnMap, tableName);
         String selectSql = generateSelectSql(columnMap, tableName);
         String results = generateResultMap(columnMap);
-        Template mapper = BeetlTemplateUtil.getByName("Mapper.btl");
+        Template mapper = BeetlTemplateUtil.getByName(ConstVal.TEMPLATE_MAPPER);
         mapper.binding(GeneratorConstant.FIRST_LOWER_NAME, firstLowName);
         mapper.binding(GeneratorConstant.ENTITY_SIMPLE_NAME, entitySimpleName);//类名
         mapper.binding(GeneratorConstant.BASE_PACKAGE, GeneratorProperties.basePackage());//基包名
@@ -115,9 +118,19 @@ public class MapperBuilder {
         int size = columnMap.size();
         for (Map.Entry<String, Column> entry : columnMap.entrySet()) {
             if (i < size - 1) {
-                selectSql.append("			").append(entry.getKey()).append(",\n");
+                if(entry.getKey().contains("_")){
+                    selectSql.append("			").append(entry.getKey()).append(" as ");
+                    selectSql.append(StringUtils.underlineToCamel(entry.getKey())).append(",\n");
+                }else{
+                    selectSql.append("			").append(entry.getKey()).append(",\n");
+                }
             } else {
-                selectSql.append("			").append(entry.getKey()).append("\n");
+                if(entry.getKey().contains("_")){
+                    selectSql.append("			").append(entry.getKey()).append(" as ");
+                    selectSql.append(StringUtils.underlineToCamel(entry.getKey())).append("\n");
+                }else{
+                    selectSql.append("			").append(entry.getKey()).append("\n");
+                }
             }
             i++;
         }

@@ -2,25 +2,19 @@ package com.boco.power.database;
 
 import com.boco.power.utils.StringUtils;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * @author sunyu on 2016/12/6.
+ * 针对mysql数据库信息提供者
+ * @author sunyu 2016/12/11.
  */
-public class DataBaseInfo {
-    /**
-     * 获取表列的名称和类型
-     * @param tableName
-     * @return
-     */
-    public Map<String,Column> getColumnsInfo(String tableName) {
+public class MySqlProvider implements DbProvider {
+    @Override
+    public Map<String, Column> getColumnsInfo(String tableName) {
         Map<String,Column> colMap = new LinkedHashMap<>();
         Connection connection=null;
         try {
@@ -47,40 +41,41 @@ public class DataBaseInfo {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }finally {
-           DbUtil.close(connection);
+            DbUtil.close(connection);
         }
         return colMap;
     }
 
-
-
-    /**
-     * 根据匹配的表名获取表名
-     * @param tablePrefix
-     * @return
-     */
-    public List<String> listOfTablesByPrefix(String tablePrefix){
-        List<String> tableList=new ArrayList<>();
-        Connection connection=null;
+    @Override
+    public List<TableInfo> getTablesInfo(String tableName) {
+        List<TableInfo> tableList;
+        StringBuilder sql = new StringBuilder();
+        sql.append("show table status");
+        if(StringUtils.isNotEmpty(tableName)){
+            sql.append(" LIKE '%").append(tableName).append("%'");
+        }
+        Connection connection = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        TableInfo tableInfo;
         try {
             connection= DbUtil.getConnection();
-            DatabaseMetaData databaseMetaData = DbUtil.getDatabaseMetaData(connection);
-            String[] tableType = {"TABLE"};
-            ResultSet rs = databaseMetaData.getTables(null, null, "", tableType);
+            stmt = connection.prepareStatement(sql.toString());
+            rs = stmt.executeQuery();
+            ResultSetMetaData rsmd = rs.getMetaData() ;
+            int columnCount = rsmd.getColumnCount();
+            tableList = new ArrayList<>(columnCount);
             while (rs.next()) {
-                String tableName = rs.getString("TABLE_NAME");
-                if(StringUtils.isEmpty(tablePrefix)){
-                    tableList.add(tableName);
-                }else {
-                    if(tableName.startsWith(tablePrefix)){
-                        tableList.add(tableName);
-                    }
-                }
+                tableInfo = new TableInfo();
+                tableInfo.setName(rs.getString("Name"));
+                tableInfo.setRemarks(rs.getString("Comment"));
+                tableList.add(tableInfo);
             }
         } catch (SQLException e) {
+            tableList = new ArrayList<>(0);
             throw new RuntimeException(e);
         }finally {
-           DbUtil.close(connection);
+            DbUtil.close(connection,stmt,rs);
         }
         return tableList;
     }

@@ -578,4 +578,21 @@ public class StringUtils {
         str = str.replaceAll(reg, "");
         return str;
     }
+    /**
+     * 去掉指定前缀
+     *
+     * @param str 字符串
+     * @param prefix 前缀
+     * @return 切掉后的字符串，若前缀不是 preffix， 返回原字符串
+     */
+    public static String removePrefix(String str, String prefix) {
+        if(isEmpty(str) || isEmpty(prefix)){
+            return str;
+        }
+
+        if (str.startsWith(prefix)) {
+            return str.substring(prefix.length());
+        }
+        return str;
+    }
 }

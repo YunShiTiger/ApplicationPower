@@ -53,4 +53,8 @@ public class TypeConvert {
         }
         return dataType;
     }
+
+    public static String processOracleType(String type){
+        return null;
+    }
 }

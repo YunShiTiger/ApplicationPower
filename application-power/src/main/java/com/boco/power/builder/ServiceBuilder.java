@@ -1,5 +1,6 @@
 package com.boco.power.builder;
 
+import com.boco.power.constant.ConstVal;
 import com.boco.power.constant.GeneratorConstant;
 import com.boco.power.utils.BeetlTemplateUtil;
 import com.boco.power.utils.DateTimeUtil;
@@ -19,7 +20,7 @@ public class ServiceBuilder {
      */
     public String generateService(String tableName){
         String entitySimpleName = StringUtils.toCapitalizeCamelCase(tableName);//类名
-        Template serviceTemplate = BeetlTemplateUtil.getByName("service.btl");
+        Template serviceTemplate = BeetlTemplateUtil.getByName(ConstVal.TEMPLATE_SERVICE);
         serviceTemplate.binding(GeneratorConstant.AUTHOR,System.getProperty("user.name"));//作者
         serviceTemplate.binding(GeneratorConstant.ENTITY_SIMPLE_NAME,entitySimpleName);//类名
         serviceTemplate.binding(GeneratorConstant.BASE_PACKAGE, GeneratorProperties.basePackage());//基包名
