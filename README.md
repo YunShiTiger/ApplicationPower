@@ -46,8 +46,7 @@
   5.将生成的项目导入编辑器
 
  **使用模板介绍：** 
-
-1. model层模板
+  1.model层模板
   ```
   package ${basePackage}.model;
 
