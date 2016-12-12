@@ -45,6 +45,30 @@
   4.运行Test下的GenerateCodeTest生成项目
   5.将生成的项目导入编辑器
 
+ **使用模板介绍：** 
+
+1. model层模板
+```
+package ${basePackage}.model;
+
+import java.io.Serializable;
+${modelImports}
+
+/**
+ *
+ * @author ${authorName}
+ * @date ${createTime}
+ *
+ */
+public class ${entitySimpleName} implements Serializable{
+
+    private static final long serialVersionUID = ${SerialVersionUID}L;
+
+   ${fields}
+	//getters and setters
+   ${gettersAndSetters}
+}
+```
 
 
 
