@@ -69,14 +69,253 @@
   }
   ```
   2.dao层模板
- 
+  ```
+  package ${basePackage}.dao;
 
+  import java.util.List;
+  import java.util.Map;
+
+  import ${basePackage}.model.${entitySimpleName};
+
+  /**
+   *
+   * @author ${authorName}
+   * @date ${createTime}
+   *
+   *
+   */
+
+  public interface ${entitySimpleName}Dao{
+
+  	/**
+  	 * 保存数据
+  	 * @param entity
+  	 * @return
+       */
+  	int save(${entitySimpleName} entity);
+
+  	/**
+  	 * 更新数据
+  	 * @param entity
+  	 * @return
+       */
+  	int update(${entitySimpleName} entity);
+
+  	/**
+  	 * 删除数据
+  	 * @param id
+  	 * @return
+       */
+  	int delete(int id);
+
+  	/**
+  	 * 根据id查询数据
+  	 * @param id
+  	 * @return
+       */
+  	${entitySimpleName} queryById(int id);
+
+  	/**
+  	 * 查询所有数据
+  	 * @return
+       */
+  	List<${entitySimpleName}> queryAll();
+  }
+  ```
   3.service层模板
+  ```
+  package ${basePackage}.service;
 
+  import java.util.List;
+  import ${basePackage}.model.${entitySimpleName};
 
+  /**
+   *
+   * @author ${authorName}
+   * @date ${createTime}
+   *
+   */
+
+  public interface ${entitySimpleName}Service{
+
+  	/**
+  	 * 保存数据
+  	 * @param entity
+  	 * @return
+       */
+  	int save(${entitySimpleName} entity);
+
+  	/**
+  	 * 修改数据
+  	 * @param entity
+  	 * @return
+       */
+  	int update(${entitySimpleName} entity);
+
+  	/**
+  	 * 删除数据
+  	 * @param id
+  	 * @return
+       */
+  	int delete(int id);
+
+  	/**
+  	 * 根据id查询数据
+  	 * @param id
+  	 * @return
+       */
+  	${entitySimpleName} queryById(int id);
+
+  	/**
+  	 * 查询所有数据
+  	 * @return
+       */
+  	List<${entitySimpleName}> queryAll();
+  }
+  ```
   4.service实现层模板
-  
+  ```
+  package ${basePackage}.service.impl;
+
+  import java.util.List;
+
+  import javax.annotation.Resource;
+  import org.springframework.stereotype.Service;
+  import ${basePackage}.model.${entitySimpleName};
+  import ${basePackage}.dao.${entitySimpleName}Dao;
+  import ${basePackage}.service.${entitySimpleName}Service;
+
+  /**
+   *
+   * @author ${authorName}
+   * @date ${createTime}
+   *
+   */
+  @Service("${firstLowerName}Service")
+  public class ${entitySimpleName}ServiceImpl  implements ${entitySimpleName}Service{
+
+  	@Resource
+  	private ${entitySimpleName}Dao ${firstLowerName}Dao;
+
+  	@Override
+  	public int save(${entitySimpleName} entity){
+  		return ${firstLowerName}Dao.save(entity);
+  	}
+
+  	@Override
+  	public int update(${entitySimpleName} entity){
+  		return ${firstLowerName}Dao.update(entity);
+  	}
+
+  	@Override
+  	public int delete(int id){
+  		return ${firstLowerName}Dao.delete(id);
+  	}
+
+  	@Override
+  	public List<${entitySimpleName}> queryAll(){
+  		return ${firstLowerName}Dao.queryAll();
+  	}
+
+  	@Override
+  	public ${entitySimpleName} queryById(int id){
+  		return ${firstLowerName}Dao.queryById(id);
+  	}
+
+  }
+  ```
   5.controller层模板
+  ```
+  package ${basePackage}.controller;
+
+
+  import java.util.List;
+  import javax.annotation.Resource;
+  import javax.servlet.http.HttpServletRequest;
+
+  import org.springframework.stereotype.Controller;
+  import org.springframework.ui.Model;
+  import org.springframework.web.bind.annotation.PathVariable;
+  import org.springframework.web.bind.annotation.RequestMethod;
+  import org.springframework.web.bind.annotation.ResponseBody;
+  import org.springframework.web.bind.annotation.RequestMapping;
+
+  import com.boco.health.common.model.CommonResult;
+  import ${basePackage}.model.${entitySimpleName};
+  import ${basePackage}.service.${entitySimpleName}Service;
+
+  /**
+   *
+   * @author ${authorName}
+   * @date ${createTime}
+   *
+   */
+  @Controller
+  @RequestMapping("${firstLowerName}")
+  public class ${entitySimpleName}Controller{
+  	@Resource
+  	private ${entitySimpleName}Service ${firstLowerName}Service;
+
+  	@ResponseBody
+  	@RequestMapping(value="/add",method = RequestMethod.POST)
+  	public CommonResult save(${entitySimpleName} entity){
+  		CommonResult result = new CommonResult();
+  		try{
+  			${firstLowerName}Service.save(entity);
+  			result.setSuccess(true);
+  		}catch(Exception e){
+  			result.setMessage("添加数据失败");
+  		}
+  		return result;
+  	}
+
+  	@ResponseBody
+  	@RequestMapping(value="/update",method = RequestMethod.POST)
+  	public CommonResult update(${entitySimpleName} entity){
+  		CommonResult result = new CommonResult();
+  		try{
+  			${firstLowerName}Service.update(entity);
+  			result.setSuccess(true);
+  		}catch(Exception e){
+  			result.setMessage("修改数据失败");
+  		}
+  		return result;
+  	}
+
+  	@ResponseBody
+  	@RequestMapping(value="/delete/{id}",method = RequestMethod.POST)
+  	public CommonResult delete(@PathVariable int id){
+  		CommonResult result = new CommonResult();
+  		try{
+  			${firstLowerName}Service.delete(id);
+  			result.setSuccess(true);
+  		}catch(Exception e){
+  			result.setMessage("删除数据失败");
+  		}
+  		return result;
+  	}
+
+  	@ResponseBody
+  	@RequestMapping(value="/query/{id}",method = RequestMethod.GET)
+  	public CommonResult queryById(@PathVariable int id){
+  		CommonResult result = new CommonResult();
+  		${entitySimpleName} entity = ${firstLowerName}Service.queryById(id);
+  		if(null != entity){
+  			result.setData(entity);//成功返回数据
+  			result.setSuccess(true);
+  		}else{
+  			result.setMessage("没有找到匹配数据");
+  		}
+  		return result;
+  	}
+
+  	@ResponseBody
+  	@RequestMapping(value="/query/list",method = RequestMethod.GET)
+  	public List<${entitySimpleName}> query${entitySimpleName}List(){
+  	    return ${firstLowerName}Service.queryAll();
+  	}
+  }
+  ```
 
 
 
