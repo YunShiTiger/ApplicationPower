@@ -16,7 +16,11 @@
     <!-- 引入配置文件 -->
     <bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="classpath:jdbc.properties" />
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc.properties</value>
+            </list>
+        </property>
     </bean>
     <!-- 配置数据库连接池（Druid） -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
