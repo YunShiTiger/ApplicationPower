@@ -1,6 +1,7 @@
 package ${basePackage}.service;
 
 import java.util.List;
+import com.boco.health.common.model.CommonResult;
 import ${basePackage}.model.${entitySimpleName};
 
 /**
@@ -17,28 +18,28 @@ public interface ${entitySimpleName}Service{
 	 * @param entity
 	 * @return
      */
-	int save(${entitySimpleName} entity);
+	CommonResult save(${entitySimpleName} entity);
 
 	/**
 	 * 修改数据
 	 * @param entity
 	 * @return
      */
-	int update(${entitySimpleName} entity);
+	CommonResult update(${entitySimpleName} entity);
 
 	/**
 	 * 删除数据
 	 * @param id
 	 * @return
      */
-	int delete(int id);
+	CommonResult delete(int id);
 
 	/**
 	 * 根据id查询数据
 	 * @param id
 	 * @return
      */
-	${entitySimpleName} queryById(int id);
+	CommonResult queryById(int id);
 
 	/**
 	 * 查询所有数据

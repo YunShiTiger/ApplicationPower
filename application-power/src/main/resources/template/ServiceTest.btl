@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.boco.health.common.model.CommonResult;
 import ${basePackage}.model.${entitySimpleName};
 import ${basePackage}.service.${entitySimpleName}Service;
 
@@ -26,23 +28,24 @@ public class ${entitySimpleName}ServiceTest{
 	@Test
 	public void testSave(){
 		${entitySimpleName} entity = new ${entitySimpleName}();
-		int num = ${firstLowerName}Service.save(entity);
+		CommonResult result = ${firstLowerName}Service.save(entity);
 	}
 
 	@Test
 	public void testUpdate(){
 		${entitySimpleName} entity = new ${entitySimpleName}();
-		int num = ${firstLowerName}Service.update(entity);
+		CommonResult result = ${firstLowerName}Service.update(entity);
 	}
 
 	@Test
 	public void testDelete(){
-		int num = ${firstLowerName}Service.delete(1);
+		CommonResult result = ${firstLowerName}Service.delete(1);
 	}
 
 	@Test
 	public void testQueryById(){
-		${entitySimpleName} entity = ${firstLowerName}Service.queryById(1);
+		CommonResult result = ${firstLowerName}Service.queryById(1);
+		//result.getData();
 	}
 
 	@Test

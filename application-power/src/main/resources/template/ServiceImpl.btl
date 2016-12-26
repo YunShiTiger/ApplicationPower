@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
+
+import com.boco.health.common.model.CommonResult;
 import ${basePackage}.model.${entitySimpleName};
 import ${basePackage}.dao.${entitySimpleName}Dao;
 import ${basePackage}.service.${entitySimpleName}Service;
@@ -21,18 +23,39 @@ public class ${entitySimpleName}ServiceImpl  implements ${entitySimpleName}Servi
 	private ${entitySimpleName}Dao ${firstLowerName}Dao;
 
 	@Override
-	public int save(${entitySimpleName} entity){
-		return ${firstLowerName}Dao.save(entity);
+	public CommonResult save(${entitySimpleName} entity){
+		CommonResult result = new CommonResult();
+        try{
+        	${firstLowerName}Dao.save(entity);
+        	result.setSuccess(true);
+        }catch(Exception e){
+        	result.setMessage("添加数据失败");
+        }
+        return result;
 	}
 
 	@Override
-	public int update(${entitySimpleName} entity){
-		return ${firstLowerName}Dao.update(entity);
+	public CommonResult update(${entitySimpleName} entity){
+		CommonResult result = new CommonResult();
+        try{
+            ${firstLowerName}Dao.update(entity);
+            result.setSuccess(true);
+        }catch(Exception e){
+            result.setMessage("添加数据失败");
+        }
+        return result;
 	}
 
 	@Override
-	public int delete(int id){
-		return ${firstLowerName}Dao.delete(id);
+	public CommonResult delete(int id){
+		CommonResult result = new CommonResult();
+        try{
+            ${firstLowerName}Dao.delete(id);
+            result.setSuccess(true);
+        }catch(Exception e){
+            result.setMessage("添加数据失败");
+        }
+        return result;
 	}
 
 	@Override
@@ -41,8 +64,16 @@ public class ${entitySimpleName}ServiceImpl  implements ${entitySimpleName}Servi
 	}
 
 	@Override
-	public ${entitySimpleName} queryById(int id){
-		return ${firstLowerName}Dao.queryById(id);
+	public CommonResult queryById(int id){
+	    CommonResult result = new CommonResult();
+	    ${entitySimpleName} entity = ${firstLowerName}Dao.queryById(id);
+	    if(null != entity){
+        	result.setData(entity);//成功返回数据
+        	result.setSuccess(true);
+        }else{
+        	result.setMessage("没有找到匹配数据");
+        }
+        return result;
 	}
 
 }

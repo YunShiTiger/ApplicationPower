@@ -31,54 +31,25 @@ public class ${entitySimpleName}Controller{
 	@ResponseBody
 	@RequestMapping(value="/add",method = RequestMethod.POST)
 	public CommonResult save(${entitySimpleName} entity){
-		CommonResult result = new CommonResult();
-		try{
-			${firstLowerName}Service.save(entity);
-			result.setSuccess(true);
-		}catch(Exception e){
-			result.setMessage("添加数据失败");
-		}
-		return result;
+		return ${firstLowerName}Service.save(entity);
 	}
 
 	@ResponseBody
 	@RequestMapping(value="/update",method = RequestMethod.POST)
 	public CommonResult update(${entitySimpleName} entity){
-		CommonResult result = new CommonResult();
-		try{
-			${firstLowerName}Service.update(entity);
-			result.setSuccess(true);
-		}catch(Exception e){
-			result.setMessage("修改数据失败");
-		}
-		return result;
+		return ${firstLowerName}Service.update(entity);
 	}
 
 	@ResponseBody
 	@RequestMapping(value="/delete/{id}",method = RequestMethod.POST)
 	public CommonResult delete(@PathVariable int id){
-		CommonResult result = new CommonResult();
-		try{
-			${firstLowerName}Service.delete(id);
-			result.setSuccess(true);
-		}catch(Exception e){
-			result.setMessage("删除数据失败");
-		}
-		return result;
+		return ${firstLowerName}Service.delete(id);
 	}
 
 	@ResponseBody
 	@RequestMapping(value="/query/{id}",method = RequestMethod.GET)
 	public CommonResult queryById(@PathVariable int id){
-		CommonResult result = new CommonResult();
-		${entitySimpleName} entity = ${firstLowerName}Service.queryById(id);
-		if(null != entity){
-			result.setData(entity);//成功返回数据
-			result.setSuccess(true);
-		}else{
-			result.setMessage("没有找到匹配数据");
-		}
-		return result;
+		return ${firstLowerName}Service.queryById(id);
 	}
 
 	@ResponseBody
