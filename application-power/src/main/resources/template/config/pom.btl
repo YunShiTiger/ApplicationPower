@@ -89,6 +89,17 @@
             <artifactId>mybatis</artifactId>
             <version>${mybatisVersion}</version>
         </dependency>
+         <!--引入mybatis 分页-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>5.0.0-rc</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.jsqlparser</groupId>
+            <artifactId>jsqlparser</artifactId>
+            <version>0.9.5</version>
+        </dependency>
         <!-- mybatis/spring包 -->
         <dependency>
             <groupId>org.mybatis</groupId>
