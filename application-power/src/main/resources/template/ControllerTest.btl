@@ -88,4 +88,17 @@ public class ${entitySimpleName}ControllerTest{
  		).andExpect(status().isOk()).andDo(print()).andReturn();
 		System.out.println("result:"+result.getResponse().getContentAsString());
 	}
+
+    /**
+     * 测试controller queryPage分页接口
+     * @throws Exception
+     */
+    @Test
+    public void testPage() throws Exception {
+        MvcResult result = mockMvc.perform(post("/${firstLowerName}/page/{offset}/{limit}",1,10)
+            .contentType(MediaType.APPLICATION_JSON)
+            .param("param1", "pm1")
+        ).andExpect(status().isOk()).andDo(print()).andReturn();
+        System.out.println("result:"+result.getResponse().getContentAsString());
+    }
 }

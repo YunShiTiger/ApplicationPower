@@ -14,7 +14,7 @@ import javax.annotation.Resource;
 import ${basePackage}.model.${entitySimpleName};
 
 /**
- * controller restful接口单元测试
+ * controller 接口单元测试
  * @author ${authorName}
  * @date ${createTime}
  *
@@ -74,6 +74,14 @@ public class ${entitySimpleName}ControllerTest {
     @Test
     public void testDelete() throws Exception {
 
+
+    }
+
+    /**
+     * 测试controller page分页接口
+     * @throws Exception
+     */
+    public void testQueryPage() throws Exception{
 
     }
 

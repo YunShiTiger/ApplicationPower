@@ -5,6 +5,8 @@ import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.boco.health.common.model.CommonResult;
 import ${basePackage}.model.${entitySimpleName};
 import ${basePackage}.dao.${entitySimpleName}Dao;
@@ -58,10 +60,7 @@ public class ${entitySimpleName}ServiceImpl  implements ${entitySimpleName}Servi
         return result;
 	}
 
-	@Override
-	public List<${entitySimpleName}> queryAll(){
-		return ${firstLowerName}Dao.queryAll();
-	}
+
 
 	@Override
 	public CommonResult queryById(int id){
@@ -75,5 +74,12 @@ public class ${entitySimpleName}ServiceImpl  implements ${entitySimpleName}Servi
         }
         return result;
 	}
+
+	@Override
+    public PageInfo queryPage(int offset, int limit) {
+        PageHelper.offsetPage(offset,limit);
+        List<Payment> list = paymentDao.queryAll();
+        return new PageInfo(list);
+    }
 
 }

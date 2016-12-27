@@ -52,9 +52,9 @@ public class ${entitySimpleName}Controller{
 		return ${firstLowerName}Service.queryById(id);
 	}
 
-	@ResponseBody
-	@RequestMapping(value="/query/list",method = RequestMethod.GET)
-	public List<${entitySimpleName}> query${entitySimpleName}List(){
-	    return ${firstLowerName}Service.queryAll();
-	}
+    @ResponseBody
+    @RequestMapping(value = "page/{offset}/{limit}",method = RequestMethod.GET)
+    public PageInfo queryPage(@PathVariable int offset,@PathVariable int limit){
+        return ${firstLowerName}Service.queryPage(offset,limit);
+    }
 }
