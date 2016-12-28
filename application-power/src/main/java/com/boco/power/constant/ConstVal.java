@@ -64,6 +64,9 @@ public class ConstVal {
     public static final String TEMPLATE_SERVICE_TEST = "ServiceTest.btl";
     public static final String TEMPLATE_CONTROLLER_TEST = "ControllerTest.btl";
 
+    public static final String TEMPLATE_CONTROLLER_BASE_TEST = "ControllerBaseTest.btl";
+    public static final String TEMPLATE_SERVICE_BASE_TEST = "ServiceBaseTest.btl";
+
     public static final String TEMPLATE_POM = "config\\pom.btl";
     public static final String TEMPLATE_WEB_XML = "config\\web.btl";
     public static final String TEMPLATE_SPRING_MYBATIS = "config\\spring-mybatis.btl";

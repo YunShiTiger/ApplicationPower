@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.github.pagehelper.PageInfo;
 import com.boco.health.common.model.CommonResult;
 import ${basePackage}.model.${entitySimpleName};
 import ${basePackage}.service.${entitySimpleName}Service;
@@ -41,7 +42,7 @@ public class ${entitySimpleName}Controller{
 	}
 
 	@ResponseBody
-	@RequestMapping(value="/delete/{id}",method = RequestMethod.POST)
+	@RequestMapping(value="/delete/{id}",method = RequestMethod.GET)
 	public CommonResult delete(@PathVariable int id){
 		return ${firstLowerName}Service.delete(id);
 	}

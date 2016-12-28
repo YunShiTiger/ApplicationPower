@@ -30,6 +30,8 @@ public class CodeWriter extends AbstractCodeWriter{
         writeBaseConfig(config.getBaseConfigFilesPath());
         //创建代码
         writeCode(config);
+        //创建测试基类
+        writeBaseTest(config);
     }
     /**
      * 处理输出目录
@@ -83,10 +85,33 @@ public class CodeWriter extends AbstractCodeWriter{
     }
 
     /**
+     * 生成controller和service层单元测试基类
+     * @param config
+     */
+    private void writeBaseTest(ConfigBuilder config){
+        String basePackage = GeneratorProperties.basePackage();
+        Map<String,String> dirMap = config.getPathInfo();
+        for(Map.Entry<String,String> entry:dirMap.entrySet()){
+            String value = entry.getValue();
+            String key = entry.getKey();
+            if(ConstVal.SERVICE_TEST_PATH.equals(key)){
+                Template template = BeetlTemplateUtil.getByName(ConstVal.TEMPLATE_SERVICE_BASE_TEST);
+                template.binding(GeneratorConstant.BASE_PACKAGE,basePackage);
+                FileUtils.writeFileNotAppend(template.render(),value+"\\ServiceBaseTest.java");
+            }
+            if(ConstVal.CONTROLLER_TEST_PATH.equals(key)){
+                Template template= BeetlTemplateUtil.getByName(ConstVal.TEMPLATE_CONTROLLER_BASE_TEST);
+                template.binding(GeneratorConstant.BASE_PACKAGE,basePackage);
+                FileUtils.writeFileNotAppend(template.render(),value+"\\ControllerBaseTest.java");
+            }
+        }
+    }
+
+    /**
      * 生成model,dao,service,controller,controllerTest,serviceTest代码
      * @param config
      */
-    public void writeCode(ConfigBuilder config){
+    private void writeCode(ConfigBuilder config){
         Map<String,String> dirMap = config.getPathInfo();
         List<TableInfo> tables = config.getTableInfo();
         for(TableInfo tableInfo:tables){

@@ -5,10 +5,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-
 import javax.annotation.Resource;
 
 import ${basePackage}.model.${entitySimpleName};
@@ -19,10 +15,7 @@ import ${basePackage}.model.${entitySimpleName};
  * @date ${createTime}
  *
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:spring-mybatis.xml", "classpath:spring-mvc.xml"})
-@WebAppConfiguration
-public class ${entitySimpleName}ControllerTest {
+public class ${entitySimpleName}ControllerTest extends ControllerBaseTest {
 
     // 模拟request,response
     private MockHttpServletRequest request;

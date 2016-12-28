@@ -1,7 +1,6 @@
 package ${basePackage}.service;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +19,7 @@ import ${basePackage}.service.${entitySimpleName}Service;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-mybatis.xml"})
-public class ${entitySimpleName}ServiceTest{
+public class ${entitySimpleName}ServiceTest extends ServiceBaseTest{
 
 	@Resource
 	private ${entitySimpleName}Service ${firstLowerName}Service;
@@ -47,8 +46,12 @@ public class ${entitySimpleName}ServiceTest{
 
 	}
 
+    /**
+     * 分页查询
+     *
+     */
 	@Test
-	public void testQueryAll(){
+	public void testQueryPage(){
 
 	}
 
