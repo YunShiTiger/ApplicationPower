@@ -20,12 +20,13 @@ import java.util.Map;
 public class MapperBuilder {
 
     public String generateMapper(String tableName) {
-        String tableTemp = StringUtils.removePrefix(tableName,GeneratorProperties.tablePrefix());
+        String tableTemp = StringUtils.removePrefix(tableName, GeneratorProperties.tablePrefix());
         String entitySimpleName = StringUtils.toCapitalizeCamelCase(tableTemp);//类名
         String firstLowName = StringUtils.firstToLowerCase(entitySimpleName);
         DbProvider dbProvider = new DbProviderFactory().getInstance();
         Map<String, Column> columnMap = dbProvider.getColumnsInfo(tableName);
         String insertSql = generateInsertSql(columnMap, tableName);
+        String batchInsertSql = generateBatchInsertSql(columnMap,tableName);
         String updateSql = generateUpdateSql(columnMap, tableName);
         String selectSql = generateSelectSql(columnMap, tableName);
         String results = generateResultMap(columnMap);
@@ -34,6 +35,7 @@ public class MapperBuilder {
         mapper.binding(GeneratorConstant.ENTITY_SIMPLE_NAME, entitySimpleName);//类名
         mapper.binding(GeneratorConstant.BASE_PACKAGE, GeneratorProperties.basePackage());//基包名
         mapper.binding(GeneratorConstant.INSERT_SQL, insertSql);
+        mapper.binding(GeneratorConstant.BATCH_INSERT_SQL,batchInsertSql);
         mapper.binding(GeneratorConstant.UPDATE_SQL, updateSql);
         mapper.binding(GeneratorConstant.SELECT_SQL, selectSql);
         mapper.binding(GeneratorConstant.RESULT_MAP, results);
@@ -58,7 +60,7 @@ public class MapperBuilder {
         Column column;
         for (Map.Entry<String, Column> entry : columnMap.entrySet()) {
             column = entry.getValue();
-            if(!column.isAutoIncrement()) {
+            if (!column.isAutoIncrement()) {
                 if (i < size - 1) {
                     insertSql.append("			").append(entry.getKey()).append(",\n");
                     insertValues.append("			#{").append(StringUtils.underlineToCamel(entry.getKey())).append("},\n");
@@ -76,6 +78,42 @@ public class MapperBuilder {
     }
 
     /**
+     * 生成批量插入的sql
+     * @param columnMap
+     * @param tableName
+     * @return
+     */
+    private String generateBatchInsertSql(Map<String, Column> columnMap, String tableName){
+        StringBuilder batchInsertSql = new StringBuilder();
+        batchInsertSql.append("insert into ").append(tableName).append("(\n");
+        StringBuilder insertValues = new StringBuilder();
+        int counter = 0;
+        int size = columnMap.size();
+        Column column;
+        String key;
+        for (Map.Entry<String, Column> entry : columnMap.entrySet()) {
+            column = entry.getValue();
+            key = entry.getKey();
+            if (!column.isAutoIncrement()) {
+                if (counter < size - 1) {
+                    batchInsertSql.append("			").append(key).append(",\n");
+                    insertValues.append("			#{item.").append(StringUtils.underlineToCamel(key)).append("},\n");
+                } else {
+                    batchInsertSql.append("			").append(key).append("\n");
+                    insertValues.append("			#{item.").append(StringUtils.underlineToCamel(key)).append("}\n");
+                }
+            }
+            counter++;
+        }
+        batchInsertSql.append("		) values\n");
+        batchInsertSql.append("        <foreach collection=\"list\" item=\"item\" index=\"index\" separator=\",\">\n");
+        batchInsertSql.append("            (\n").append(insertValues);
+        batchInsertSql.append("            )\n");
+        batchInsertSql.append("        </foreach>");
+
+        return batchInsertSql.toString();
+    }
+    /**
      * 生成update语句,过滤掉自增列
      *
      * @param columnMap
@@ -84,13 +122,13 @@ public class MapperBuilder {
      */
     private String generateUpdateSql(Map<String, Column> columnMap, String tableName) {
         StringBuilder updateSql = new StringBuilder();
-        updateSql.append(" update ").append(tableName).append(" set\n");
+        updateSql.append("update ").append(tableName).append(" set\n");
         int i = 0;
         int size = columnMap.size();
         Column column;
         for (Map.Entry<String, Column> entry : columnMap.entrySet()) {
             column = entry.getValue();
-            if(!column.isAutoIncrement()){
+            if (!column.isAutoIncrement()) {
                 if (i < size - 1) {
                     updateSql.append("			").append(entry.getKey()).append(" = #{");
                     updateSql.append(StringUtils.underlineToCamel(entry.getKey())).append("},\n");
@@ -113,28 +151,18 @@ public class MapperBuilder {
      */
     private String generateSelectSql(Map<String, Column> columnMap, String tableName) {
         StringBuilder selectSql = new StringBuilder();
-        selectSql.append(" select \n");
+        selectSql.append("select \n");
         int i = 0;
         int size = columnMap.size();
         for (Map.Entry<String, Column> entry : columnMap.entrySet()) {
             if (i < size - 1) {
-                if(entry.getKey().contains("_")){
-                    selectSql.append("			").append(entry.getKey()).append(" as ");
-                    selectSql.append(StringUtils.underlineToCamel(entry.getKey())).append(",\n");
-                }else{
-                    selectSql.append("			").append(entry.getKey()).append(",\n");
-                }
+                selectSql.append("			").append(entry.getKey()).append(",\n");
             } else {
-                if(entry.getKey().contains("_")){
-                    selectSql.append("			").append(entry.getKey()).append(" as ");
-                    selectSql.append(StringUtils.underlineToCamel(entry.getKey())).append("\n");
-                }else{
-                    selectSql.append("			").append(entry.getKey()).append("\n");
-                }
+                selectSql.append("			").append(entry.getKey()).append("\n");
             }
             i++;
         }
-        selectSql.append(" 		 from ").append(tableName);
+        selectSql.append(" 		from ").append(tableName);
         return selectSql.toString();
     }
 

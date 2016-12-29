@@ -54,6 +54,10 @@ public class GeneratorConstant {
      */
     public static final String INSERT_SQL = "insertSql";
     /**
+     * 批量插入数据数据的sql模板变量
+     */
+    public static final String BATCH_INSERT_SQL = "batchInsertSql";
+    /**
      * 更新语句的变量
      */
     public static final String UPDATE_SQL = "updateSql";

@@ -1,6 +1,5 @@
 package ${basePackage}.service;
 
-import java.util.List;
 import com.github.pagehelper.PageInfo;
 import com.boco.health.common.model.CommonResult;
 import ${basePackage}.model.${entitySimpleName};

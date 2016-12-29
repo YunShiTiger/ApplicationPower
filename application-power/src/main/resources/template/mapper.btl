@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="${basePackage}.dao.${entitySimpleName}Dao">
 
-    <resultMap type="${entitySimpleName}" id="${entitySimpleName}Result">
+    <resultMap type="${entitySimpleName}" id="${entitySimpleName}Map">
    ${resultMap}
     </resultMap>
 
@@ -12,6 +12,10 @@
 		<!--	SELECT LAST_INSERT_ID()-->
 	<!--	 </selectKey>-->
 		${insertSql}
+	</insert>
+	<!--批量插入数据-->
+	<insert id="batchSave" parameterType="java.util.List">
+        ${batchInsertSql}
 	</insert>
     <!--更新数据-->
     <update id="update" parameterType="${entitySimpleName}">
@@ -24,13 +28,13 @@
 	</delete>
 
     <!--根据id返回一条记录-->
-	<select id="queryById" parameterType="int" resultType="${entitySimpleName}">
-		${selectSql}
-		 where id=#{id}
+	<select id="queryById" parameterType="int" resultMap="${entitySimpleName}Map">
+	    ${selectSql}
+		where id=#{id}
 	</select>
 
-	<!--查询全部记录-->
-    <select id="queryAll" resultMap="${entitySimpleName}Result">
+	<!--分页记录-->
+    <select id="queryPage" resultMap="${entitySimpleName}Map">
         ${selectSql}
     </select>
 

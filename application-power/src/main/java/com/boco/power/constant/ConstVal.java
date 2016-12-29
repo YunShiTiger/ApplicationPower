@@ -73,6 +73,7 @@ public class ConstVal {
     public static final String TEMPLATE_SPRING_MVC = "config\\spring-mvc.btl";
     public static final String TEMPLATE_LOF4J = "config\\log4j.btl";
     public static final String TEMPLATE_MYBATIS_CONFIG = "config\\mybatis-config.btl";
+    public static final String TEMPLATE_400 = "error\\400.btl";
     public static final String TEMPLATE_404 = "error\\404.btl";
     public static final String TEMPLATE_500 = "error\\500.btl";
     public static final String TEMPLATE_JDBC = "jdbc.btl";

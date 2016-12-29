@@ -22,6 +22,13 @@ public interface ${entitySimpleName}Dao{
      */
 	int save(${entitySimpleName} entity);
 
+    /**
+     * 批量添加数据
+     * @param entityList
+     * @return
+     */
+	int batchSave(List<${entitySimpleName}> entityList);
+
 	/**
 	 * 更新数据
 	 * @param entity
@@ -44,8 +51,8 @@ public interface ${entitySimpleName}Dao{
 	${entitySimpleName} queryById(int id);
 
 	/**
-	 * 查询所有数据
+	 * 分页查询数据
 	 * @return
      */
-	List<${entitySimpleName}> queryAll();
+	List<${entitySimpleName}> queryPage();
 }

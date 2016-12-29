@@ -10,6 +10,7 @@ public class ProjectConfig {
     private String springMybatis = resource+ "\\spring-mybatis.xml";
     private String mybatisConfig = resource +"\\mybatis-config.xml";
     private String errorPath = "src\\main\\webapp\\error";
+    private String html400 = errorPath+ "\\400.html";
     private String html404 = errorPath+ "\\404.html";
     private String html500 = errorPath+"\\500.html";
     private String pom = "pom.xml";
@@ -69,5 +70,9 @@ public class ProjectConfig {
 
     public String getMybatisConfig() {
         return mybatisConfig;
+    }
+
+    public String getHtml400() {
+        return html400;
     }
 }

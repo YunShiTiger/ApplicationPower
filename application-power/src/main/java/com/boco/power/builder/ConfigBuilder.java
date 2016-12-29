@@ -126,10 +126,11 @@ public class ConfigBuilder {
         String fileSeparator = System.getProperty("file.separator");
         String applicationName = GeneratorProperties.applicationName();
         String basePath = outputDir + fileSeparator + applicationName;
-        baseConfigFilesPath = new HashMap<>(9);
+        baseConfigFilesPath = new HashMap<>(10);
 
         baseConfigFilesPath.put(ConstVal.TEMPLATE_POM, connectPath(basePath, config.getPom()));
         baseConfigFilesPath.put(ConstVal.TEMPLATE_LOF4J, connectPath(basePath, config.getLog4j()));
+        baseConfigFilesPath.put(ConstVal.TEMPLATE_400,connectPath(basePath,config.getHtml400()));
         baseConfigFilesPath.put(ConstVal.TEMPLATE_404, connectPath(basePath, config.getHtml404()));
         baseConfigFilesPath.put(ConstVal.TEMPLATE_500, connectPath(basePath, config.getHtml500()));
         baseConfigFilesPath.put(ConstVal.TEMPLATE_SPRING_MVC, connectPath(basePath, config.getSpringMvc()));
@@ -217,9 +218,5 @@ public class ConfigBuilder {
 
     public List<TableInfo> getTableInfo() {
         return tableInfo;
-    }
-
-    public static void main(String[] args) {
-
     }
 }

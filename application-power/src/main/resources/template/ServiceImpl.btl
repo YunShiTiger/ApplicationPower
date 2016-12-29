@@ -78,7 +78,7 @@ public class ${entitySimpleName}ServiceImpl  implements ${entitySimpleName}Servi
 	@Override
     public PageInfo queryPage(int offset, int limit) {
         PageHelper.offsetPage(offset,limit);
-        List<${entitySimpleName}> list = ${firstLowerName}Dao.queryAll();
+        List<${entitySimpleName}> list = ${firstLowerName}Dao.queryPage();
         return new PageInfo(list);
     }
 

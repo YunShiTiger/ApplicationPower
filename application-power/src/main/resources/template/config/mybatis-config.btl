@@ -6,6 +6,8 @@
 	<settings>
 	    <!--是否开启缓存-->
 		<setting name="cacheEnabled" value="${cacheEnabled}"/>
+		<!--是否开启mybatis自动转驼峰-->
+        <setting name="mapUnderscoreToCamelCase" value="false"/>
 	</settings>
 	<!--配置分页插件-->
     <plugins>
