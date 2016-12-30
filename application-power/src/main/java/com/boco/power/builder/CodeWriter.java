@@ -30,8 +30,8 @@ public class CodeWriter extends AbstractCodeWriter{
         writeBaseConfig(config.getBaseConfigFilesPath());
         //创建代码
         writeCode(config);
-        //创建测试基类
-        writeBaseTest(config);
+        //创建项目所需基础类
+        writeBaseCode(config);
     }
     /**
      * 处理输出目录
@@ -85,10 +85,11 @@ public class CodeWriter extends AbstractCodeWriter{
     }
 
     /**
-     * 生成controller和service层单元测试基类
+     * base code是项目的一些基本类，包括单元测基类
+     * 时间转换类
      * @param config
      */
-    private void writeBaseTest(ConfigBuilder config){
+    private void writeBaseCode(ConfigBuilder config){
         String basePackage = GeneratorProperties.basePackage();
         Map<String,String> dirMap = config.getPathInfo();
         for(Map.Entry<String,String> entry:dirMap.entrySet()){
@@ -103,6 +104,11 @@ public class CodeWriter extends AbstractCodeWriter{
                 Template template= BeetlTemplateUtil.getByName(ConstVal.TEMPLATE_CONTROLLER_BASE_TEST);
                 template.binding(GeneratorConstant.BASE_PACKAGE,basePackage);
                 FileUtils.writeFileNotAppend(template.render(),value+"\\ControllerBaseTest.java");
+            }
+            if(ConstVal.DATE_CONVERTER_PATH.equals(key)){
+                Template template= BeetlTemplateUtil.getByName(ConstVal.TEMPLATE_DATE_CONVERTER);
+                template.binding(GeneratorConstant.BASE_PACKAGE,basePackage);
+                FileUtils.writeFileNotAppend(template.render(),value+"\\DateConverter.java");
             }
         }
     }

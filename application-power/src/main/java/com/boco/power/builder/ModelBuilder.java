@@ -12,8 +12,7 @@ import com.boco.power.utils.GeneratorProperties;
 import com.boco.power.utils.StringUtils;
 import org.beetl.core.Template;
 
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author sunyu on 2016/12/6.
@@ -56,6 +55,9 @@ public class ModelBuilder {
         for(Map.Entry<String,Column> entry:columnMap.entrySet()){
             Column column = entry.getValue();
             builder.append("	//").append(column.getRemarks()).append("\n");
+            if("Timestamp".equals(column.getColumnType())){
+                builder.append("	@JsonFormat(pattern = \"yyyy-MM-dd HH:mm:ss\")\n");
+            }
             builder.append("	private ").append(column.getColumnType()).append(" ");
             builder.append(StringUtils.underlineToCamel(column.getColumnName())).append(";\n");
         }
@@ -69,20 +71,33 @@ public class ModelBuilder {
      */
     private String generateImport(Map<String,Column> columnMap){
         StringBuilder builder = new StringBuilder();
+
+        List<String> list = new ArrayList<>();
+        boolean flag = true;
         for(Map.Entry<String,Column> entry:columnMap.entrySet()){
            String type = entry.getValue().getColumnType();
             if("BigDecimal".equals(type)){
-                builder.append("import java.math.BigDecimal;\n");
+                list.add("import java.math.BigDecimal;\n");
             }
             if("Date".equals(type)){
-                builder.append("import java.sql.Date;\n");
+                list.add("import java.sql.Date;\n");
             }
             if("Timestamp".equals(type)){
-                builder.append("import java.sql.Timestamp;\n");
+                list.add("import java.sql.Timestamp;\n");
+                flag = true;
             }
             if("Time".equals(type)){
-                builder.append("import java.sql.Time;\n");
+                list.add("import java.sql.Time;\n");
             }
+        }
+        if(flag){
+            list.add("import com.fasterxml.jackson.annotation.JsonFormat;\n\n");
+            Collections.reverse(list);
+        }
+        Set<String> set = new HashSet<>();
+        set.addAll(list);
+        for(String str:set){
+            builder.append(str);
         }
         return builder.toString();
     }

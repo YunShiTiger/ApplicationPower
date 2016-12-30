@@ -18,6 +18,7 @@ public class ConstVal {
     public static final String CONTROLLER = "controller";
     public static final String CONTROLLER_TEST = "controllerTest";
     public static final String SERVICE_TEST = "serviceTest";
+    public static final String DATE_CONVERTER = "DateConverter";
 
     public static final String JDBC = "jdbc.properties";
 
@@ -31,6 +32,7 @@ public class ConstVal {
     public static final String CONTROLLER_PATH = "controller_path";
     public static final String CONTROLLER_TEST_PATH = "controller_test_path";
     public static final String SERVICE_TEST_PATH = "service_test_path";
+    public static final String DATE_CONVERTER_PATH = "date_converter_path";
     public static final String ERROR_PATH = "error_path";
 
 
@@ -63,6 +65,7 @@ public class ConstVal {
     public static final String TEMPLATE_CONTROLLER = "Controller.btl";
     public static final String TEMPLATE_SERVICE_TEST = "ServiceTest.btl";
     public static final String TEMPLATE_CONTROLLER_TEST = "ControllerTest.btl";
+    public static final String TEMPLATE_DATE_CONVERTER = "DateConverter.btl";
 
     public static final String TEMPLATE_CONTROLLER_BASE_TEST = "ControllerBaseTest.btl";
     public static final String TEMPLATE_SERVICE_BASE_TEST = "ServiceBaseTest.btl";

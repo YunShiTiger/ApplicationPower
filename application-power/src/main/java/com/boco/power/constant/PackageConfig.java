@@ -17,6 +17,9 @@ public class PackageConfig {
 
     private String mapper = "mapping";
 
+    private String converter = "convert";
+
+    private String utils = "utils";
 
     public String getService() {
         return service;
@@ -40,5 +43,13 @@ public class PackageConfig {
 
     public String getDao() {
         return dao;
+    }
+
+    public String getConverter() {
+        return converter;
+    }
+
+    public String getUtils() {
+        return utils;
     }
 }

@@ -73,8 +73,8 @@ public class ConfigBuilder {
      * @param config
      */
     private void handlerPackage(String outputDir, PackageConfig config) {
-        packageInfo = new HashMap<>(7);
-        pathInfo = new LinkedHashMap<>(7);
+        packageInfo = new HashMap<>(8);
+        pathInfo = new LinkedHashMap<>(8);
 
         String basePackage = GeneratorProperties.basePackage();
         String fileSeparator = System.getProperty("file.separator");
@@ -115,6 +115,8 @@ public class ConfigBuilder {
                 pathInfo.put(ConstVal.CONTROLLER_PATH, joinPath(javaDir, packageInfo.get(ConstVal.CONTROLLER)));
             }
         }
+        packageInfo.put(ConstVal.DATE_CONVERTER,joinPackage(basePackage,config.getConverter()));
+        pathInfo.put(ConstVal.DATE_CONVERTER_PATH,joinPath(javaDir,packageInfo.get(ConstVal.DATE_CONVERTER)));
     }
 
     /**

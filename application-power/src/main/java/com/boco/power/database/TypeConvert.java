@@ -43,7 +43,7 @@ public class TypeConvert {
                 dataType = "Time";
                 break;
             case Types.DATE:  //91
-                dataType = "Date";
+                dataType = "Timestamp";
                 break;
             case Types.TIMESTAMP:
                 dataType = "Timestamp";
