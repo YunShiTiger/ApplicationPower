@@ -4,7 +4,7 @@ import java.io.Serializable;
 ${modelImports}
 
 /**
- *
+ * Table:${tableComment}
  * @author ${authorName}
  * @date ${createTime}
  *

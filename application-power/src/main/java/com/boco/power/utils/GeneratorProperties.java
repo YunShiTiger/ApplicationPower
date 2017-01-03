@@ -70,4 +70,12 @@ public class GeneratorProperties {
     public static String getTableName(){
         return props.getProperty("generator.table.name");
     }
+
+    /**
+     * 是否需要resultMap
+     * @return
+     */
+    public static Boolean getResultMap(){
+        return Boolean.valueOf(props.getProperty("generator.resultMap"));
+    }
 }

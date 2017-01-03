@@ -39,6 +39,7 @@ public class MapperBuilder {
         mapper.binding(GeneratorConstant.UPDATE_SQL, updateSql);
         mapper.binding(GeneratorConstant.SELECT_SQL, selectSql);
         mapper.binding(GeneratorConstant.RESULT_MAP, results);
+        mapper.binding(GeneratorConstant.IS_RESULT_MAP,GeneratorProperties.getResultMap());
         mapper.binding(GeneratorConstant.TABLE_NAME, tableName);
         return mapper.render();
     }

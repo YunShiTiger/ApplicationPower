@@ -5,6 +5,7 @@ import com.boco.power.constant.ConstVal;
 import com.boco.power.constant.GeneratorConstant;
 import com.boco.power.database.Column;
 import com.boco.power.database.DbProvider;
+import com.boco.power.database.TableInfo;
 import com.boco.power.factory.DbProviderFactory;
 import com.boco.power.utils.BeetlTemplateUtil;
 import com.boco.power.utils.DateTimeUtil;
@@ -22,10 +23,11 @@ public class ModelBuilder {
 
     /**
      * 生成model
-     * @param tableName
+     * @param tableInfo
      * @return
      */
-    public String generateModel(String tableName){
+    public String generateModel(TableInfo tableInfo){
+        String tableName = tableInfo.getName();
         String tableTemp = StringUtils.removePrefix(tableName,GeneratorProperties.tablePrefix());
         String entitySimpleName = StringUtils.toCapitalizeCamelCase(tableTemp);//类名
         DbProvider dbProvider = new DbProviderFactory().getInstance();
@@ -40,6 +42,7 @@ public class ModelBuilder {
         template.binding(GeneratorConstant.FIELDS,fields);//字段
         template.binding(GeneratorConstant.GETTERS_AND_SETTERS,gettersAndSetters);//get和set方法
         template.binding(GeneratorConstant.CREATE_TIME, DateTimeUtil.getTime());//创建时间
+        template.binding(GeneratorConstant.TABLE_COMMENT,tableInfo.getRemarks());//表注释
         template.binding("SerialVersionUID", String.valueOf(UUID.randomUUID().getLeastSignificantBits()));
         template.binding("modelImports",imports);
         return template.render();
@@ -54,7 +57,9 @@ public class ModelBuilder {
         StringBuilder builder = new StringBuilder();
         for(Map.Entry<String,Column> entry:columnMap.entrySet()){
             Column column = entry.getValue();
-            builder.append("	//").append(column.getRemarks()).append("\n");
+            if(StringUtils.isNotEmpty(column.getRemarks())){
+                builder.append("	//").append(column.getRemarks()).append("\n");
+            }
             if("Timestamp".equals(column.getColumnType())){
                 builder.append("	@JsonFormat(pattern = \"yyyy-MM-dd HH:mm:ss\")\n");
             }

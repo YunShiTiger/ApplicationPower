@@ -133,7 +133,7 @@ public class CodeWriter extends AbstractCodeWriter{
                     FileUtils.writeFileNotAppend(daoCode,value+"\\"+entityName+"Dao.java");
                 }
                 if(ConstVal.ENTITY_PATH.equals(key)){
-                    String modelCode = new ModelBuilder().generateModel(table);
+                    String modelCode = new ModelBuilder().generateModel(tableInfo);
                     FileUtils.writeFileNotAppend(modelCode,value+"\\"+entityName+".java");
                 }
                 if(ConstVal.SERIVCE_PATH.equals(key)){

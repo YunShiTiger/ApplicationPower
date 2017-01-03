@@ -31,6 +31,11 @@ public class GeneratorConstant {
     public static final String TABLE_NAME = "tableName";
 
     /**
+     * 表注释
+     */
+    public static final String TABLE_COMMENT = "tableComment";
+
+    /**
      * 类名第一个字母小写
      */
     public static final String FIRST_LOWER_NAME = "firstLowerName";
@@ -70,4 +75,13 @@ public class GeneratorConstant {
      * mybatis mapper文件result map部分
      */
     public static final String RESULT_MAP = "resultMap";
+    /**
+     * 是否需要生成result map
+     */
+    public static final String IS_RESULT_MAP = "isResultMap";
+
+    /**
+     * 是否开启驼峰转换
+     */
+    public static final String UNDERSCORE_TO_CAMEL_CASE = "underscoreToCamelCase";
 }
