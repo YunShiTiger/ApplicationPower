@@ -81,8 +81,8 @@ ApplicationPower生成的项目集成其他服务
     <!-- 使用multicast广播注册中心暴露发现服务地址 -->
     <dubbo:registry address="zookeeper://localhost:2181"/>
 
-    <!-- 生成远程服务代理，可以和本地bean一样使用demoService -->
-    <dubbo:reference id="helloService" interface="com.boco.sp.external.service.GoodsService"/>
+    <!-- 生成远程服务代理，可以和本地bean一样使用goodsService -->
+    <dubbo:reference id="goodsService" interface="com.boco.sp.external.service.GoodsService"/>
 
 </beans>
 
