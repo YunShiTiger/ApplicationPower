@@ -4,7 +4,6 @@ ApplicationPower生成的项目集成其他服务
 如果集成dubbo服务可根据自己的业务需求，配置不需要生成的代码层，例如：一般情况下dubbo一般不提供controller层，因此不必要生成这部分代码。集成dubbo的步骤如下：
 1.在pom中添加dubbo服务所需的依赖
 
-    ```
     <!-- dubbo dependence-->
     <dependency>
         <groupId>com.alibaba</groupId>
@@ -28,11 +27,9 @@ ApplicationPower生成的项目集成其他服务
         <version>3.4.6</version>
     </dependency>
 
-    ```
 2.通过通过spring配置管理注册dubbo服务
 创建spring-dubbo-provider.xml文件并放在resource目录下，在文件中注册接口
 
-    ```
     <?xml version="1.0" encoding="UTF-8"?>
     <beans xmlns="http://www.springframework.org/schema/beans"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -57,10 +54,8 @@ ApplicationPower生成的项目集成其他服务
 
     </beans>
 
-    ```
 3.在web.xml中加载spring-dubbo-provider.xml
 
-    ```
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
@@ -69,7 +64,6 @@ ApplicationPower生成的项目集成其他服务
         </param-value>
     </context-param>
 
-    ```
 
 
 
