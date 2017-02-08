@@ -64,6 +64,30 @@ ApplicationPower生成的项目集成其他服务
         </param-value>
     </context-param>
 
+4.dubbo服务消费放配置
+在消费方的pom中加入dubbo依赖，请参考1，下一步在消费方创建spring-dubbo-consumer.xml放到resource目录下，并在web.xml中加载该配置文件，spring-dubbo-consumer.xml配置参考如下
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo
+       http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
+    <dubbo:application name="dubbo-client"/>
+    <!-- 使用multicast广播注册中心暴露发现服务地址 -->
+    <dubbo:registry address="zookeeper://localhost:2181"/>
+
+    <!-- 生成远程服务代理，可以和本地bean一样使用demoService -->
+    <dubbo:reference id="helloService" interface="com.boco.sp.external.service.GoodsService"/>
+
+</beans>
+
+```
+
 
 
 
