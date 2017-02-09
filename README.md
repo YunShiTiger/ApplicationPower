@@ -3,7 +3,9 @@
     jetty web容器，eclipse使用jetty:run命令即可运行，idea的用户只需点击maven projects下的plugins中找到jetty run即可启动项目。
         ApplicationPower是基于beetl模板来生成源代码的，因此可以灵活的修改模板来生成代码定义自己的开发接口规范。ApplicationPower相对
     mybatis generator来说配置更少、代码灵活性和可控性更高。
-
+## 版本说明
+  v1.0版本的CommonResult依赖于boco-health-common模块
+  v1.1版本的CommonResult改为依赖独立模块Common-util
     
 ## 功能
   1.根据连接的数据生成dao,model,service,controller,mapper,controllerTest,serviceTest代码
