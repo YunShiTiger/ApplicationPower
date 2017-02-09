@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.boco.health.common.model.CommonResult;
+import com.boco.common.model.CommonResult;
 import ${basePackage}.model.${entitySimpleName};
 import ${basePackage}.dao.${entitySimpleName}Dao;
 import ${basePackage}.service.${entitySimpleName}Service;
