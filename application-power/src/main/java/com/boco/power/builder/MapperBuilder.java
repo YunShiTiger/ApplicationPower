@@ -27,7 +27,7 @@ public class MapperBuilder {
         Map<String, Column> columnMap = dbProvider.getColumnsInfo(tableName);
         String insertSql = generateInsertSql(columnMap, tableName);
         String batchInsertSql = generateBatchInsertSql(columnMap,tableName);
-        String updateSql = generateUpdateSql(columnMap, tableName);
+        String updateSql = generateConditionUpdateSql(columnMap, tableName);
         String selectSql = generateSelectSql(columnMap, tableName);
         String results = generateResultMap(columnMap);
         Template mapper = BeetlTemplateUtil.getByName(ConstVal.TEMPLATE_MAPPER);
@@ -140,6 +140,30 @@ public class MapperBuilder {
             }
             i++;
         }
+        return updateSql.toString();
+    }
+    /**
+     * 生成update语句,过滤掉自增列,使用trim
+     *
+     * @param columnMap
+     * @param tableName
+     * @return
+     */
+    private String generateConditionUpdateSql(Map<String, Column> columnMap, String tableName){
+        StringBuilder updateSql = new StringBuilder();
+        updateSql.append("update ").append(tableName).append("\n");
+        updateSql.append("\t\t<trim prefix=\"set\" suffixOverrides=\",\">\n");
+        Column column;
+        for (Map.Entry<String, Column> entry : columnMap.entrySet()) {
+            column = entry.getValue();
+            String camelKey = StringUtils.underlineToCamel(entry.getKey());
+            if (!column.isAutoIncrement()) {
+                updateSql.append("			").append("<if test=\"").append(camelKey).append("!=null\">");
+                updateSql.append(entry.getKey()).append(" = #{");
+                updateSql.append(StringUtils.underlineToCamel(entry.getKey())).append("},</if>\n");
+            }
+        }
+        updateSql.append("\t\t</trim>");
         return updateSql.toString();
     }
 
