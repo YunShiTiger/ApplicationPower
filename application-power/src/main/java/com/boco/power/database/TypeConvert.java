@@ -30,6 +30,9 @@ public class TypeConvert {
             case Types.BIGINT: //-5
                 dataType = "Long";
                 break;
+            case Types.SMALLINT:
+                dataType = "Integer";
+                break;
             case Types.DOUBLE: //8
                 dataType = "Double";
                 break;
