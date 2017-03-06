@@ -3,6 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.boco.health</groupId>
     <artifactId>${applicationName}</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>${applicationName}</name>
     <url>http://maven.apache.org</url>
@@ -193,8 +194,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.2</version>
                 <configuration>
-                   <source>${jdk.version}</source>
-                   <target>${jdk.version}</target>
+                   <source>1.7</source>
+                   <target>1.7</target>
                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
