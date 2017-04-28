@@ -64,7 +64,7 @@ public class ${entitySimpleName}Controller{
 	}
 
     @ResponseBody
-    @GetMapping(value = "page/{offset}/{limit}",method = RequestMethod.GET)
+    @GetMapping(value = "page/{offset}/{limit}")
     public PageInfo queryPage(@PathVariable int offset,@PathVariable int limit){
         return ${firstLowerName}Service.queryPage(offset,limit);
     }
