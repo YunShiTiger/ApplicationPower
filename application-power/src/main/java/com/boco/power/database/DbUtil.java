@@ -51,13 +51,16 @@ public class DbUtil {
      * @param conn
      */
     public static void close(Connection conn){
-        try {
-            if (null != conn) {
-                conn.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+       DbUtil.close(conn,null,null);
+    }
+
+    /**
+     * 关闭链接
+     * @param conn
+     * @param rs
+     */
+    public static void close(Connection conn,ResultSet rs){
+        DbUtil.close(conn,null,rs);
     }
     /**
      * 关闭链接

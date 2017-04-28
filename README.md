@@ -5,7 +5,8 @@
     mybatis generator来说配置更少、代码灵活性和可控性更高。
 ## 版本说明
     1. v1.0版本的CommonResult依赖于boco-health-common模块
-    2. v1.1版本的CommonResult改为依赖独立模块Common-util    
+    2. v1.1版本的CommonResult改为依赖独立模块Common-util
+    3. v1.2版本升级spring到4.3.6，Controller层是使用@GetMapping和@PostMapping代替@RequestMapping
 ## 功能
   1.根据连接的数据生成dao,model,service,controller,mapper,controllerTest,serviceTest代码
   2.项目的maven web基础骨架
