@@ -55,7 +55,7 @@
                   value="20" />
 
         <!-- 配置监控统计拦截的filters -->
-        <property name="filters" value="stat" />
+        <property name="filters" value="stat,log4j2" />
     </bean>
     <!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

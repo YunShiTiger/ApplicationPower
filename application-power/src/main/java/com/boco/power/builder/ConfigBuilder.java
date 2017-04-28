@@ -131,7 +131,7 @@ public class ConfigBuilder {
         baseConfigFilesPath = new HashMap<>(10);
 
         baseConfigFilesPath.put(ConstVal.TEMPLATE_POM, connectPath(basePath, config.getPom()));
-        baseConfigFilesPath.put(ConstVal.TEMPLATE_LOF4J, connectPath(basePath, config.getLog4j()));
+        baseConfigFilesPath.put(ConstVal.TEMPLATE_LOF4J2, connectPath(basePath, config.getLog4j2()));
         baseConfigFilesPath.put(ConstVal.TEMPLATE_400,connectPath(basePath,config.getHtml400()));
         baseConfigFilesPath.put(ConstVal.TEMPLATE_404, connectPath(basePath, config.getHtml404()));
         baseConfigFilesPath.put(ConstVal.TEMPLATE_500, connectPath(basePath, config.getHtml500()));

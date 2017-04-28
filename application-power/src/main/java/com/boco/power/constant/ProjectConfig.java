@@ -15,6 +15,8 @@ public class ProjectConfig {
     private String html500 = errorPath+"\\500.html";
     private String pom = "pom.xml";
     private String log4j = resource + "\\log4j.properties";
+    private String log4j2 = resource + "\\log4j2.xml";
+
     private String jdbc = resource+"\\jdbc.properties";
     private String webAppPath = "src\\main\\webapp";
     private String webInfoPath = "src\\main\\webapp\\WEB-INF";
@@ -74,5 +76,13 @@ public class ProjectConfig {
 
     public String getHtml400() {
         return html400;
+    }
+
+    public String getLog4j2() {
+        return log4j2;
+    }
+
+    public void setLog4j2(String log4j2) {
+        this.log4j2 = log4j2;
     }
 }

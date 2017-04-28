@@ -77,6 +77,10 @@ public class CodeWriter extends AbstractCodeWriter{
                 template.binding("mybatisVersion","${mybatis.version}");
                 template.binding("jacksonVersion","${jackson.version}");
                 template.binding("slf4jVersion","${slf4j.version}");
+                template.binding("log4j2Version","${log4j2.version}");
+                //log4j2
+                template.binding("LOG_HOME","${LOG_HOME}");
+                template.binding("CATALINA_HOME","${CATALINA_HOME}");
                 //mybatis config
                 template.binding("cacheEnabled",GeneratorProperties.enableCache());
                 FileUtils.writeFileNotAppend(template.render(),entry.getValue());
