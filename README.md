@@ -7,6 +7,7 @@
     1. v1.0版本的CommonResult依赖于boco-health-common模块
     2. v1.1版本的CommonResult改为依赖独立模块Common-util
     3. v1.2版本升级spring到4.3.6，Controller层生成的代码使用@GetMapping和@PostMapping代替@RequestMapping注解
+    4. v1.3版本，升级mybatis和druid的版本，生成的项目框架摒弃log4j，全面将日志升级到log4j2框架，mysql连接驱动升级到6.x版本
 ## 功能
   1.根据连接的数据生成dao,model,service,controller,mapper,controllerTest,serviceTest代码
   2.项目的maven web基础骨架
