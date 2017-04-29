@@ -30,7 +30,7 @@ public class MapperBuilder {
         String updateSql = generateConditionUpdateSql(columnMap, tableName);
         String selectSql = generateSelectSql(columnMap, tableName);
         String results = generateResultMap(columnMap);
-        Template mapper = BeetlTemplateUtil.getByName(ConstVal.TEMPLATE_MAPPER);
+        Template mapper = BeetlTemplateUtil.getByName(ConstVal.TPL_MAPPER);
         mapper.binding(GeneratorConstant.FIRST_LOWER_NAME, firstLowName);
         mapper.binding(GeneratorConstant.ENTITY_SIMPLE_NAME, entitySimpleName);//类名
         mapper.binding(GeneratorConstant.BASE_PACKAGE, GeneratorProperties.basePackage());//基包名

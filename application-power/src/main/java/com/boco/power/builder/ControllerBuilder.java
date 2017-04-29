@@ -21,7 +21,7 @@ public class ControllerBuilder {
     public String generateController(String tableName){
         String entitySimpleName = StringUtils.toCapitalizeCamelCase(tableName);//类名
         String firstLowName = StringUtils.firstToLowerCase(entitySimpleName);//类实例变量名
-        Template controllerTemplate = BeetlTemplateUtil.getByName(ConstVal.TEMPLATE_CONTROLLER);
+        Template controllerTemplate = BeetlTemplateUtil.getByName(ConstVal.TPL_CONTROLLER);
         controllerTemplate.binding(GeneratorConstant.AUTHOR,System.getProperty("user.name"));//作者
         controllerTemplate.binding(GeneratorConstant.FIRST_LOWER_NAME,firstLowName);
         controllerTemplate.binding(GeneratorConstant.ENTITY_SIMPLE_NAME,entitySimpleName);//类名

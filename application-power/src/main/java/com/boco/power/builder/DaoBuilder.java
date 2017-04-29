@@ -20,7 +20,7 @@ public class DaoBuilder {
      */
     public String generateDao(String entityName){
         String entitySimpleName = StringUtils.toCapitalizeCamelCase(entityName);//类名
-        Template daoTemplate = BeetlTemplateUtil.getByName(ConstVal.TEMPLATE_DAO);
+        Template daoTemplate = BeetlTemplateUtil.getByName(ConstVal.TPL_DAO);
         daoTemplate.binding(GeneratorConstant.AUTHOR,System.getProperty("user.name"));//作者
         daoTemplate.binding(GeneratorConstant.ENTITY_SIMPLE_NAME,entitySimpleName);//类名
         daoTemplate.binding(GeneratorConstant.BASE_PACKAGE, GeneratorProperties.basePackage());//基包名

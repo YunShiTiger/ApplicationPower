@@ -50,7 +50,7 @@
             <AppenderRef ref="infoLog"/>
         </AsyncLogger>
         <!--TRACE、DEBUG、INFO、WARN、ERROR和FATAL-->
-        <Root level="trace">
+        <Root level="DEBUG">
             <AppenderRef ref="Console"/>
         </Root>
     </Loggers>

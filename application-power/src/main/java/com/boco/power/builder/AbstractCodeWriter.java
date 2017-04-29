@@ -2,6 +2,7 @@ package com.boco.power.builder;
 
 import com.boco.power.constant.PackageConfig;
 import com.boco.power.constant.ProjectConfig;
+import com.boco.power.constant.SpringBootProjectConfig;
 import com.boco.power.database.DbProvider;
 import com.boco.power.factory.DbProviderFactory;
 
@@ -26,6 +27,8 @@ public abstract class AbstractCodeWriter {
     private ProjectConfig projectConfig;
 
 
+    private SpringBootProjectConfig springBootProjectConfig;
+
     /**
      *
      */
@@ -38,6 +41,17 @@ public abstract class AbstractCodeWriter {
         if (null == config) {
             dataBaseInfo = new  DbProviderFactory().getInstance();
             config = new ConfigBuilder(dataBaseInfo,packageConfig,projectConfig);
+
+        }
+    }
+
+    /**
+     * 初始化spring boot的配置
+     */
+    protected void initSpringBootConfig(){
+        if (null == config) {
+            dataBaseInfo = new  DbProviderFactory().getInstance();
+            config = new ConfigBuilder(dataBaseInfo,packageConfig,springBootProjectConfig);
 
         }
     }
@@ -72,5 +86,13 @@ public abstract class AbstractCodeWriter {
 
     public void setConfig(ConfigBuilder config) {
         this.config = config;
+    }
+
+    public SpringBootProjectConfig getSpringBootProjectConfig() {
+        return springBootProjectConfig;
+    }
+
+    public void setSpringBootProjectConfig(SpringBootProjectConfig springBootProjectConfig) {
+        this.springBootProjectConfig = springBootProjectConfig;
     }
 }

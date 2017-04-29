@@ -35,7 +35,7 @@ public class ModelBuilder {
         String fields = generateFields(columnMap);
         String gettersAndSetters = generateSetAndGetMethods(columnMap);
         String imports = generateImport(columnMap);
-        Template template = BeetlTemplateUtil.getByName(ConstVal.TEMPLATE_ENTITY);
+        Template template = BeetlTemplateUtil.getByName(ConstVal.TPL_ENTITY);
         template.binding(GeneratorConstant.AUTHOR,System.getProperty("user.name"));//作者
         template.binding(GeneratorConstant.ENTITY_SIMPLE_NAME,entitySimpleName);//类名
         template.binding(GeneratorConstant.BASE_PACKAGE,GeneratorProperties.basePackage());//基包名

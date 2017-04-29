@@ -21,7 +21,7 @@ public class ServiceImplBuilder {
     public String generateServiceImpl(String tableName){
         String entitySimpleName = StringUtils.toCapitalizeCamelCase(tableName);//类名
         String firstLowName = StringUtils.firstToLowerCase(entitySimpleName);
-        Template serviceImplTemplate = BeetlTemplateUtil.getByName(ConstVal.TEMPLATE_SERVICEIMPL);
+        Template serviceImplTemplate = BeetlTemplateUtil.getByName(ConstVal.TPL_SERVICEIMPL);
         serviceImplTemplate.binding(GeneratorConstant.AUTHOR,System.getProperty("user.name"));//作者
         serviceImplTemplate.binding(GeneratorConstant.FIRST_LOWER_NAME,firstLowName);
         serviceImplTemplate.binding(GeneratorConstant.ENTITY_SIMPLE_NAME,entitySimpleName);//类名

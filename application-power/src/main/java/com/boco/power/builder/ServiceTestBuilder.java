@@ -22,7 +22,7 @@ public class ServiceTestBuilder {
     public String generateServiceTest(String tableName){
         String entitySimpleName = StringUtils.toCapitalizeCamelCase(tableName);//类名
         String firstLowName = StringUtils.firstToLowerCase(entitySimpleName);
-        Template serviceTestTemplate = BeetlTemplateUtil.getByName(ConstVal.TEMPLATE_SERVICE_TEST);
+        Template serviceTestTemplate = BeetlTemplateUtil.getByName(ConstVal.TPL_SERVICE_TEST);
         serviceTestTemplate.binding(GeneratorConstant.AUTHOR,System.getProperty("user.name"));//作者
         serviceTestTemplate.binding(GeneratorConstant.FIRST_LOWER_NAME,firstLowName);
         serviceTestTemplate.binding(GeneratorConstant.ENTITY_SIMPLE_NAME,entitySimpleName);//类名
