@@ -33,7 +33,7 @@ public class ${entitySimpleName}ServiceImpl  implements ${entitySimpleName}Servi
 	private ${entitySimpleName}Dao ${firstLowerName}Dao;
 
 	@Override
-	public CommonResult save(${entitySimpleName} entity){
+	public CommonResult save(${entitySimpleName} entity) {
 		CommonResult result = new CommonResult();
         try {
         	${firstLowerName}Dao.save(entity);
@@ -46,7 +46,7 @@ public class ${entitySimpleName}ServiceImpl  implements ${entitySimpleName}Servi
 	}
 
 	@Override
-	public CommonResult update(${entitySimpleName} entity){
+	public CommonResult update(${entitySimpleName} entity) {
 		CommonResult result = new CommonResult();
         try {
             ${firstLowerName}Dao.update(entity);
@@ -59,7 +59,7 @@ public class ${entitySimpleName}ServiceImpl  implements ${entitySimpleName}Servi
 	}
 
 	@Override
-	public CommonResult delete(int id){
+	public CommonResult delete(int id) {
 		CommonResult result = new CommonResult();
         try {
             ${firstLowerName}Dao.delete(id);
@@ -74,7 +74,7 @@ public class ${entitySimpleName}ServiceImpl  implements ${entitySimpleName}Servi
 
 
 	@Override
-	public CommonResult queryById(int id){
+	public CommonResult queryById(int id) {
 	    CommonResult result = new CommonResult();
 	    ${entitySimpleName} entity = ${firstLowerName}Dao.queryById(id);
 	    if (null != entity) {
