@@ -9,12 +9,12 @@
     3. v1.2版本升级spring到4.3.6，Controller层生成的代码使用@GetMapping和@PostMapping代替@RequestMapping注解
     4. v1.3版本，升级mybatis和druid的版本，生成的项目框架摒弃log4j，全面将日志升级到log4j2框架，mysql连接驱动升级到6.x版本
 ## 功能
-  1.根据连接的数据生成dao,model,service,controller,mapper,controllerTest,serviceTest代码
-  2.项目的maven web基础骨架
-  3.生成基于spring,spring mvc,mybatis框架结构项目所需的基础配置文件
-  4.生成web.xml配置文件
-  5.可以修改模板生成自己喜欢风格或者说修改修改来生成自己习惯的方法名
-  6.基于SL4J面向接口的标注化日志输出
+  1. 根据连接的数据生成dao,model,service,controller,mapper,controllerTest,serviceTest代码
+  2. 项目的maven web基础骨架
+  3. 生成基于spring,spring mvc,mybatis框架结构项目所需的基础配置文件
+  4. 生成web.xml配置文件
+  5. 可以修改模板生成自己喜欢风格或者说修改修改来生成自己习惯的方法名
+  6. 基于SL4J面向接口的标注化日志输出
 
 ## 使用说明
   1.使用注意事项
