@@ -5,6 +5,7 @@ import java.sql.*;
 
 /**
  * jdbc链接数据库的工具
+ *
  * @author sunyu
  */
 public class DbUtil {
@@ -16,6 +17,7 @@ public class DbUtil {
 
     /**
      * 获取数据
+     *
      * @return
      */
     public static Connection getConnection() {
@@ -33,6 +35,7 @@ public class DbUtil {
 
     /**
      * 获取数据库元数据
+     *
      * @param connection
      * @return
      */
@@ -48,22 +51,26 @@ public class DbUtil {
 
     /**
      * 关闭链接
+     *
      * @param conn
      */
-    public static void close(Connection conn){
-       DbUtil.close(conn,null,null);
+    public static void close(Connection conn) {
+        DbUtil.close(conn, null, null);
     }
 
     /**
      * 关闭链接
+     *
      * @param conn
      * @param rs
      */
-    public static void close(Connection conn,ResultSet rs){
-        DbUtil.close(conn,null,rs);
+    public static void close(Connection conn, ResultSet rs) {
+        DbUtil.close(conn, null, rs);
     }
+
     /**
      * 关闭链接
+     *
      * @param conn
      * @param pstmt
      * @param rs

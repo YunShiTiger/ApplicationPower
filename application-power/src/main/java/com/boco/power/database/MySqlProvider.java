@@ -10,15 +10,16 @@ import java.util.Map;
 
 /**
  * 针对mysql数据库信息提供者
+ *
  * @author sunyu 2016/12/11.
  */
 public class MySqlProvider implements DbProvider {
     @Override
     public Map<String, Column> getColumnsInfo(String tableName) {
-        Map<String,Column> colMap = new LinkedHashMap<>();
-        Connection connection=null;
+        Map<String, Column> colMap = new LinkedHashMap<>();
+        Connection connection = null;
         try {
-            connection= DbUtil.getConnection();
+            connection = DbUtil.getConnection();
             DatabaseMetaData meta = DbUtil.getDatabaseMetaData(connection);
             ResultSet colRet = meta.getColumns(null, "%", tableName, "%");
             while (colRet.next()) {
@@ -33,14 +34,14 @@ public class MySqlProvider implements DbProvider {
                 column.setColumnName(columnName);
                 column.setColumnType(columnType);
                 column.setRemarks(remarks);
-                if("YES".equals(isAutoIncrement)){
+                if ("YES".equals(isAutoIncrement)) {
                     column.setAutoIncrement(true);
                 }
-                colMap.put(columnName,column);
+                colMap.put(columnName, column);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
-        }finally {
+        } finally {
             DbUtil.close(connection);
         }
         return colMap;
@@ -51,7 +52,7 @@ public class MySqlProvider implements DbProvider {
         List<TableInfo> tableList;
         StringBuilder sql = new StringBuilder();
         sql.append("show table status");
-        if(StringUtils.isNotEmpty(tableName)){
+        if (StringUtils.isNotEmpty(tableName)) {
             sql.append(" LIKE '%").append(tableName).append("%'");
         }
         Connection connection = null;
@@ -59,10 +60,10 @@ public class MySqlProvider implements DbProvider {
         ResultSet rs = null;
         TableInfo tableInfo;
         try {
-            connection= DbUtil.getConnection();
+            connection = DbUtil.getConnection();
             stmt = connection.prepareStatement(sql.toString());
             rs = stmt.executeQuery();
-            ResultSetMetaData rsmd = rs.getMetaData() ;
+            ResultSetMetaData rsmd = rs.getMetaData();
             int columnCount = rsmd.getColumnCount();
             tableList = new ArrayList<>(columnCount);
             while (rs.next()) {
@@ -74,8 +75,8 @@ public class MySqlProvider implements DbProvider {
         } catch (SQLException e) {
             tableList = new ArrayList<>(0);
             throw new RuntimeException(e);
-        }finally {
-            DbUtil.close(connection,stmt,rs);
+        } finally {
+            DbUtil.close(connection, stmt, rs);
         }
         return tableList;
     }

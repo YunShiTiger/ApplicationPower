@@ -13,10 +13,11 @@ import java.util.List;
 public class BaseProvider {
     /**
      * 获取表名
+     *
      * @param tableName
      * @return
      */
-    public List<TableInfo> getTablesInfo(String tableName){
+    public List<TableInfo> getTablesInfo(String tableName) {
         List<TableInfo> tableInfos = new ArrayList<>();
         Connection conn = null;
         DatabaseMetaData dbmd = null;
@@ -33,10 +34,10 @@ public class BaseProvider {
                 tableInfo.setName(rs.getString("REMARKS"));
                 tableInfos.add(tableInfo);
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
-            DbUtil.close(conn,rs);
+        } finally {
+            DbUtil.close(conn, rs);
         }
         return tableInfos;
     }
