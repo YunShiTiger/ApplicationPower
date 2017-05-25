@@ -6,21 +6,21 @@ package com.boco.power.constant;
 public class ProjectConfig {
 
     private String resource = "src\\main\\resources";
-    private String springMvc = resource+"\\spring-mvc.xml";
-    private String springMybatis = resource+ "\\spring-mybatis.xml";
-    private String mybatisConfig = resource +"\\mybatis-config.xml";
+    private String springMvc = resource + "\\spring-mvc.xml";
+    private String springMybatis = resource + "\\spring-mybatis.xml";
+    private String mybatisConfig = resource + "\\mybatis-config.xml";
     private String errorPath = "src\\main\\webapp\\error";
-    private String html400 = errorPath+ "\\400.html";
-    private String html404 = errorPath+ "\\404.html";
-    private String html500 = errorPath+"\\500.html";
+    private String html400 = errorPath + "\\400.html";
+    private String html404 = errorPath + "\\404.html";
+    private String html500 = errorPath + "\\500.html";
     private String pom = "pom.xml";
     private String log4j = resource + "\\log4j.properties";
     private String log4j2 = resource + "\\log4j2.xml";
 
-    private String jdbc = resource+"\\jdbc.properties";
+    private String jdbc = resource + "\\jdbc.properties";
     private String webAppPath = "src\\main\\webapp";
     private String webInfoPath = "src\\main\\webapp\\WEB-INF";
-    private String webXml = webInfoPath+"\\web.xml";
+    private String webXml = webInfoPath + "\\web.xml";
 
     public String getResource() {
         return resource;

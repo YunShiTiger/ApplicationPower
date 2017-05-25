@@ -36,7 +36,7 @@ public class ModelBuilder {
         String fields = generateFields(columnMap);
         String gettersAndSetters = this.generateSetAndGetMethods(columnMap);
         String imports = this.generateImport(columnMap);
-        String toString = this.generateToStringMethod(entitySimpleName,columnMap);
+        String toString = this.generateToStringMethod(entitySimpleName, columnMap);
         Template template = BeetlTemplateUtil.getByName(ConstVal.TPL_ENTITY);
         template.binding(GeneratorConstant.AUTHOR, System.getProperty("user.name"));//作者
         template.binding(GeneratorConstant.ENTITY_SIMPLE_NAME, entitySimpleName);//类名
@@ -45,7 +45,7 @@ public class ModelBuilder {
         template.binding(GeneratorConstant.GETTERS_AND_SETTERS, gettersAndSetters);//get和set方法
         template.binding(GeneratorConstant.CREATE_TIME, DateTimeUtil.getTime());//创建时间
         template.binding(GeneratorConstant.TABLE_COMMENT, tableInfo.getRemarks());//表注释
-        template.binding(GeneratorConstant.TO_STRING,toString);
+        template.binding(GeneratorConstant.TO_STRING, toString);
         template.binding("SerialVersionUID", String.valueOf(UUID.randomUUID().getLeastSignificantBits()));
         template.binding("modelImports", imports);
         return template.render();
@@ -141,39 +141,38 @@ public class ModelBuilder {
 
     /**
      * 生成model的toString方法
-     * @param className
-     *          类名
-     * @param columnMap
-     *          类的字段map表
+     *
+     * @param className 类名
+     * @param columnMap 类的字段map表
      * @return
      */
-    private String generateToStringMethod(String className,Map<String,Column> columnMap){
+    private String generateToStringMethod(String className, Map<String, Column> columnMap) {
         StringBuilder builder = new StringBuilder();
         builder.append("\"").append(className).append("{\" + \n");
         int index = 0;
-        for (Map.Entry<String, Column> entry : columnMap.entrySet()){
+        for (Map.Entry<String, Column> entry : columnMap.entrySet()) {
             Column column = entry.getValue();
             String columnName = column.getColumnName();
             String fieldName = StringUtils.underlineToCamel(columnName);
             String type = entry.getValue().getColumnType();
-            if (index<1) {
-                if("String".equals(type)){
+            if (index < 1) {
+                if ("String".equals(type)) {
                     builder.append("                \"").append(fieldName).append(" ='\"");
                     builder.append(" + ").append(fieldName).append(" +'\\''").append("+");
-                }else{
+                } else {
                     builder.append("                \"").append(fieldName).append(" =\"");
                     builder.append(" + ").append(fieldName).append(" +\n");
                 }
-            }else{
+            } else {
                 if ("String".equals(type)) {
                     builder.append("                \",").append(fieldName).append(" ='\"");
                     builder.append(" + ").append(fieldName).append(" + '\\''").append(" +\n");
-                }else{
+                } else {
                     builder.append("                \",").append(fieldName).append(" =\"");
                     builder.append(" + ").append(fieldName).append(" +\n");
                 }
             }
-            index ++;
+            index++;
         }
         builder.append("                '}';");
         return builder.toString();

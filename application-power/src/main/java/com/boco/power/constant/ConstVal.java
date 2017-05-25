@@ -10,8 +10,8 @@ public class ConstVal {
     public static final String JAVA_PATH = "src\\main\\java";
     public static final String RESOURCE_DIR = "src\\main\\resources";
 
-    public static final String STRING_BOOT_STATIC_DIR = RESOURCE_DIR+"\\static";
-    public static final String STRING_BOOT_EORRO_DIR = STRING_BOOT_STATIC_DIR +"\\errors";
+    public static final String STRING_BOOT_STATIC_DIR = RESOURCE_DIR + "\\static";
+    public static final String STRING_BOOT_EORRO_DIR = STRING_BOOT_STATIC_DIR + "\\errors";
 
     public static final String ENTITY = "model";
     public static final String SERVICE = "service";
@@ -43,9 +43,8 @@ public class ConstVal {
     public static final String WEB_APP_PATH = "web_app_path";
 
 
-
     public static final String POM_PATH = "pom_path";
-    public static final String MYBATIS_CFG_PATH="mybatis_cfg_path";
+    public static final String MYBATIS_CFG_PATH = "mybatis_cfg_path";
     public static final String STRING_MVC_PATH = "spring_mvc_path";
     public static final String SPTING_MYBAIS_PATH = "spring_mybatis_path";
     public static final String HTML_404_PATH = "html404_path";
@@ -53,9 +52,6 @@ public class ConstVal {
     public static final String WEB_XML_PATH = "web_xml_path";
     public static final String LOG4J_PATH = "log4j_path";
     public static final String JDBC_PATH = "jdbc_path";
-
-
-
 
 
     public static final String JAVA_SUFFIX = ".java";
@@ -93,8 +89,6 @@ public class ConstVal {
     public static final String TPL_SPRING_BOOT_MAIN = "SpringBootMainApplication.btl";
 
     public static final String JAVA_TMPDIR = "java.io.tmpdir";
-
-
 
 
 }

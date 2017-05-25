@@ -7,14 +7,14 @@ package com.boco.power.constant;
 public class SpringBootProjectConfig {
 
     private String resource = "src\\main\\resources";
-    private String mybatisConfig = resource +"\\mybatis-config.xml";
-    private String errorPath = resource+ "\\static\\errors";
-    private String html400 = errorPath+ "\\400.html";
-    private String html404 = errorPath+ "\\404.html";
-    private String html500 = errorPath+"\\500.html";
+    private String mybatisConfig = resource + "\\mybatis-config.xml";
+    private String errorPath = resource + "\\static\\errors";
+    private String html400 = errorPath + "\\400.html";
+    private String html404 = errorPath + "\\404.html";
+    private String html500 = errorPath + "\\500.html";
     private String pom = "pom.xml";
     private String log4j2 = resource + "\\log4j2.xml";
-    private String applicationYml = resource +"\\application.yml";
+    private String applicationYml = resource + "\\application.yml";
 
 
     public String getResource() {

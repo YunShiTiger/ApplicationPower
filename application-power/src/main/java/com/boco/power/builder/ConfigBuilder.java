@@ -47,7 +47,7 @@ public class ConfigBuilder {
     /**
      * 初始化构建一个maven项目配置表
      */
-    private void initProjectPath(){
+    private void initProjectPath() {
         projectPath = new ProjectPath();
         String fileSeparator = System.getProperty("file.separator");
         String applicationName = GeneratorProperties.applicationName();
@@ -62,6 +62,7 @@ public class ConfigBuilder {
         projectPath.setTestJavaSrcPath(testDir);
 
     }
+
     public ConfigBuilder(DbProvider dataBaseInfo, PackageConfig packageConfig, ProjectConfig projectConfig) {
         //全局设置项目的机构
         initProjectPath();
@@ -87,11 +88,12 @@ public class ConfigBuilder {
 
     /**
      * 构建spring boot
+     *
      * @param dataBaseInfo
      * @param packageConfig
      * @param projectConfig
      */
-    public ConfigBuilder(DbProvider dataBaseInfo, PackageConfig packageConfig, SpringBootProjectConfig projectConfig){
+    public ConfigBuilder(DbProvider dataBaseInfo, PackageConfig packageConfig, SpringBootProjectConfig projectConfig) {
         //全局设置项目的结构
         initProjectPath();
         //包配置
@@ -114,9 +116,9 @@ public class ConfigBuilder {
     }
 
 
-
     /**
      * 获取列信息
+     *
      * @param dbProvider
      */
     private void getTableInfoList(DbProvider dbProvider) {
@@ -168,12 +170,13 @@ public class ConfigBuilder {
                 pathInfo.put(ConstVal.CONTROLLER_PATH, joinPath(javaDir, packageInfo.get(ConstVal.CONTROLLER)));
             }
         }
-        packageInfo.put(ConstVal.DATE_CONVERTER,joinPackage(basePackage,config.getConverter()));
-        pathInfo.put(ConstVal.DATE_CONVERTER_PATH,joinPath(javaDir,packageInfo.get(ConstVal.DATE_CONVERTER)));
+        packageInfo.put(ConstVal.DATE_CONVERTER, joinPackage(basePackage, config.getConverter()));
+        pathInfo.put(ConstVal.DATE_CONVERTER_PATH, joinPath(javaDir, packageInfo.get(ConstVal.DATE_CONVERTER)));
     }
 
     /**
      * 处理ssm架构体系的工程配置文件
+     *
      * @param config
      */
     private void handlerBaseConfigFiles(ProjectConfig config) {
@@ -183,7 +186,7 @@ public class ConfigBuilder {
 
         baseConfigFilesPath.put(ConstVal.TPL_POM, connectPath(basePath, config.getPom()));
         baseConfigFilesPath.put(ConstVal.TPL_LOF4J2, connectPath(basePath, config.getLog4j2()));
-        baseConfigFilesPath.put(ConstVal.TPL_400,connectPath(basePath,config.getHtml400()));
+        baseConfigFilesPath.put(ConstVal.TPL_400, connectPath(basePath, config.getHtml400()));
         baseConfigFilesPath.put(ConstVal.TPL_404, connectPath(basePath, config.getHtml404()));
         baseConfigFilesPath.put(ConstVal.TPL_500, connectPath(basePath, config.getHtml500()));
         baseConfigFilesPath.put(ConstVal.TPL_SPRING_MVC, connectPath(basePath, config.getSpringMvc()));
@@ -195,31 +198,33 @@ public class ConfigBuilder {
 
     /**
      * 处理SpringBoot体系的项目配置文件
+     *
      * @param config
      */
-    private void handlerSpringBootConfigFiles( SpringBootProjectConfig config){
+    private void handlerSpringBootConfigFiles(SpringBootProjectConfig config) {
 
         String basePath = projectPath.getBasePath();
         baseConfigFilesPath = new HashMap<>(10);
         baseConfigFilesPath.put(ConstVal.TPL_SPRING_BOOT_POM, connectPath(basePath, config.getPom()));
-        baseConfigFilesPath.put(ConstVal.TPL_SPRING_BOOT_CFG_YML,connectPath(basePath,config.getApplicationYml()));
+        baseConfigFilesPath.put(ConstVal.TPL_SPRING_BOOT_CFG_YML, connectPath(basePath, config.getApplicationYml()));
         baseConfigFilesPath.put(ConstVal.TPL_LOF4J2, connectPath(basePath, config.getLog4j2()));
         baseConfigFilesPath.put(ConstVal.TPL_MYBATIS_CONFIG, connectPath(basePath, config.getMybatisConfig()));
-        baseConfigFilesPath.put(ConstVal.TPL_400,connectPath(basePath,config.getHtml400()));
+        baseConfigFilesPath.put(ConstVal.TPL_400, connectPath(basePath, config.getHtml400()));
         baseConfigFilesPath.put(ConstVal.TPL_404, connectPath(basePath, config.getHtml404()));
         baseConfigFilesPath.put(ConstVal.TPL_500, connectPath(basePath, config.getHtml500()));
     }
 
     /**
      * 处理SpringBoot项目的配置路径
+     *
      * @param config
      */
-    private void handlerSpringBootConfigPath(SpringBootProjectConfig config){
+    private void handlerSpringBootConfigPath(SpringBootProjectConfig config) {
         String basePath = projectPath.getBasePath();
         baseConfigPathInfo = new HashMap<>(3);
 
         baseConfigPathInfo.put(ConstVal.RESOURCE_PATH, connectPath(basePath, config.getResource()));
-        baseConfigPathInfo.put(ConstVal.STRING_BOOT_EORRO_DIR,connectPath(basePath, config.getErrorPath()));
+        baseConfigPathInfo.put(ConstVal.STRING_BOOT_EORRO_DIR, connectPath(basePath, config.getErrorPath()));
     }
 
     private void handlerBaseConfigPath(ProjectConfig config) {
@@ -239,7 +244,7 @@ public class ConfigBuilder {
      * @return 连接后的路径
      */
     private String joinPath(String parentDir, String packageName) {
-        return PathUtil.joinPath(parentDir,packageName);
+        return PathUtil.joinPath(parentDir, packageName);
     }
 
     /**
@@ -250,7 +255,7 @@ public class ConfigBuilder {
      * @return
      */
     private String connectPath(String parentDir, String path) {
-        return PathUtil.connectPath(parentDir,path);
+        return PathUtil.connectPath(parentDir, path);
     }
 
     /**
@@ -261,7 +266,7 @@ public class ConfigBuilder {
      * @return 连接后的包名
      */
     private String joinPackage(String parent, String subPackage) {
-        return PathUtil.joinPackage(parent,subPackage);
+        return PathUtil.joinPackage(parent, subPackage);
     }
 
     public Map<String, String> getPathInfo() {

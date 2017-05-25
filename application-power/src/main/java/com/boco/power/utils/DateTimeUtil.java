@@ -25,7 +25,8 @@ public class DateTimeUtil {
 
     public static final String DATE_FORMAT_CHINESE_SECONDE = "yyyy年MM月dd日 HH:mm:ss";
 
-    public static final String DATE_FORMAT_CHINESE_WEEK_SECONDE =  "yyyy年MM月dd日 E HH:mm:ss";
+    public static final String DATE_FORMAT_CHINESE_WEEK_SECONDE = "yyyy年MM月dd日 E HH:mm:ss";
+
     /**
      * Generation time, time format for yyyy-MM-dd hh:mm:ss
      *
@@ -33,7 +34,7 @@ public class DateTimeUtil {
      */
     public static String getStrTimeSecond() {
         Date date = new Date();
-        return parseDateToStr(date,DATE_FORMAT_SECOND);
+        return parseDateToStr(date, DATE_FORMAT_SECOND);
     }
 
     /**
@@ -61,7 +62,7 @@ public class DateTimeUtil {
 
     public static String getStrTimeDay() {
         Date date = new Date();
-        return parseDateToStr(date,DATE_FORMAT_DAY);
+        return parseDateToStr(date, DATE_FORMAT_DAY);
     }
 
     /**
@@ -75,7 +76,7 @@ public class DateTimeUtil {
     }
 
     public static String sqlDateToStr(java.sql.Date date) {
-        return parseDateToStr(date,DATE_FORMAT_DAY);
+        return parseDateToStr(date, DATE_FORMAT_DAY);
     }
 
     public static java.sql.Date strToSqlDate(String date) {
@@ -86,7 +87,7 @@ public class DateTimeUtil {
     /**
      * Parses a date using a specified format string
      *
-     * @param sDate String
+     * @param sDate  String
      * @param format String
      * @return Date
      */
@@ -107,7 +108,7 @@ public class DateTimeUtil {
      * @return java.util.Date
      */
     public static Date strToDate(String date) {
-        return parseDate(date,DATE_FORMAT_DAY);
+        return parseDate(date, DATE_FORMAT_DAY);
     }
 
     /**
@@ -117,7 +118,7 @@ public class DateTimeUtil {
      * @return String
      */
     public static String dateToStr(Date date) {
-        return parseDateToStr(date,DATE_FORMAT_DAY);
+        return parseDateToStr(date, DATE_FORMAT_DAY);
     }
 
     /**
@@ -170,7 +171,7 @@ public class DateTimeUtil {
      * input began time and end time calculate run time
      *
      * @param beginTime long
-     * @param endTime long
+     * @param endTime   long
      * @return double
      */
     public static double calcRunTime(long beginTime, long endTime) {
@@ -192,7 +193,6 @@ public class DateTimeUtil {
     }
 
     /**
-     *
      * @param before
      * @param after
      * @return
@@ -214,14 +214,14 @@ public class DateTimeUtil {
      * @return String
      */
     public static String formatTime(Timestamp time) {
-        return formatTime(time,DATE_FORMAT_SECOND);
+        return formatTime(time, DATE_FORMAT_SECOND);
     }
 
     /**
      * via format TimeStamp to string
      *
      * @param time java.sql.Timestamp
-     * @param fmt String
+     * @param fmt  String
      * @return String
      */
     public static String formatTime(Timestamp time, String fmt) {
@@ -432,7 +432,7 @@ public class DateTimeUtil {
      * 将毫秒时间格式化为指定格式的字符串时间
      *
      * @param millSec 毫秒
-     * @param format 需要格式的样式(yyyy-MM-dd等)
+     * @param format  需要格式的样式(yyyy-MM-dd等)
      * @return String
      */
     public static String long2Str(long millSec, String format) {
@@ -443,16 +443,14 @@ public class DateTimeUtil {
 
     /**
      * 将毫秒时间格式化为指定格式的字符串时间
-     * @param millSec
-     *          毫秒
-     * @param format
-     *          需要格式的样式(yyyy-MM-dd等)
-     * @param locale
-     *          语言地域
+     *
+     * @param millSec 毫秒
+     * @param format  需要格式的样式(yyyy-MM-dd等)
+     * @param locale  语言地域
      * @return
      */
-    public static String long2Str(long millSec, String format, Locale locale){
-        SimpleDateFormat sdf = new SimpleDateFormat(format,locale);
+    public static String long2Str(long millSec, String format, Locale locale) {
+        SimpleDateFormat sdf = new SimpleDateFormat(format, locale);
         Date date = new Date(millSec);
         return sdf.format(date);
     }
@@ -461,7 +459,7 @@ public class DateTimeUtil {
      * transfer string to long
      *
      * @param dateFormat String
-     * @param strDate String
+     * @param strDate    String
      * @return long
      */
     public static long strToLong(String dateFormat, String strDate) {
@@ -486,11 +484,12 @@ public class DateTimeUtil {
     }
 
     /**
-     *  根据当天时间戳获取从0点起经过的毫秒数
+     * 根据当天时间戳获取从0点起经过的毫秒数
+     *
      * @param millions long
      * @return long
      */
-    public static long todayPastMillisecond(long millions){
+    public static long todayPastMillisecond(long millions) {
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(millions);
         return cal.get(Calendar.HOUR_OF_DAY) * 3600 + cal.get(Calendar.MINUTE) * 60;
@@ -600,6 +599,7 @@ public class DateTimeUtil {
 
     /**
      * 将时间设置为下一年的第一天
+     *
      * @param millis long
      * @return long
      */
@@ -615,10 +615,11 @@ public class DateTimeUtil {
         cal.add(Calendar.YEAR, 1);
         return cal.getTimeInMillis();
     }
-    public static long setToFirstDayOfLastMonth(long ms){
+
+    public static long setToFirstDayOfLastMonth(long ms) {
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(ms);
-        cal.add(Calendar.MONTH,-1);
+        cal.add(Calendar.MONTH, -1);
         cal.set(Calendar.DAY_OF_MONTH, 1);
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
@@ -626,6 +627,7 @@ public class DateTimeUtil {
         cal.set(Calendar.MILLISECOND, 0);
         return cal.getTimeInMillis();
     }
+
     /**
      * 将时间重置为时间当前月的第一天，并且将时分秒全置0
      *
@@ -690,24 +692,24 @@ public class DateTimeUtil {
 
     /**
      * 根据时间的得到所对应季度的第一天(0H0M0S)
-     * @param ms
-     *          毫秒数
+     *
+     * @param ms 毫秒数
      * @return long
      */
-    public static long getFirstDayOfCurrentQuarter(long ms){
+    public static long getFirstDayOfCurrentQuarter(long ms) {
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(ms);
-        int currentMonth = cal.get(Calendar.MONTH)+1;
-        if(currentMonth >= 1 && currentMonth <= 3){
+        int currentMonth = cal.get(Calendar.MONTH) + 1;
+        if (currentMonth >= 1 && currentMonth <= 3) {
             cal.set(Calendar.MONTH, 0);
-        }else if(currentMonth >= 4 && currentMonth <= 6){
-            cal.set(Calendar.MONTH,3);
-        }else if(currentMonth >= 7 && currentMonth <= 9){
-            cal.set(Calendar.MONTH,6);
-        }else if(currentMonth >= 10 && currentMonth <= 12){
-            cal.set(Calendar.MONTH,9);
+        } else if (currentMonth >= 4 && currentMonth <= 6) {
+            cal.set(Calendar.MONTH, 3);
+        } else if (currentMonth >= 7 && currentMonth <= 9) {
+            cal.set(Calendar.MONTH, 6);
+        } else if (currentMonth >= 10 && currentMonth <= 12) {
+            cal.set(Calendar.MONTH, 9);
         }
-        cal.set(Calendar.DATE,1);
+        cal.set(Calendar.DATE, 1);
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
@@ -717,32 +719,32 @@ public class DateTimeUtil {
 
     /**
      * 根据时间获取下一个季度的第一天(0H0M0S)
-     * @param ms
-     *          毫秒数
+     *
+     * @param ms 毫秒数
      * @return long
      */
-    public static long getFirstDayOfNextQuarter(long ms){
+    public static long getFirstDayOfNextQuarter(long ms) {
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(ms);
-        int currentMonth = cal.get(Calendar.MONTH)+1;
-        if(currentMonth >= 1 && currentMonth <= 3){
+        int currentMonth = cal.get(Calendar.MONTH) + 1;
+        if (currentMonth >= 1 && currentMonth <= 3) {
             cal.set(Calendar.MONTH, 2);
-            cal.set(Calendar.DATE,31);
-        }else if(currentMonth >= 4 && currentMonth <= 6){
-            cal.set(Calendar.MONTH,5);
-            cal.set(Calendar.DATE,30);
-        }else if(currentMonth >= 7 && currentMonth <= 9){
-            cal.set(Calendar.MONTH,8);
+            cal.set(Calendar.DATE, 31);
+        } else if (currentMonth >= 4 && currentMonth <= 6) {
+            cal.set(Calendar.MONTH, 5);
             cal.set(Calendar.DATE, 30);
-        }else if(currentMonth >= 10 && currentMonth <= 12){
-            cal.set(Calendar.MONTH,11);
-            cal.set(Calendar.DATE,31);
+        } else if (currentMonth >= 7 && currentMonth <= 9) {
+            cal.set(Calendar.MONTH, 8);
+            cal.set(Calendar.DATE, 30);
+        } else if (currentMonth >= 10 && currentMonth <= 12) {
+            cal.set(Calendar.MONTH, 11);
+            cal.set(Calendar.DATE, 31);
         }
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
-        return cal.getTimeInMillis()+86400000L;
+        return cal.getTimeInMillis() + 86400000L;
     }
 
     /**
@@ -872,10 +874,10 @@ public class DateTimeUtil {
     }
 
     public static void main(String[] args) {
-        Date date = parseDate("yyyy-MM-dd","2016-05-03");
+        Date date = parseDate("yyyy-MM-dd", "2016-05-03");
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        calendar.set(Calendar.YEAR,-1);
-        String str = long2Str(calendar.getTimeInMillis(),"");
+        calendar.set(Calendar.YEAR, -1);
+        String str = long2Str(calendar.getTimeInMillis(), "");
     }
 }

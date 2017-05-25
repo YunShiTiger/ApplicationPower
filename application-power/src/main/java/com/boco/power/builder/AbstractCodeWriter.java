@@ -39,8 +39,8 @@ public abstract class AbstractCodeWriter {
      */
     protected void initConfig() {
         if (null == config) {
-            dataBaseInfo = new  DbProviderFactory().getInstance();
-            config = new ConfigBuilder(dataBaseInfo,packageConfig,projectConfig);
+            dataBaseInfo = new DbProviderFactory().getInstance();
+            config = new ConfigBuilder(dataBaseInfo, packageConfig, projectConfig);
 
         }
     }
@@ -48,10 +48,10 @@ public abstract class AbstractCodeWriter {
     /**
      * 初始化spring boot的配置
      */
-    protected void initSpringBootConfig(){
+    protected void initSpringBootConfig() {
         if (null == config) {
-            dataBaseInfo = new  DbProviderFactory().getInstance();
-            config = new ConfigBuilder(dataBaseInfo,packageConfig,springBootProjectConfig);
+            dataBaseInfo = new DbProviderFactory().getInstance();
+            config = new ConfigBuilder(dataBaseInfo, packageConfig, springBootProjectConfig);
 
         }
     }
