@@ -26,7 +26,7 @@ public class MapperBuilder {
         DbProvider dbProvider = new DbProviderFactory().getInstance();
         Map<String, Column> columnMap = dbProvider.getColumnsInfo(tableName);
         String insertSql = generateInsertSql(columnMap, tableName);
-        String batchInsertSql = generateBatchInsertSql(columnMap,tableName);
+        String batchInsertSql = generateBatchInsertSql(columnMap, tableName);
         String updateSql = generateConditionUpdateSql(columnMap, tableName);
         String selectSql = generateSelectSql(columnMap, tableName);
         String results = generateResultMap(columnMap);
@@ -35,11 +35,11 @@ public class MapperBuilder {
         mapper.binding(GeneratorConstant.ENTITY_SIMPLE_NAME, entitySimpleName);//类名
         mapper.binding(GeneratorConstant.BASE_PACKAGE, GeneratorProperties.basePackage());//基包名
         mapper.binding(GeneratorConstant.INSERT_SQL, insertSql);
-        mapper.binding(GeneratorConstant.BATCH_INSERT_SQL,batchInsertSql);
+        mapper.binding(GeneratorConstant.BATCH_INSERT_SQL, batchInsertSql);
         mapper.binding(GeneratorConstant.UPDATE_SQL, updateSql);
         mapper.binding(GeneratorConstant.SELECT_SQL, selectSql);
         mapper.binding(GeneratorConstant.RESULT_MAP, results);
-        mapper.binding(GeneratorConstant.IS_RESULT_MAP,GeneratorProperties.getResultMap());
+        mapper.binding(GeneratorConstant.IS_RESULT_MAP, GeneratorProperties.getResultMap());
         mapper.binding(GeneratorConstant.TABLE_NAME, tableName);
         return mapper.render();
     }
@@ -80,11 +80,12 @@ public class MapperBuilder {
 
     /**
      * 生成批量插入的sql
+     *
      * @param columnMap
      * @param tableName
      * @return
      */
-    private String generateBatchInsertSql(Map<String, Column> columnMap, String tableName){
+    private String generateBatchInsertSql(Map<String, Column> columnMap, String tableName) {
         StringBuilder batchInsertSql = new StringBuilder();
         batchInsertSql.append("insert into ").append(tableName).append("(\n");
         StringBuilder insertValues = new StringBuilder();
@@ -114,6 +115,7 @@ public class MapperBuilder {
 
         return batchInsertSql.toString();
     }
+
     /**
      * 生成update语句,过滤掉自增列
      *
@@ -142,6 +144,7 @@ public class MapperBuilder {
         }
         return updateSql.toString();
     }
+
     /**
      * 生成update语句,过滤掉自增列,使用trim
      *
@@ -149,7 +152,7 @@ public class MapperBuilder {
      * @param tableName
      * @return
      */
-    private String generateConditionUpdateSql(Map<String, Column> columnMap, String tableName){
+    private String generateConditionUpdateSql(Map<String, Column> columnMap, String tableName) {
         StringBuilder updateSql = new StringBuilder();
         updateSql.append("update ").append(tableName).append("\n");
         updateSql.append("\t\t<trim prefix=\"set\" suffixOverrides=\",\">\n");

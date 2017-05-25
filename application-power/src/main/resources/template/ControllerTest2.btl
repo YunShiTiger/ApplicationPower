@@ -74,7 +74,7 @@ public class ${entitySimpleName}ControllerTest extends ControllerBaseTest {
      * 测试controller page分页接口
      * @throws Exception
      */
-    public void testQueryPage() throws Exception{
+    public void testQueryPage() throws Exception {
 
     }
 

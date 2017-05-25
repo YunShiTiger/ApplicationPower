@@ -84,4 +84,9 @@ public class GeneratorConstant {
      * 是否开启驼峰转换
      */
     public static final String UNDERSCORE_TO_CAMEL_CASE = "underscoreToCamelCase";
+
+    /**
+     * toString方法
+     */
+    public static final String TO_STRING = "toString";
 }

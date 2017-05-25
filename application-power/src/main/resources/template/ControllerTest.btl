@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
  * @date ${createTime}
  *
  */
-public class ${entitySimpleName}ControllerTest extends ControllerBaseTest{
+public class ${entitySimpleName}ControllerTest extends ControllerBaseTest {
 
 	@Resource
 	private WebApplicationContext wac;

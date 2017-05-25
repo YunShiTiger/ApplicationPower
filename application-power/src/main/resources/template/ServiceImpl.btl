@@ -35,10 +35,10 @@ public class ${entitySimpleName}ServiceImpl  implements ${entitySimpleName}Servi
 	@Override
 	public CommonResult save(${entitySimpleName} entity){
 		CommonResult result = new CommonResult();
-        try{
+        try {
         	${firstLowerName}Dao.save(entity);
         	result.setSuccess(true);
-        }catch(Exception e){
+        } catch (Exception e) {
         	result.setMessage("添加数据失败");
         	logger.error("添加数据异常：",e);
         }
@@ -48,10 +48,10 @@ public class ${entitySimpleName}ServiceImpl  implements ${entitySimpleName}Servi
 	@Override
 	public CommonResult update(${entitySimpleName} entity){
 		CommonResult result = new CommonResult();
-        try{
+        try {
             ${firstLowerName}Dao.update(entity);
             result.setSuccess(true);
-        }catch(Exception e){
+        } catch (Exception e) {
             result.setMessage("修改数据失败");
             logger.error("修改数据异常：",e);
         }
@@ -61,10 +61,10 @@ public class ${entitySimpleName}ServiceImpl  implements ${entitySimpleName}Servi
 	@Override
 	public CommonResult delete(int id){
 		CommonResult result = new CommonResult();
-        try{
+        try {
             ${firstLowerName}Dao.delete(id);
             result.setSuccess(true);
-        }catch(Exception e){
+        } catch (Exception e) {
             result.setMessage("删除数据失败");
             logger.error("删除数据异常：",e);
         }
@@ -77,10 +77,10 @@ public class ${entitySimpleName}ServiceImpl  implements ${entitySimpleName}Servi
 	public CommonResult queryById(int id){
 	    CommonResult result = new CommonResult();
 	    ${entitySimpleName} entity = ${firstLowerName}Dao.queryById(id);
-	    if(null != entity){
+	    if (null != entity) {
         	result.setData(entity);//成功返回数据
         	result.setSuccess(true);
-        }else{
+        } else {
         	result.setMessage("没有找到匹配数据");
         	logger.info("未查询到数据，编号：{}",id);
         }

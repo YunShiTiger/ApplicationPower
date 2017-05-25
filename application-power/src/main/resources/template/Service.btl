@@ -11,7 +11,7 @@ import ${basePackage}.model.${entitySimpleName};
  *
  */
 
-public interface ${entitySimpleName}Service{
+public interface ${entitySimpleName}Service {
 
 	/**
 	 * 保存数据
