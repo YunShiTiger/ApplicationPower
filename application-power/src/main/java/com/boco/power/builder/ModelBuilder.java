@@ -68,7 +68,8 @@ public class ModelBuilder {
                 builder.append("	@JsonFormat(pattern = \"yyyy-MM-dd HH:mm:ss\",timezone = \"GMT+8\")\n");
             }
             builder.append("	private ").append(column.getColumnType()).append(" ");
-            builder.append(StringUtils.underlineToCamel(column.getColumnName())).append(";\n");
+            builder.append(StringUtils.underlineToCamel(column.getColumnName()));
+            builder.append(";\n");
         }
         return builder.toString();
     }
