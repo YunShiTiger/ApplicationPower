@@ -340,6 +340,7 @@ public class StringUtils {
     }
 
     /**
+     * 下划线转驼峰并且首字母大写
      * @param s
      * @return
      */
