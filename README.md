@@ -134,56 +134,56 @@ public interface ${entitySimpleName}Dao{
 }
 ```
   3.service层模板
-  ```
-  package ${basePackage}.service;
+```
+package ${basePackage}.service;
 
-  import java.util.List;
-  import ${basePackage}.model.${entitySimpleName};
+import java.util.List;
+import ${basePackage}.model.${entitySimpleName};
 
-  /**
-   *
-   * @author ${authorName}
-   * @date ${createTime}
-   *
-   */
+/**
+*
+* @author ${authorName}
+* @date ${createTime}
+*
+*/
 
-  public interface ${entitySimpleName}Service{
+public interface ${entitySimpleName}Service{
 
-  	/**
-  	 * 保存数据
-  	 * @param entity
-  	 * @return
-       */
-  	int save(${entitySimpleName} entity);
+/**
+ * 保存数据
+ * @param entity
+ * @return
+ */
+int save(${entitySimpleName} entity);
 
-  	/**
-  	 * 修改数据
-  	 * @param entity
-  	 * @return
-       */
-  	int update(${entitySimpleName} entity);
+/**
+ * 修改数据
+ * @param entity
+ * @return
+ */
+int update(${entitySimpleName} entity);
 
-  	/**
-  	 * 删除数据
-  	 * @param id
-  	 * @return
-       */
-  	int delete(int id);
+/**
+ * 删除数据
+ * @param id
+ * @return
+ */
+int delete(int id);
 
-  	/**
-  	 * 根据id查询数据
-  	 * @param id
-  	 * @return
-       */
-  	${entitySimpleName} queryById(int id);
+/**
+ * 根据id查询数据
+ * @param id
+ * @return
+ */
+${entitySimpleName} queryById(int id);
 
-  	/**
-  	 * 查询所有数据
-  	 * @return
-       */
-  	List<${entitySimpleName}> queryAll();
-  }
-  ```
+/**
+ * 查询所有数据
+ * @return
+ */
+List<${entitySimpleName}> queryAll();
+}
+```
   4.service实现层模板
   ```
   package ${basePackage}.service.impl;
