@@ -10,49 +10,50 @@ ApplicationPower 是一个基于数据库单表Crud操作的项目生成器，�
     4. v1.3版本，升级mybatis和druid的版本，生成的项目框架摒弃log4j，全面将日志升级到log4j2框架，mysql连接驱动升级到6.x版本
 ## 功能
   1. 根据连接的数据生成dao,model,service,controller,mapper,controllerTest,serviceTest代码
-  2. 项目的maven web基础骨架
+  2. 快速生成项目的maven web基础骨架
   3. 生成基于spring,spring mvc,mybatis框架结构项目所需的基础配置文件
   4. 生成web.xml配置文件
   5. 可以修改模板生成自己喜欢风格或者说修改修改来生成自己习惯的方法名
   6. 基于SL4J面向接口的标注化日志输出
+  7. 可自由选择生成SSM框架项目或者Springboot的项目
 
 ## 使用说明
   1.使用注意事项
         在已经进行后，请勿将ApplicationPower的输出目录指定到当前工程，否则会出现代码覆盖，因此建议项目开发启动后将代码生成到别的地方拷贝到自己工        程下，后续会提供不覆盖配置，但是也有可能忘记修改配置，所以还是要小心。
   2.根据自己实际需求，修改generator.properties中的配置
-  ```
-  是否生成注释
-  generator.comment=true
+```
+是否生成注释
+generator.comment=true
 
-  代码输出目录
-  generator.outDir=e:\\Test
+代码输出目录
+generator.outDir=e:\\Test
 
-  基包名
-  generator.basePackage=com.boco
+基包名
+generator.basePackage=com.boco
 
-  数据库表前缀,例如表t_user则需要去除前缀生成正确的实体
-  generator.table.prefix=
+数据库表前缀,例如表t_user则需要去除前缀生成正确的实体
+generator.table.prefix=
 
-  指定需要用哪张数据表生成代码，不指定则生成全部表的代码
-  generator.table.name=
+指定需要用哪张数据表生成代码，不指定则生成全部表的代码
+generator.table.name=
 
-  生成项目的名称
-  generator.applicationName=Test
+生成项目的名称
+generator.applicationName=Test
 
-  需要生成的代码层
-  可生成的代码层dao,model,service,controller,mapper,controllerTest,serviceTest
-  generator.layers=dao,model,service,controller,mapper,controllerTest
+需要生成的代码层
+可生成的代码层dao,model,service,controller,mapper,controllerTest,serviceTest
+generator.layers=dao,model,service,controller,mapper,controllerTest
 
-  是否开启mybatis缓存，只能填写true或者false
-  generator.enableCache=true
-  ```
+是否开启mybatis缓存，只能填写true或者false
+generator.enableCache=true
+```
   3.修改数据库配置jdbc.properties
-  ```
-  jdbc.driver=com.mysql.jdbc.Driver
-  jdbc.username=root
-  jdbc.password=root
-  jdbc.url=jdbc\:mysql\://localhost:3306/cookbook?useUnicode=true&characterEncoding=UTF-8
-  ```
+```
+jdbc.driver=com.mysql.jdbc.Driver
+jdbc.username=root
+jdbc.password=root
+jdbc.url=jdbc\:mysql\://localhost:3306/cookbook?useUnicode=true&characterEncoding=UTF-8
+```
   4.运行Test下的GenerateCodeTest生成项目
   5.将生成的项目导入编辑器
 
