@@ -6,5 +6,6 @@ import com.boco.power.builder.CodeWriter;
 public class GenerateCodeTest {
     public static void main(String[] args) {
         new CodeWriter().execute();
+
     }
 }

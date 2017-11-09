@@ -1,25 +1,31 @@
 package ${basePackage}.service.impl;
 
+<%if(page||queryToListMap){ %>
 import java.util.List;
-
+<%}%>
+<%if(queryToListMap){ %>
+import java.util.Map;
+<%}%>
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+<%if(page){ %>
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+<%}%>
+<%if(add||query||delete||update){ %>
 import com.boco.common.model.CommonResult;
+<%}%>
 import ${basePackage}.model.${entitySimpleName};
 import ${basePackage}.dao.${entitySimpleName}Dao;
 import ${basePackage}.service.${entitySimpleName}Service;
 
 /**
- *
- * @author ${authorName}
- * @date ${createTime}
- *
+ * Created by ApplicationPower.
+ * @author ${authorName} on ${createTime}.
  */
 @Service("${firstLowerName}Service")
 public class ${entitySimpleName}ServiceImpl  implements ${entitySimpleName}Service{
@@ -31,6 +37,7 @@ public class ${entitySimpleName}ServiceImpl  implements ${entitySimpleName}Servi
 
 	@Resource
 	private ${entitySimpleName}Dao ${firstLowerName}Dao;
+    <%if(add){ %>
 
 	@Override
 	public CommonResult save(${entitySimpleName} entity) {
@@ -40,10 +47,12 @@ public class ${entitySimpleName}ServiceImpl  implements ${entitySimpleName}Servi
         	result.setSuccess(true);
         } catch (Exception e) {
         	result.setMessage("添加数据失败");
-        	logger.error("添加数据异常：",e);
+        	logger.error("${entitySimpleName}Service添加数据异常：",e);
         }
         return result;
 	}
+    <%}%>
+    <%if(update){ %>
 
 	@Override
 	public CommonResult update(${entitySimpleName} entity) {
@@ -53,10 +62,12 @@ public class ${entitySimpleName}ServiceImpl  implements ${entitySimpleName}Servi
             result.setSuccess(true);
         } catch (Exception e) {
             result.setMessage("修改数据失败");
-            logger.error("修改数据异常：",e);
+            logger.error("${entitySimpleName}Service修改数据异常：",e);
         }
         return result;
 	}
+	<%}%>
+    <%if(delete){ %>
 
 	@Override
 	public CommonResult delete(int id) {
@@ -66,12 +77,12 @@ public class ${entitySimpleName}ServiceImpl  implements ${entitySimpleName}Servi
             result.setSuccess(true);
         } catch (Exception e) {
             result.setMessage("删除数据失败");
-            logger.error("删除数据异常：",e);
+            logger.error("${entitySimpleName}Service删除数据异常：",e);
         }
         return result;
 	}
-
-
+	<%}%>
+    <%if(query){ %>
 
 	@Override
 	public CommonResult queryById(int id) {
@@ -82,10 +93,12 @@ public class ${entitySimpleName}ServiceImpl  implements ${entitySimpleName}Servi
         	result.setSuccess(true);
         } else {
         	result.setMessage("没有找到匹配数据");
-        	logger.info("未查询到数据，编号：{}",id);
+        	logger.info("${entitySimpleName}Service未查询到数据，编号：{}",id);
         }
         return result;
 	}
+	<%}%>
+    <%if(page){ %>
 
 	@Override
     public PageInfo queryPage(int offset, int limit) {
@@ -93,5 +106,12 @@ public class ${entitySimpleName}ServiceImpl  implements ${entitySimpleName}Servi
         List<${entitySimpleName}> list = ${firstLowerName}Dao.queryPage();
         return new PageInfo(list);
     }
+    <%}%>
+    <%if(queryToListMap){ %>
 
+    @Override
+    public List<Map<String,Object>> queryToListMap(Map<String,Object> params){
+        return ${firstLowerName}Dao.queryToListMap(params);
+    }
+    <%}%>
 }

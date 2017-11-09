@@ -1,5 +1,8 @@
 package com.boco.power.utils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author sunyu 2016/12/5.
  */
@@ -86,5 +89,34 @@ public class GeneratorProperties {
      */
     public static Boolean getResultMap() {
         return Boolean.valueOf(props.getProperty("generator.resultMap"));
+    }
+
+    /**
+     * 获取需要生成的方法
+     * @return
+     */
+    public static Map<String,Boolean> getGenerateMethods(){
+        String methodsStr = props.getProperty("generator.methods");
+        if(StringUtils.isEmpty(methodsStr)){
+            throw new RuntimeException("generator.methods can not be null or ''");
+        }
+        String[] methods = methodsStr.split(",");
+        //约定的方法，
+        Map<String,Boolean> map = new HashMap<>();
+        map.put("add",false);
+        map.put("delete",false);
+        map.put("update",false);
+        map.put("query",false);
+        map.put("page",false);
+        map.put("queryToListMap",false);
+        for(String str:methods){
+            map.put(str,true);
+        }
+        return map;
+    }
+
+    public static void main(String[] args) {
+        Map<String,Boolean> map = getGenerateMethods();
+        System.out.println(map);
     }
 }

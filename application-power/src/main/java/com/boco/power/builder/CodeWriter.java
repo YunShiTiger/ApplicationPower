@@ -123,16 +123,22 @@ public class CodeWriter extends AbstractCodeWriter {
             if (ConstVal.SERVICE_TEST_PATH.equals(key)) {
                 Template template = BeetlTemplateUtil.getByName(ConstVal.TPL_SERVICE_BASE_TEST);
                 template.binding(GeneratorConstant.BASE_PACKAGE, basePackage);
+                template.binding(GeneratorConstant.AUTHOR, System.getProperty("user.name"));//作者
+                template.binding(GeneratorConstant.CREATE_TIME, DateTimeUtil.getTime());//创建时间
                 FileUtils.writeFileNotAppend(template.render(), value + "\\ServiceBaseTest.java");
             }
             if (ConstVal.CONTROLLER_TEST_PATH.equals(key)) {
                 Template template = BeetlTemplateUtil.getByName(ConstVal.TPL_CONTROLLER_BASE_TEST);
                 template.binding(GeneratorConstant.BASE_PACKAGE, basePackage);
+                template.binding(GeneratorConstant.AUTHOR, System.getProperty("user.name"));//作者
+                template.binding(GeneratorConstant.CREATE_TIME, DateTimeUtil.getTime());//创建时间
                 FileUtils.writeFileNotAppend(template.render(), value + "\\ControllerBaseTest.java");
             }
             if (ConstVal.DATE_CONVERTER_PATH.equals(key)) {
                 Template template = BeetlTemplateUtil.getByName(ConstVal.TPL_DATE_CONVERTER);
                 template.binding(GeneratorConstant.BASE_PACKAGE, basePackage);
+                template.binding(GeneratorConstant.AUTHOR, System.getProperty("user.name"));//作者
+                template.binding(GeneratorConstant.CREATE_TIME, DateTimeUtil.getTime());//创建时间
                 FileUtils.writeFileNotAppend(template.render(), value + "\\DateConverter.java");
             }
         }

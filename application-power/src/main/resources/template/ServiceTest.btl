@@ -12,37 +12,44 @@ import ${basePackage}.model.${entitySimpleName};
 import ${basePackage}.service.${entitySimpleName}Service;
 
 /**
- *
- * @author ${authorName}
- * @date ${createTime}
- *
+ * Created by ApplicationPower.
+ * @author ${authorName} on ${createTime}.
  */
 public class ${entitySimpleName}ServiceTest extends ServiceBaseTest {
 
 	@Resource
 	private ${entitySimpleName}Service ${firstLowerName}Service;
+    <%if(add){ %>
 
 	@Test
 	public void testSave() {
 		${entitySimpleName} entity = new ${entitySimpleName}();
 		CommonResult result = ${firstLowerName}Service.save(entity);
 	}
+    <%}%>
+    <%if(update){ %>
 
 	@Test
 	public void testUpdate() {
 		${entitySimpleName} entity = new ${entitySimpleName}();
 		CommonResult result = ${firstLowerName}Service.update(entity);
 	}
+	<%}%>
+    <%if(delete){ %>
 
 	@Test
 	public void testDelete() {
 		CommonResult result = ${firstLowerName}Service.delete(1);
 	}
+	<%}%>
+    <%if(query){ %>
 
 	@Test
 	public void testQueryById() {
 
 	}
+    <%}%>
+    <%if(page){ %>
 
     /**
      * 分页查询
@@ -52,5 +59,6 @@ public class ${entitySimpleName}ServiceTest extends ServiceBaseTest {
 	public void testQueryPage() {
 
 	}
+	<%}%>
 
 }

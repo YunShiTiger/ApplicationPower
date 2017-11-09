@@ -6,14 +6,11 @@ import java.util.Map;
 import ${basePackage}.model.${entitySimpleName};
 
 /**
- *
- * @author ${authorName}
- * @date ${createTime}
- *
- *
+ * Created by ApplicationPower.
+ * @author ${authorName} on ${createTime}.
  */
-
 public interface ${entitySimpleName}Dao {
+    <%if(add){ %>
 
 	/**
 	 * 保存数据
@@ -21,6 +18,8 @@ public interface ${entitySimpleName}Dao {
 	 * @return
      */
 	int save(${entitySimpleName} entity);
+    <%} %>
+    <%if(add){ %>
 
     /**
      * 批量添加数据
@@ -28,6 +27,8 @@ public interface ${entitySimpleName}Dao {
      * @return
      */
 	int batchSave(List<${entitySimpleName}> entityList);
+    <%} %>
+    <%if(update){ %>
 
 	/**
 	 * 更新数据
@@ -35,6 +36,8 @@ public interface ${entitySimpleName}Dao {
 	 * @return
      */
 	int update(${entitySimpleName} entity);
+    <%} %>
+    <%if(delete){ %>
 
 	/**
 	 * 删除数据
@@ -42,6 +45,8 @@ public interface ${entitySimpleName}Dao {
 	 * @return
      */
 	int delete(int id);
+    <%} %>
+    <%if(query){ %>
 
 	/**
 	 * 根据id查询数据
@@ -49,10 +54,22 @@ public interface ${entitySimpleName}Dao {
 	 * @return
      */
 	${entitySimpleName} queryById(int id);
+    <%} %>
+    <%if(page){ %>
 
 	/**
 	 * 分页查询数据
 	 * @return
      */
 	List<${entitySimpleName}> queryPage();
+	<%} %>
+    <%if(queryToListMap){ %>
+
+    /**
+     * query result to list of map
+     * @param params Map查询参数
+     * @return
+     */
+    List<Map<String,Object>> queryToListMap(Map<String,Object> params);
+    <%}%>
 }

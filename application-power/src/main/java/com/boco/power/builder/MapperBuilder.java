@@ -41,6 +41,7 @@ public class MapperBuilder {
         mapper.binding(GeneratorConstant.RESULT_MAP, results);
         mapper.binding(GeneratorConstant.IS_RESULT_MAP, GeneratorProperties.getResultMap());
         mapper.binding(GeneratorConstant.TABLE_NAME, tableName);
+        mapper.binding(GeneratorProperties.getGenerateMethods());//过滤方法
         return mapper.render();
     }
 

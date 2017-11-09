@@ -30,6 +30,7 @@ public class ServiceTestBuilder {
         serviceTestTemplate.binding(GeneratorConstant.ENTITY_SIMPLE_NAME, entitySimpleName);//类名
         serviceTestTemplate.binding(GeneratorConstant.BASE_PACKAGE, GeneratorProperties.basePackage());//基包名
         serviceTestTemplate.binding(GeneratorConstant.CREATE_TIME, DateTimeUtil.getTime());//创建时间
+        serviceTestTemplate.binding(GeneratorProperties.getGenerateMethods());//过滤方法
         return serviceTestTemplate.render();
     }
 }

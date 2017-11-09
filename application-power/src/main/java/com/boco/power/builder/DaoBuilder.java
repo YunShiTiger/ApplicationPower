@@ -27,6 +27,7 @@ public class DaoBuilder {
         daoTemplate.binding(GeneratorConstant.ENTITY_SIMPLE_NAME, entitySimpleName);//类名
         daoTemplate.binding(GeneratorConstant.BASE_PACKAGE, GeneratorProperties.basePackage());//基包名
         daoTemplate.binding(GeneratorConstant.CREATE_TIME, DateTimeUtil.getTime());//创建时间
+        daoTemplate.binding(GeneratorProperties.getGenerateMethods());//过滤方法
         return daoTemplate.render();
     }
 }

@@ -29,6 +29,7 @@ public class ControllerTestBuilder {
         controllerTemplate.binding(GeneratorConstant.ENTITY_SIMPLE_NAME, entitySimpleName);//类名
         controllerTemplate.binding(GeneratorConstant.BASE_PACKAGE, GeneratorProperties.basePackage());//基包名
         controllerTemplate.binding(GeneratorConstant.CREATE_TIME, DateTimeUtil.getTime());//创建时间
+        controllerTemplate.binding(GeneratorProperties.getGenerateMethods());
         return controllerTemplate.render();
     }
 }

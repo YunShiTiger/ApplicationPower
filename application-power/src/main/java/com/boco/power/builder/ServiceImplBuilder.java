@@ -27,6 +27,7 @@ public class ServiceImplBuilder {
         serviceImplTemplate.binding(GeneratorConstant.ENTITY_SIMPLE_NAME, entitySimpleName);//类名
         serviceImplTemplate.binding(GeneratorConstant.BASE_PACKAGE, GeneratorProperties.basePackage());//基包名
         serviceImplTemplate.binding(GeneratorConstant.CREATE_TIME, DateTimeUtil.getTime());//创建时间
+        serviceImplTemplate.binding(GeneratorProperties.getGenerateMethods());//过滤方法
         return serviceImplTemplate.render();
     }
 }
