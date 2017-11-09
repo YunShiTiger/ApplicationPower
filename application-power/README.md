@@ -131,6 +131,13 @@ public interface ${entitySimpleName}Dao{
      * @return
      */
     List<${entitySimpleName}> queryAll();
+    
+    /**
+     * query result to list of map
+     * @param params Map查询参数
+     * @return
+     */
+    List<Map<String,Object>> queryToListMap(Map<String,Object> params);
 }
 ```
   3.service层模板
