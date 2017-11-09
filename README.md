@@ -3,7 +3,7 @@ ApplicationPower 是一个基于数据库单表Crud操作的项目生成器，�
     jetty web容器，eclipse使用jetty:run命令即可运行，idea的用户只需点击maven projects下的plugins中找到jetty run即可启动项目。<br/>
         ApplicationPower是基于beetl模板来生成源代码的，因此可以灵活的修改模板来生成代码定义自己的开发接口规范。ApplicationPower相对
     mybatis generator来说配置更少、代码灵活性和可控性更高。<br/>
-    重点：ApplicationPower目前已经完全支持生成Springboot+Mybatis框架的Springboot项目。
+    **重点：** ApplicationPower目前已经完全支持生成Springboot+Mybatis框架的Springboot项目。
 ## 版本说明
     1. v1.0版本的CommonResult依赖于boco-health-common模块
     2. v1.1版本的CommonResult改为依赖独立模块Common-util
