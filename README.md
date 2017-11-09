@@ -1,6 +1,6 @@
-        ApplicationPower 是一个基于数据库单表Crud操作的项目生成器，生成的web项目自动集成spring,spring mvc,mybatis框架，最终生成基于maven构建的可
+ApplicationPower 是一个基于数据库单表Crud操作的项目生成器，生成的web项目自动集成spring,spring mvc,mybatis框架，最终生成基于maven构建的可
     运行web工程，生成完后只需要将生成的项目导入到eclipse、idea或者及其他开发工具部署至tomcat即可运行，当然生成的项目基于maven环境集成了
-    jetty web容器，eclipse使用jetty:run命令即可运行，idea的用户只需点击maven projects下的plugins中找到jetty run即可启动项目。
+    jetty web容器，eclipse使用jetty:run命令即可运行，idea的用户只需点击maven projects下的plugins中找到jetty run即可启动项目。<br/>
         ApplicationPower是基于beetl模板来生成源代码的，因此可以灵活的修改模板来生成代码定义自己的开发接口规范。ApplicationPower相对
     mybatis generator来说配置更少、代码灵活性和可控性更高。
 ## 版本说明
@@ -58,81 +58,81 @@
 
 ## 使用模板介绍
   1.model层模板
-  ```
-  package ${basePackage}.model;
+```
+package ${basePackage}.model;
 
-  import java.io.Serializable;
-  ${modelImports}
+import java.io.Serializable;
+${modelImports}
 
-  /**
-   *
-   * @author ${authorName}
-   * @date ${createTime}
-   *
-   */
-  public class ${entitySimpleName} implements Serializable{
+/**
+*
+* @author ${authorName}
+* @date ${createTime}
+*
+*/
+public class ${entitySimpleName} implements Serializable{
 
-      private static final long serialVersionUID = ${SerialVersionUID}L;
+  private static final long serialVersionUID = ${SerialVersionUID}L;
 
-     ${fields}
-  	//getters and setters
-     ${gettersAndSetters}
-  }
-  ```
+ ${fields}
+//getters and setters
+ ${gettersAndSetters}
+}
+```
   2.dao层模板
-  ```
-  package ${basePackage}.dao;
+```
+package ${basePackage}.dao;
 
-  import java.util.List;
-  import java.util.Map;
+import java.util.List;
+import java.util.Map;
 
-  import ${basePackage}.model.${entitySimpleName};
+import ${basePackage}.model.${entitySimpleName};
 
-  /**
-   *
-   * @author ${authorName}
-   * @date ${createTime}
-   *
-   *
-   */
+/**
+*
+* @author ${authorName}
+* @date ${createTime}
+*
+*
+*/
 
-  public interface ${entitySimpleName}Dao{
+public interface ${entitySimpleName}Dao{
 
-  	/**
-  	 * 保存数据
-  	 * @param entity
-  	 * @return
-       */
-  	int save(${entitySimpleName} entity);
-
-  	/**
-  	 * 更新数据
-  	 * @param entity
-  	 * @return
-       */
-  	int update(${entitySimpleName} entity);
-
-  	/**
-  	 * 删除数据
-  	 * @param id
-  	 * @return
-       */
-  	int delete(int id);
-
-  	/**
-  	 * 根据id查询数据
-  	 * @param id
-  	 * @return
-       */
-  	${entitySimpleName} queryById(int id);
-
-  	/**
-  	 * 查询所有数据
-  	 * @return
-       */
-  	List<${entitySimpleName}> queryAll();
-  }
-  ```
+    /**
+     * 保存数据
+     * @param entity
+     * @return
+     */
+    int save(${entitySimpleName} entity);
+    
+    /**
+     * 更新数据
+     * @param entity
+     * @return
+     */
+    int update(${entitySimpleName} entity);
+    
+    /**
+     * 删除数据
+     * @param id
+     * @return
+     */
+    int delete(int id);
+    
+    /**
+     * 根据id查询数据
+     * @param id
+     * @return
+     */
+    ${entitySimpleName} queryById(int id);
+    
+    /**
+     * 查询所有数据
+     * @return
+     */
+    List<${entitySimpleName}> queryAll();
+}
+```
   3.service层模板
   ```
   package ${basePackage}.service;
