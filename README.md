@@ -2,12 +2,14 @@ ApplicationPower 是一个基于数据库单表Crud操作的项目生成器，�
     运行web工程，生成完后只需要将生成的项目导入到eclipse、idea或者及其他开发工具部署至tomcat即可运行，当然生成的项目基于maven环境集成了
     jetty web容器，eclipse使用jetty:run命令即可运行，idea的用户只需点击maven projects下的plugins中找到jetty run即可启动项目。<br/>
         ApplicationPower是基于beetl模板来生成源代码的，因此可以灵活的修改模板来生成代码定义自己的开发接口规范。ApplicationPower相对
-    mybatis generator来说配置更少、代码灵活性和可控性更高。
+    mybatis generator来说配置更少、代码灵活性和可控性更高。<br/>
+    重点：ApplicationPower目前已经完全支持生成Springboot+Mybatis框架的Springboot项目。
 ## 版本说明
     1. v1.0版本的CommonResult依赖于boco-health-common模块
     2. v1.1版本的CommonResult改为依赖独立模块Common-util
     3. v1.2版本升级spring到4.3.6，Controller层生成的代码使用@GetMapping和@PostMapping代替@RequestMapping注解
-    4. v1.3版本，升级mybatis和druid的版本，生成的项目框架摒弃log4j，全面将日志升级到log4j2框架，mysql连接驱动升级到6.x版本
+    4. v1.3版本升级mybatis和druid的版本，生成的项目框架摒弃log4j，全面将日志升级到log4j2框架，mysql连接驱动升级到6.x版本,支持创建springboot项目
+    5. v1.4版本升级实现生成方法可自由控制(ps:参考generator.properties中配置)，基础方法增加一个返回List<Map<String,Object>>的方法。
 ## 功能
   1. 根据连接的数据生成dao,model,service,controller,mapper,controllerTest,serviceTest代码
   2. 项目的maven web基础骨架
@@ -20,40 +22,57 @@ ApplicationPower 是一个基于数据库单表Crud操作的项目生成器，�
   1.使用注意事项
         在已经进行后，请勿将ApplicationPower的输出目录指定到当前工程，否则会出现代码覆盖，因此建议项目开发启动后将代码生成到别的地方拷贝到自己工        程下，后续会提供不覆盖配置，但是也有可能忘记修改配置，所以还是要小心。
   2.根据自己实际需求，修改generator.properties中的配置
-  ```
-  是否生成注释
+ ```
+  #是否生成注释
   generator.comment=true
-
-  代码输出目录
-  generator.outDir=e:\\Test
-
-  基包名
-  generator.basePackage=com.boco
-
-  数据库表前缀,例如表t_user则需要去除前缀生成正确的实体
-  generator.table.prefix=
-
-  指定需要用哪张数据表生成代码，不指定则生成全部表的代码
+  
+  #代码输出目录
+  generator.outDir=E:\\Test
+  
+  #基包名
+  generator.basePackage=com.boco.demo
+  
+  #数据库表前缀,例如表t_user则需要去除前缀生成正确的实体
+  generator.table.prefix=t_
+  
+  #指定需要用哪张数据表生成代码，不指定则生成全部表的代码
   generator.table.name=
-
-  生成项目的名称
-  generator.applicationName=Test
-
-  需要生成的代码层
-  可生成的代码层dao,model,service,controller,mapper,controllerTest,serviceTest
+  
+  #生成项目的名称
+  generator.applicationName=bootstrap-tree
+  
+  #需要生成的代码层
+  #可生成的代码层dao,model,service,controller,mapper,controllerTest,serviceTest
   generator.layers=dao,model,service,controller,mapper,controllerTest
-
-  是否开启mybatis缓存，只能填写true或者false
+  
+  #需要生成的方法，方法间用英文逗号隔开，写错将无法生成基础方法
+  #可生成的方法包括add,update,delete,query,page,queryToListMap。
+  # query方法查询单条数据，page生成分页,queryToListMap是查询结果以List<Map<Stirng,Object>>返回
+  generator.methods=add,update,delete,query,page,queryToListMap
+  
+  #mybatis自动转驼峰映射，默认开启
+  generator.mapUnderscoreToCamelCase=true
+  #是否开启mybatis缓存，只能填写true或者false
   generator.enableCache=true
-  ```
+  
+  #是否需要生成mybatis mapper配置文件的ResultMap
+  #默认不生成result
+  generator.resultMap=false
+```
   3.修改数据库配置jdbc.properties
-  ```
+```
   jdbc.driver=com.mysql.jdbc.Driver
   jdbc.username=root
   jdbc.password=root
   jdbc.url=jdbc\:mysql\://localhost:3306/cookbook?useUnicode=true&characterEncoding=UTF-8
-  ```
+```
   4.运行Test下的GenerateCodeTest生成项目
+```
+//生成普通SSM框架的maven工程
+new CodeWriter().execute();
+//生成Springboot+Mybatis的工程
+new CodeWriter().executeSpringBoot();
+```
   5.将生成的项目导入编辑器
 
 ## 使用模板介绍
@@ -131,6 +150,13 @@ public interface ${entitySimpleName}Dao{
      * @return
      */
     List<${entitySimpleName}> queryAll();
+    
+    /**
+     * query result to list of map
+     * @param params Map查询参数
+     * @return
+     */
+    List<Map<String,Object>> queryToListMap(Map<String,Object> params);
 }
 ```
   3.service层模板
@@ -138,6 +164,7 @@ public interface ${entitySimpleName}Dao{
 package ${basePackage}.service;
 
 import java.util.List;
+import java.util.Map;
 import ${basePackage}.model.${entitySimpleName};
 
 /**
@@ -182,6 +209,13 @@ public interface ${entitySimpleName}Service{
      * @return
      */
     List<${entitySimpleName}> queryAll();
+    
+    /**
+     * query result to list of map
+     * @param params Map查询参数
+     * @return
+     */
+    List<Map<String,Object>> queryToListMap(Map<String,Object> params);
 }
 ```
   4.service实现层模板
@@ -189,6 +223,7 @@ public interface ${entitySimpleName}Service{
 package ${basePackage}.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -233,6 +268,10 @@ private ${entitySimpleName}Dao ${firstLowerName}Dao;
         return ${firstLowerName}Dao.queryById(id);
     }
 
+    @Override
+    public List<Map<String,Object>> queryToListMap(Map<String,Object> params){
+        return ${firstLowerName}Dao.queryToListMap(params);
+    }
 }
 ```
   5.controller层模板
@@ -241,6 +280,7 @@ package ${basePackage}.controller;
 
 
 import java.util.List;
+import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -250,6 +290,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.boco.health.common.model.CommonResult;
 import ${basePackage}.model.${entitySimpleName};
@@ -324,6 +365,12 @@ public class ${entitySimpleName}Controller{
     @RequestMapping(value="/query/list",method = RequestMethod.GET)
     public List<${entitySimpleName}> query${entitySimpleName}List(){
         return ${firstLowerName}Service.queryAll();
+    }
+    
+    @ResponseBody
+    @GetMapping(value = "/listMap")
+    public List<Map<String,Object>> queryToListMap(@RequestParam Map<String,Object> params) {
+        return dataSourceService.queryToListMap(params);
     }
 }
 ```
