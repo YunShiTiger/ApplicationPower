@@ -286,11 +286,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.boco.health.common.model.CommonResult;
 import ${basePackage}.model.${entitySimpleName};
@@ -309,7 +310,7 @@ public class ${entitySimpleName}Controller{
     private ${entitySimpleName}Service ${firstLowerName}Service;
     
     @ResponseBody
-    @RequestMapping(value="/add",method = RequestMethod.POST)
+    @PostMapping(value="/add")
     public CommonResult save(${entitySimpleName} entity){
         CommonResult result = new CommonResult();
         try{
@@ -322,7 +323,7 @@ public class ${entitySimpleName}Controller{
     }
     
     @ResponseBody
-    @RequestMapping(value="/update",method = RequestMethod.POST)
+    @PostMapping(value="/update")
     public CommonResult update(${entitySimpleName} entity){
         CommonResult result = new CommonResult();
         try{
@@ -335,7 +336,7 @@ public class ${entitySimpleName}Controller{
     }
     
     @ResponseBody
-    @RequestMapping(value="/delete/{id}",method = RequestMethod.POST)
+    @PostMapping(value="/delete/{id}")
     public CommonResult delete(@PathVariable int id){
         CommonResult result = new CommonResult();
         try{
@@ -348,7 +349,7 @@ public class ${entitySimpleName}Controller{
     }
     
     @ResponseBody
-    @RequestMapping(value="/query/{id}",method = RequestMethod.GET)
+    @GetMapping(value="/query/{id}")
     public CommonResult queryById(@PathVariable int id){
         CommonResult result = new CommonResult();
         ${entitySimpleName} entity = ${firstLowerName}Service.queryById(id);
@@ -362,7 +363,7 @@ public class ${entitySimpleName}Controller{
     }
     
     @ResponseBody
-    @RequestMapping(value="/query/list",method = RequestMethod.GET)
+    @GetMapping(value="/query/list")
     public List<${entitySimpleName}> query${entitySimpleName}List(){
         return ${firstLowerName}Service.queryAll();
     }
