@@ -370,7 +370,7 @@ public class ${entitySimpleName}Controller{
     @ResponseBody
     @GetMapping(value = "/listMap")
     public List<Map<String,Object>> queryToListMap(@RequestParam Map<String,Object> params) {
-        return dataSourceService.queryToListMap(params);
+        return ${firstLowerName}Service.queryToListMap(params);
     }
 }
 ```
