@@ -54,18 +54,22 @@ public class GeneratorConstant {
      * 代码创建时间
      */
     public static final String CREATE_TIME = "createTime";
+
     /**
      * insert sql语句模板变量
      */
     public static final String INSERT_SQL = "insertSql";
+
     /**
      * 批量插入数据数据的sql模板变量
      */
     public static final String BATCH_INSERT_SQL = "batchInsertSql";
+
     /**
      * 更新语句的变量
      */
     public static final String UPDATE_SQL = "updateSql";
+
     /**
      * 查询语句
      */
@@ -75,6 +79,7 @@ public class GeneratorConstant {
      * mybatis mapper文件result map部分
      */
     public static final String RESULT_MAP = "resultMap";
+
     /**
      * 是否需要生成result map
      */
