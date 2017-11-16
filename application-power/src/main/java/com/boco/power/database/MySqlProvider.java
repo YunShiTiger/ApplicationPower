@@ -21,7 +21,7 @@ public class MySqlProvider implements DbProvider {
         try {
             connection = DbUtil.getConnection();
             DatabaseMetaData meta = DbUtil.getDatabaseMetaData(connection);
-            ResultSet colRet = meta.getColumns(null, "%", tableName, "%");
+            ResultSet colRet = meta.getColumns(connection.getCatalog(), "%", tableName, "%");
             while (colRet.next()) {
                 String columnName = colRet.getString("COLUMN_NAME");
                 String isAutoIncrement = colRet.getString("IS_AUTOINCREMENT");
@@ -73,7 +73,6 @@ public class MySqlProvider implements DbProvider {
                 tableList.add(tableInfo);
             }
         } catch (SQLException e) {
-            tableList = new ArrayList<>(0);
             throw new RuntimeException(e);
         } finally {
             DbUtil.close(connection, stmt, rs);
