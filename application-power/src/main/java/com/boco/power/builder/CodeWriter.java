@@ -158,6 +158,8 @@ public class CodeWriter extends AbstractCodeWriter {
             if (ConstVal.CONTROLLER_TEST_PATH.equals(key)) {
                 Template template = BeetlTemplateUtil.getByName(ConstVal.TPL_SPRING_BOOT_CONTROLLER_BASE_TEST);
                 template.binding(GeneratorConstant.BASE_PACKAGE, basePackage);
+                template.binding(GeneratorConstant.AUTHOR, System.getProperty("user.name"));
+                template.binding(GeneratorConstant.CREATE_TIME, DateTimeUtil.getTime());//创建时间
                 FileUtils.writeFileNotAppend(template.render(), value + "\\ControllerBaseTest.java");
             }
         }
