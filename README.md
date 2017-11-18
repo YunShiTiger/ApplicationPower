@@ -7,9 +7,10 @@ ApplicationPower 是一个基于数据库单表Crud操作的项目生成器，�
 ## 版本说明
     1. v1.0版本的CommonResult依赖于boco-health-common模块
     2. v1.1版本的CommonResult改为依赖独立模块Common-util
-    3. v1.2版本升级spring到4.3.6，Controller层生成的代码使用@GetMapping和@PostMapping代替@RequestMapping注解
-    4. v1.3版本升级mybatis和druid的版本，生成的项目框架摒弃log4j，全面将日志升级到log4j2框架，mysql连接驱动升级到6.x版本,支持创建springboot项目
+    3. v1.2版本升级spring到4.3.6，Controller层生成的代码使用@GetMapping和@PostMapping代替@RequestMapping注解。
+    4. v1.3版本升级mybatis和druid的版本，项目框架摒弃log4j，全面将日志升级到log4j2框架，mysql驱动升级到6.x,支持创建springboot项目。
     5. v1.4版本升级实现生成方法可自由控制(ps:参考generator.properties中配置)，基础方法增加一个返回List<Map<String,Object>>的方法。
+    6. v1.4.1版本升级springboot和其他依赖的版本，修改springboot测试模板错误，springboot项目增加springloaded热部署插件。
 ## 功能
   1. 根据连接的数据生成dao,model,service,controller,mapper,controllerTest,serviceTest代码
   2. 项目的maven web基础骨架
