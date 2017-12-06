@@ -31,10 +31,21 @@ public class SourceBuilder {
 
     private Collection<JavaClass> javaClasses;
 
-    public SourceBuilder() {
+    private boolean isStrict = false;//严格模式
+
+    /**
+     * if isStrict value is true,it while check all method
+     * @param isStrict
+     */
+    public SourceBuilder(boolean isStrict) {
         loadJavaFiles(null);
+        this.isStrict = isStrict;
     }
 
+    /**
+     * 加载项目的源代码
+     * @param path
+     */
     private void loadJavaFiles(String path) {
         JavaProjectBuilder builder = new JavaProjectBuilder();
         builder.addSourceTree(new File("src/main/java"));
@@ -44,17 +55,27 @@ public class SourceBuilder {
             javaFilesMap.put(cls.getName(), cls.getName());
         }
     }
+
+    /**
+     * 检测controller上的注解
+     * @param cls
+     * @return
+     */
+    private int checkController(JavaClass cls){
+        int counter = 0;
+        List<JavaAnnotation> classAnnotations = cls.getAnnotations();
+        for (JavaAnnotation annotation : classAnnotations) {
+            String annotationName = annotation.getType().getName();
+            if ("Controller".equals(annotationName) || "RestController".equals(annotationName)) {
+                counter++;
+            }
+        }
+        return counter;
+    }
     public List<ApiDoc> getControllerApiData() {
         List<ApiDoc> apiDocList = new ArrayList<>();
         for (JavaClass cls : javaClasses) {
-            int counter = 0;
-            List<JavaAnnotation> classAnnotations = cls.getAnnotations();
-            for (JavaAnnotation annotation : classAnnotations) {
-                String annotationName = annotation.getType().getName();
-                if ("Controller".equals(annotationName) || "RestController".equals(annotationName)) {
-                    counter++;
-                }
-            }
+            int counter = checkController(cls);
             if (counter > 0) {
                 String controllerName = cls.getName();
                 List<ApiMethodDoc> apiMethodDocs= buildControllerMethod(cls);
@@ -66,6 +87,30 @@ public class SourceBuilder {
             }
         }
         return apiDocList;
+    }
+
+
+    /**
+     * 包括包名
+     * @param controller controller的名称
+     * @return
+     */
+    public ApiDoc getSingleControllerApiData(String controller){
+        if(!javaFilesMap.containsKey(controller)){
+            throw new RuntimeException("Unable to find "+controller+" from your project");
+        }
+        JavaClass cls = builder.getClassByName(controller);
+        int counter = checkController(cls);
+        if (counter > 0) {
+            String controllerName = cls.getName();
+            List<ApiMethodDoc> apiMethodDocs= buildControllerMethod(cls);
+            ApiDoc apiDoc = new ApiDoc();
+            apiDoc.setList(apiMethodDocs);
+            apiDoc.setName(controllerName);
+           return  apiDoc;
+        }else{
+            throw new RuntimeException(controller+" is not a Controller  in your project");
+        }
     }
 
     public List<ApiMethodDoc> buildControllerMethod(final JavaClass cls) {
@@ -82,7 +127,7 @@ public class SourceBuilder {
         List<ApiMethodDoc> methodDocList = new ArrayList<>(methods.size());
         for (JavaMethod method : methods) {
             ApiMethodDoc apiMethodDoc = new ApiMethodDoc();
-            if(StringUtils.isEmpty(method.getComment())){
+            if(StringUtils.isEmpty(method.getComment())&&isStrict){
                 throw new RuntimeException("Unable to find comment for  method " + method.getName()+" from "+cls.getName());
             }
             apiMethodDoc.setDesc(method.getComment());
@@ -216,7 +261,7 @@ public class SourceBuilder {
         return null;
     }
 
-    public String getCommentTag(final JavaMethod javaMethod, final String tagName,final String className) {
+    private String getCommentTag(final JavaMethod javaMethod, final String tagName,final String className) {
         List<DocletTag> paramTags = javaMethod.getTagsByName(tagName);
         Map<String, String> paramTagMap = new HashMap<>();
         for (DocletTag docletTag : paramTags) {
