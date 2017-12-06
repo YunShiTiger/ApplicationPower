@@ -51,9 +51,9 @@ public class MySqlProvider implements DbProvider {
     public List<TableInfo> getTablesInfo(String tableName) {
         List<TableInfo> tableList;
         StringBuilder sql = new StringBuilder();
-        sql.append("show table status");
+        sql.append("show table status where ENGINE IS NOT NULL ");
         if (StringUtils.isNotEmpty(tableName)) {
-            sql.append(" LIKE '%").append(tableName).append("%'");
+            sql.append(" and NAME LIKE '%").append(tableName).append("%'");
         }
         Connection connection = null;
         PreparedStatement stmt = null;

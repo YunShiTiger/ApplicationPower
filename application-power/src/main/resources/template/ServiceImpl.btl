@@ -17,7 +17,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 <%}%>
 <%if(add||query||delete||update){ %>
-import com.boco.common.model.CommonResult;
+import ${basePackage}.vo.CommonResult;
 <%}%>
 import ${basePackage}.model.${entitySimpleName};
 import ${basePackage}.dao.${entitySimpleName}Dao;
@@ -89,7 +89,8 @@ public class ${entitySimpleName}ServiceImpl  implements ${entitySimpleName}Servi
 	    CommonResult result = new CommonResult();
 	    ${entitySimpleName} entity = ${firstLowerName}Dao.queryById(id);
 	    if (null != entity) {
-        	result.setData(entity);//成功返回数据
+	        //成功返回数据
+        	result.setData(entity);
         	result.setSuccess(true);
         } else {
         	result.setMessage("没有找到匹配数据");

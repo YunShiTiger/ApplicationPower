@@ -62,7 +62,7 @@ public class ModelBuilder {
         for (Map.Entry<String, Column> entry : columnMap.entrySet()) {
             Column column = entry.getValue();
             if (StringUtils.isNotEmpty(column.getRemarks())) {
-                builder.append("	//").append(column.getRemarks()).append("\n");
+                builder.append("	/** ").append(column.getRemarks()).append(" */").append("\n");
             }
             if ("Timestamp".equals(column.getColumnType())) {
                 builder.append("	@JsonFormat(pattern = \"yyyy-MM-dd HH:mm:ss\",timezone = \"GMT+8\")\n");
