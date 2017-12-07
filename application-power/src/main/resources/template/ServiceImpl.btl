@@ -17,7 +17,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 <%}%>
 <%if(add||query||delete||update){ %>
-import ${basePackage}.vo.CommonResult;
+import com.boco.common.model.CommonResult;
 <%}%>
 import ${basePackage}.model.${entitySimpleName};
 import ${basePackage}.dao.${entitySimpleName}Dao;

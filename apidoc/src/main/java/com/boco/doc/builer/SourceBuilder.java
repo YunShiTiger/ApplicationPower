@@ -7,6 +7,9 @@ import com.thoughtworks.qdox.JavaProjectBuilder;
 import com.thoughtworks.qdox.model.*;
 
 import java.io.File;
+import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.*;
 
 public class SourceBuilder {
@@ -305,5 +308,7 @@ public class SourceBuilder {
         }
         return null;
     }
+
+
 
 }
