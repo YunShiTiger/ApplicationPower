@@ -95,7 +95,7 @@ public class ${entitySimpleName} implements Serializable{
   private static final long serialVersionUID = ${SerialVersionUID}L;
 
  ${fields}
-//getters and setters
+/** getters and setters */
  ${gettersAndSetters}
 }
 ```
@@ -166,6 +166,7 @@ package ${basePackage}.service;
 
 import java.util.List;
 import java.util.Map;
+import com.boco.common.model.CommonResult;
 import ${basePackage}.model.${entitySimpleName};
 
 /**
@@ -182,28 +183,28 @@ public interface ${entitySimpleName}Service{
      * @param entity
      * @return
      */
-    int save(${entitySimpleName} entity);
+    CommonResult save(${entitySimpleName} entity);
     
     /**
      * 修改数据
      * @param entity
      * @return
      */
-    int update(${entitySimpleName} entity);
+    CommonResult update(${entitySimpleName} entity);
     
     /**
      * 删除数据
      * @param id
      * @return
      */
-    int delete(int id);
+    CommonResult delete(int id);
     
     /**
      * 根据id查询数据
      * @param id
      * @return
      */
-    ${entitySimpleName} queryById(int id);
+    CommonResult queryById(int id);
     
     /**
      * 查询所有数据
@@ -225,48 +226,93 @@ package ${basePackage}.service.impl;
 
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.boco.common.model.CommonResult;
 import ${basePackage}.model.${entitySimpleName};
 import ${basePackage}.dao.${entitySimpleName}Dao;
 import ${basePackage}.service.${entitySimpleName}Service;
 
 /**
- *
- * @author ${authorName}
- * @date ${createTime}
- *
+ * Created by ApplicationPower.
+ * @author ${authorName} on ${createTime}.
  */
 @Service("${firstLowerName}Service")
 public class ${entitySimpleName}ServiceImpl  implements ${entitySimpleName}Service{
 
-@Resource
-private ${entitySimpleName}Dao ${firstLowerName}Dao;
+    /**
+     * 日志
+     */
+    private static Logger logger = LoggerFactory.getLogger(${entitySimpleName}Service.class);
+
+    @Resource
+    private ${entitySimpleName}Dao ${firstLowerName}Dao;
 
     @Override
-    public int save(${entitySimpleName} entity){
-        return ${firstLowerName}Dao.save(entity);
+    public CommonResult save(${entitySimpleName} entity) {
+        CommonResult result = new CommonResult();
+        try {
+        	${firstLowerName}Dao.save(entity);
+        	result.setSuccess(true);
+        } catch (Exception e) {
+        	result.setMessage("添加数据失败");
+        	logger.error("${entitySimpleName}Service添加数据异常：",e);
+        }
+        return result;
     }
-    
+
     @Override
-    public int update(${entitySimpleName} entity){
-        return ${firstLowerName}Dao.update(entity);
+    public CommonResult update(${entitySimpleName} entity) {
+        CommonResult result = new CommonResult();
+        try {
+            ${firstLowerName}Dao.update(entity);
+            result.setSuccess(true);
+        } catch (Exception e) {
+            result.setMessage("修改数据失败");
+            logger.error("${entitySimpleName}Service修改数据异常：",e);
+        }
+        return result;
     }
-    
+
     @Override
-    public int delete(int id){
-        return ${firstLowerName}Dao.delete(id);
+    public CommonResult delete(int id) {
+        CommonResult result = new CommonResult();
+        try {
+            ${firstLowerName}Dao.delete(id);
+            result.setSuccess(true);
+        } catch (Exception e) {
+            result.setMessage("删除数据失败");
+            logger.error("${entitySimpleName}Service删除数据异常：",e);
+        }
+        return result;
     }
-    
+
     @Override
-    public List<${entitySimpleName}> queryAll(){
-        return ${firstLowerName}Dao.queryAll();
+    public CommonResult queryById(int id) {
+        CommonResult result = new CommonResult();
+        ${entitySimpleName} entity = ${firstLowerName}Dao.queryById(id);
+        if (null != entity) {
+            //成功返回数据
+            result.setData(entity);
+            result.setSuccess(true);
+        } else {
+            result.setMessage("没有找到匹配数据");
+            logger.info("${entitySimpleName}Service未查询到数据，编号：{}",id);
+        }
+        return result;
     }
-    
+
     @Override
-    public ${entitySimpleName} queryById(int id){
-        return ${firstLowerName}Dao.queryById(id);
+    public PageInfo queryPage(int offset, int limit) {
+        PageHelper.offsetPage(offset,limit);
+        List<${entitySimpleName}> list = ${firstLowerName}Dao.queryPage();
+        return new PageInfo(list);
     }
 
     @Override
@@ -279,14 +325,12 @@ private ${entitySimpleName}Dao ${firstLowerName}Dao;
 ```
 package ${basePackage}.controller;
 
-
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -294,81 +338,59 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.boco.health.common.model.CommonResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.github.pagehelper.PageInfo;
+import com.boco.common.model.CommonResult;
 import ${basePackage}.model.${entitySimpleName};
 import ${basePackage}.service.${entitySimpleName}Service;
 
 /**
- *
- * @author ${authorName}
- * @date ${createTime}
- *
+ * Created by ApplicationPower.
+ * @author ${authorName} on ${createTime}.
  */
 @Controller
 @RequestMapping("${firstLowerName}")
-public class ${entitySimpleName}Controller{
+public class ${entitySimpleName}Controller {
+    /**
+     * 日志
+     */
+    private static Logger logger = LoggerFactory.getLogger(${entitySimpleName}Controller.class);
+
     @Resource
     private ${entitySimpleName}Service ${firstLowerName}Service;
-    
+
     @ResponseBody
-    @PostMapping(value="/add")
-    public CommonResult save(${entitySimpleName} entity){
-        CommonResult result = new CommonResult();
-        try{
-            ${firstLowerName}Service.save(entity);
-            result.setSuccess(true);
-        }catch(Exception e){
-            result.setMessage("添加数据失败");
-        }
-        return result;
+    @PostMapping(value = "/add")
+    public CommonResult save(${entitySimpleName} entity) {
+        return ${firstLowerName}Service.save(entity);
     }
-    
+
     @ResponseBody
-    @PostMapping(value="/update")
-    public CommonResult update(${entitySimpleName} entity){
-        CommonResult result = new CommonResult();
-        try{
-            ${firstLowerName}Service.update(entity);
-            result.setSuccess(true);
-        }catch(Exception e){
-            result.setMessage("修改数据失败");
-        }
-        return result;
+    @PostMapping(value = "/update")
+    public CommonResult update(${entitySimpleName} entity) {
+        return ${firstLowerName}Service.update(entity);
     }
-    
+
     @ResponseBody
-    @PostMapping(value="/delete/{id}")
-    public CommonResult delete(@PathVariable int id){
-        CommonResult result = new CommonResult();
-        try{
-            ${firstLowerName}Service.delete(id);
-            result.setSuccess(true);
-        }catch(Exception e){
-            result.setMessage("删除数据失败");
-        }
-        return result;
+    @GetMapping(value = "/delete/{id}")
+    public CommonResult delete(@PathVariable int id) {
+        return ${firstLowerName}Service.delete(id);
     }
-    
+
     @ResponseBody
-    @GetMapping(value="/query/{id}")
-    public CommonResult queryById(@PathVariable int id){
-        CommonResult result = new CommonResult();
-        ${entitySimpleName} entity = ${firstLowerName}Service.queryById(id);
-        if(null != entity){
-            result.setData(entity);//成功返回数据
-            result.setSuccess(true);
-        }else{
-            result.setMessage("没有找到匹配数据");
-        }
-        return result;
+    @GetMapping(value = "/query/{id}")
+    public CommonResult queryById(@PathVariable int id) {
+        return ${firstLowerName}Service.queryById(id);
     }
-    
+
     @ResponseBody
-    @GetMapping(value="/query/list")
-    public List<${entitySimpleName}> query${entitySimpleName}List(){
-        return ${firstLowerName}Service.queryAll();
+    @GetMapping(value = "/page/{offset}/{limit}")
+    public PageInfo queryPage(@PathVariable int offset,@PathVariable int limit) {
+        return ${firstLowerName}Service.queryPage(offset,limit);
     }
-    
+
     @ResponseBody
     @GetMapping(value = "/listMap")
     public List<Map<String,Object>> queryToListMap(@RequestParam Map<String,Object> params) {
