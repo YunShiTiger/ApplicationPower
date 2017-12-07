@@ -1,6 +1,6 @@
 package com.boco.power.database;
 
-import com.boco.power.utils.StringUtils;
+import com.boco.common.util.StringUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ public class MySqlProvider implements DbProvider {
         List<TableInfo> tableList;
         StringBuilder sql = new StringBuilder();
         sql.append("show table status where ENGINE IS NOT NULL ");
-        if (StringUtils.isNotEmpty(tableName)) {
+        if (StringUtil.isNotEmpty(tableName)) {
             sql.append(" and NAME LIKE '%").append(tableName).append("%'");
         }
         Connection connection = null;

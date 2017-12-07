@@ -1,11 +1,11 @@
 package com.boco.power.builder;
 
+import com.boco.common.util.DateTimeUtil;
+import com.boco.common.util.StringUtil;
 import com.boco.power.constant.ConstVal;
 import com.boco.power.constant.GeneratorConstant;
 import com.boco.power.utils.BeetlTemplateUtil;
-import com.boco.power.utils.DateTimeUtil;
 import com.boco.power.utils.GeneratorProperties;
-import com.boco.power.utils.StringUtils;
 import org.beetl.core.Template;
 
 /**
@@ -21,8 +21,8 @@ public class ControllerTestBuilder {
      * @return
      */
     public String generateControllerTest(String tableName) {
-        String entitySimpleName = StringUtils.toCapitalizeCamelCase(tableName);//类名
-        String firstLowName = StringUtils.firstToLowerCase(entitySimpleName);//类实例变量名
+        String entitySimpleName = StringUtil.toCapitalizeCamelCase(tableName);//类名
+        String firstLowName = StringUtil.firstToLowerCase(entitySimpleName);//类实例变量名
         Template controllerTemplate = BeetlTemplateUtil.getByName(ConstVal.TPL_CONTROLLER_TEST);
         controllerTemplate.binding(GeneratorConstant.AUTHOR, System.getProperty("user.name"));//作者
         controllerTemplate.binding(GeneratorConstant.FIRST_LOWER_NAME, firstLowName);

@@ -1,5 +1,7 @@
 package com.boco.power.utils;
 
+import com.boco.common.util.StringUtil;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -97,7 +99,7 @@ public class GeneratorProperties {
      */
     public static Map<String,Boolean> getGenerateMethods(){
         String methodsStr = props.getProperty("generator.methods");
-        if(StringUtils.isEmpty(methodsStr)){
+        if(StringUtil.isEmpty(methodsStr)){
             throw new RuntimeException("generator.methods can not be null or ''");
         }
         String[] methods = methodsStr.split(",");

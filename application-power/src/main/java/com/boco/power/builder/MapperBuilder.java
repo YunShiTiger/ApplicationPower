@@ -1,5 +1,6 @@
 package com.boco.power.builder;
 
+import com.boco.common.util.StringUtil;
 import com.boco.power.constant.ConstVal;
 import com.boco.power.constant.GeneratorConstant;
 import com.boco.power.database.Column;
@@ -7,7 +8,6 @@ import com.boco.power.database.DbProvider;
 import com.boco.power.factory.DbProviderFactory;
 import com.boco.power.utils.BeetlTemplateUtil;
 import com.boco.power.utils.GeneratorProperties;
-import com.boco.power.utils.StringUtils;
 import org.beetl.core.Template;
 
 import java.util.Map;
@@ -20,9 +20,9 @@ import java.util.Map;
 public class MapperBuilder {
 
     public String generateMapper(String tableName) {
-        String tableTemp = StringUtils.removePrefix(tableName, GeneratorProperties.tablePrefix());
-        String entitySimpleName = StringUtils.toCapitalizeCamelCase(tableTemp);//类名
-        String firstLowName = StringUtils.firstToLowerCase(entitySimpleName);
+        String tableTemp = StringUtil.removePrefix(tableName, GeneratorProperties.tablePrefix());
+        String entitySimpleName = StringUtil.toCapitalizeCamelCase(tableTemp);//类名
+        String firstLowName = StringUtil.firstToLowerCase(entitySimpleName);
         DbProvider dbProvider = new DbProviderFactory().getInstance();
         Map<String, Column> columnMap = dbProvider.getColumnsInfo(tableName);
         String insertSql = generateInsertSql(columnMap, tableName);
@@ -65,10 +65,10 @@ public class MapperBuilder {
             if (!column.isAutoIncrement()) {
                 if (i < size - 1) {
                     insertSql.append("			").append(entry.getKey()).append(",\n");
-                    insertValues.append("			#{").append(StringUtils.underlineToCamel(entry.getKey())).append("},\n");
+                    insertValues.append("			#{").append(StringUtil.underlineToCamel(entry.getKey())).append("},\n");
                 } else {
                     insertSql.append("			").append(entry.getKey()).append("\n");
-                    insertValues.append("			#{").append(StringUtils.underlineToCamel(entry.getKey())).append("}\n");
+                    insertValues.append("			#{").append(StringUtil.underlineToCamel(entry.getKey())).append("}\n");
                 }
             }
             i++;
@@ -100,10 +100,10 @@ public class MapperBuilder {
             if (!column.isAutoIncrement()) {
                 if (counter < size - 1) {
                     batchInsertSql.append("			").append(key).append(",\n");
-                    insertValues.append("			#{item.").append(StringUtils.underlineToCamel(key)).append("},\n");
+                    insertValues.append("			#{item.").append(StringUtil.underlineToCamel(key)).append("},\n");
                 } else {
                     batchInsertSql.append("			").append(key).append("\n");
-                    insertValues.append("			#{item.").append(StringUtils.underlineToCamel(key)).append("}\n");
+                    insertValues.append("			#{item.").append(StringUtil.underlineToCamel(key)).append("}\n");
                 }
             }
             counter++;
@@ -135,10 +135,10 @@ public class MapperBuilder {
             if (!column.isAutoIncrement()) {
                 if (i < size - 1) {
                     updateSql.append("			").append(entry.getKey()).append(" = #{");
-                    updateSql.append(StringUtils.underlineToCamel(entry.getKey())).append("},\n");
+                    updateSql.append(StringUtil.underlineToCamel(entry.getKey())).append("},\n");
                 } else {
                     updateSql.append("			").append(entry.getKey()).append(" = #{");
-                    updateSql.append(StringUtils.underlineToCamel(entry.getKey())).append("}");
+                    updateSql.append(StringUtil.underlineToCamel(entry.getKey())).append("}");
                 }
             }
             i++;
@@ -160,11 +160,11 @@ public class MapperBuilder {
         Column column;
         for (Map.Entry<String, Column> entry : columnMap.entrySet()) {
             column = entry.getValue();
-            String camelKey = StringUtils.underlineToCamel(entry.getKey());
+            String camelKey = StringUtil.underlineToCamel(entry.getKey());
             if (!column.isAutoIncrement()) {
                 updateSql.append("			").append("<if test=\"").append(camelKey).append("!=null\">");
                 updateSql.append(entry.getKey()).append(" = #{");
-                updateSql.append(StringUtils.underlineToCamel(entry.getKey())).append("},</if>\n");
+                updateSql.append(StringUtil.underlineToCamel(entry.getKey())).append("},</if>\n");
             }
         }
         updateSql.append("\t\t</trim>");
@@ -205,7 +205,7 @@ public class MapperBuilder {
         StringBuilder results = new StringBuilder();
         String property;
         for (Map.Entry<String, Column> entry : columnMap.entrySet()) {
-            property = StringUtils.underlineToCamel(entry.getKey());
+            property = StringUtil.underlineToCamel(entry.getKey());
             results.append("\t\t<result property=\"").append(property).append("\" column=\"");
             results.append(entry.getKey()).append("\" />\n");
         }

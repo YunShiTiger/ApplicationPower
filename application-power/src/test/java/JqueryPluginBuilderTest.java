@@ -1,5 +1,6 @@
+import com.boco.common.util.FileUtil;
 import com.boco.power.builder.JqueryPluginBuilder;
-import com.boco.power.utils.FileUtils;
+
 
 import java.util.logging.Filter;
 
@@ -10,6 +11,6 @@ public class JqueryPluginBuilderTest {
         JqueryPluginBuilder builder = new JqueryPluginBuilder();
         String str = builder.writeBuilder("FormBuilder");
        // System.out.println(str);
-        FileUtils.writeFileNotAppend(str,"d:\\jquery-formbuilder.js");
+        FileUtil.writeFileNotAppend(str,"d:\\jquery-formbuilder.js");
     }
 }

@@ -1,11 +1,12 @@
 package com.boco.power.builder;
 
+import com.boco.common.util.DateTimeUtil;
+import com.boco.common.util.StringUtil;
 import com.boco.power.constant.ConstVal;
 import com.boco.power.constant.GeneratorConstant;
 import com.boco.power.utils.BeetlTemplateUtil;
-import com.boco.power.utils.DateTimeUtil;
+
 import com.boco.power.utils.GeneratorProperties;
-import com.boco.power.utils.StringUtils;
 import org.beetl.core.Template;
 
 /**
@@ -19,8 +20,8 @@ public class ServiceImplBuilder {
      * @return
      */
     public String generateServiceImpl(String tableName) {
-        String entitySimpleName = StringUtils.toCapitalizeCamelCase(tableName);//类名
-        String firstLowName = StringUtils.firstToLowerCase(entitySimpleName);
+        String entitySimpleName = StringUtil.toCapitalizeCamelCase(tableName);//类名
+        String firstLowName = StringUtil.firstToLowerCase(entitySimpleName);
         Template serviceImplTemplate = BeetlTemplateUtil.getByName(ConstVal.TPL_SERVICEIMPL);
         serviceImplTemplate.binding(GeneratorConstant.AUTHOR, System.getProperty("user.name"));//作者
         serviceImplTemplate.binding(GeneratorConstant.FIRST_LOWER_NAME, firstLowName);

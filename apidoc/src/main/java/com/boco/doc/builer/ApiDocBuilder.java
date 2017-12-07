@@ -1,8 +1,9 @@
 package com.boco.doc.builer;
 
+import com.boco.common.util.FileUtil;
 import com.boco.doc.model.ApiDoc;
 import com.boco.doc.utils.BeetlTemplateUtil;
-import com.boco.doc.utils.FileUtils;
+
 import org.beetl.core.Template;
 
 import java.util.List;
@@ -15,14 +16,14 @@ public class ApiDocBuilder {
      * @param isStrict
      */
     public static void builderControllersApi(String outPath,boolean isStrict){
-        FileUtils.mkdirs(outPath);
+        FileUtil.mkdirs(outPath);
         SourceBuilder sourceBuilder = new SourceBuilder(isStrict);
         List<ApiDoc> apiDocList = sourceBuilder.getControllerApiData();
         for(ApiDoc doc:apiDocList){
             Template mapper = BeetlTemplateUtil.getByName("ApiDoc.btl");
             mapper.binding("name", doc.getName());
             mapper.binding("list", doc.getList());//类名
-            FileUtils.writeFileNotAppend(mapper.render(), outPath + "\\" + doc.getName() + "Api.md");
+            FileUtil.writeFileNotAppend(mapper.render(), outPath + "\\" + doc.getName() + "Api.md");
         }
     }
 
@@ -32,12 +33,12 @@ public class ApiDocBuilder {
      * @param controllerName
      */
     public static void buildSingleControllerApi(String outPath,String controllerName){
-        FileUtils.mkdirs(outPath);
+        FileUtil.mkdirs(outPath);
         SourceBuilder sourceBuilder = new SourceBuilder(true);
         ApiDoc doc = sourceBuilder.getSingleControllerApiData(controllerName);
         Template mapper = BeetlTemplateUtil.getByName("ApiDoc.btl");
         mapper.binding("name", doc.getName());
         mapper.binding("list", doc.getList());//类名
-        FileUtils.writeFileNotAppend(mapper.render(), outPath + "\\" + doc.getName() + "Api.md");
+        FileUtil.writeFileNotAppend(mapper.render(), outPath + "\\" + doc.getName() + "Api.md");
     }
 }

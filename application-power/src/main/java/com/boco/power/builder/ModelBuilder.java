@@ -1,6 +1,8 @@
 package com.boco.power.builder;
 
 
+import com.boco.common.util.DateTimeUtil;
+import com.boco.common.util.StringUtil;
 import com.boco.power.constant.ConstVal;
 import com.boco.power.constant.GeneratorConstant;
 import com.boco.power.database.Column;
@@ -8,9 +10,8 @@ import com.boco.power.database.DbProvider;
 import com.boco.power.database.TableInfo;
 import com.boco.power.factory.DbProviderFactory;
 import com.boco.power.utils.BeetlTemplateUtil;
-import com.boco.power.utils.DateTimeUtil;
+
 import com.boco.power.utils.GeneratorProperties;
-import com.boco.power.utils.StringUtils;
 import org.beetl.core.Template;
 
 import java.util.*;
@@ -29,8 +30,8 @@ public class ModelBuilder {
      */
     public String generateModel(TableInfo tableInfo) {
         String tableName = tableInfo.getName();
-        String tableTemp = StringUtils.removePrefix(tableName, GeneratorProperties.tablePrefix());
-        String entitySimpleName = StringUtils.toCapitalizeCamelCase(tableTemp);//类名
+        String tableTemp = StringUtil.removePrefix(tableName, GeneratorProperties.tablePrefix());
+        String entitySimpleName = StringUtil.toCapitalizeCamelCase(tableTemp);//类名
         DbProvider dbProvider = new DbProviderFactory().getInstance();
         Map<String, Column> columnMap = dbProvider.getColumnsInfo(tableName);
         String fields = generateFields(columnMap);
@@ -61,14 +62,14 @@ public class ModelBuilder {
         StringBuilder builder = new StringBuilder();
         for (Map.Entry<String, Column> entry : columnMap.entrySet()) {
             Column column = entry.getValue();
-            if (StringUtils.isNotEmpty(column.getRemarks())) {
+            if (StringUtil.isNotEmpty(column.getRemarks())) {
                 builder.append("	/** ").append(column.getRemarks()).append(" */").append("\n");
             }
             if ("Timestamp".equals(column.getColumnType())) {
                 builder.append("	@JsonFormat(pattern = \"yyyy-MM-dd HH:mm:ss\",timezone = \"GMT+8\")\n");
             }
             builder.append("	private ").append(column.getColumnType()).append(" ");
-            builder.append(StringUtils.underlineToCamel(column.getColumnName()));
+            builder.append(StringUtil.underlineToCamel(column.getColumnName()));
             builder.append(";\n");
         }
         return builder.toString();
@@ -126,15 +127,15 @@ public class ModelBuilder {
             String columnName = column.getColumnName();
             //get
             builder.append("	public ").append(column.getColumnType()).append(" get");
-            builder.append(StringUtils.toCapitalizeCamelCase(column.getColumnName())).append("() {\n");
-            builder.append("		return ").append(StringUtils.underlineToCamel(columnName)).append(";\n");
+            builder.append(StringUtil.toCapitalizeCamelCase(column.getColumnName())).append("() {\n");
+            builder.append("		return ").append(StringUtil.underlineToCamel(columnName)).append(";\n");
             builder.append("	}\n\n");
             //set
-            builder.append("	public void set").append(StringUtils.toCapitalizeCamelCase(columnName));
-            builder.append("(").append(column.getColumnType()).append(" ").append(StringUtils.underlineToCamel(columnName));
+            builder.append("	public void set").append(StringUtil.toCapitalizeCamelCase(columnName));
+            builder.append("(").append(column.getColumnType()).append(" ").append(StringUtil.underlineToCamel(columnName));
             builder.append(") {\n");
-            builder.append("		this.").append(StringUtils.underlineToCamel(columnName));
-            builder.append(" = ").append(StringUtils.underlineToCamel(columnName)).append(";\n");
+            builder.append("		this.").append(StringUtil.underlineToCamel(columnName));
+            builder.append(" = ").append(StringUtil.underlineToCamel(columnName)).append(";\n");
             builder.append("	}\n\n");
         }
         return builder.toString();
@@ -154,7 +155,7 @@ public class ModelBuilder {
         for (Map.Entry<String, Column> entry : columnMap.entrySet()) {
             Column column = entry.getValue();
             String columnName = column.getColumnName();
-            String fieldName = StringUtils.underlineToCamel(columnName);
+            String fieldName = StringUtil.underlineToCamel(columnName);
             String type = entry.getValue().getColumnType();
             if (index < 1) {
                 if ("String".equals(type)) {

@@ -1,8 +1,8 @@
 package com.boco.doc.builer;
 
+import com.boco.common.util.StringUtil;
 import com.boco.doc.model.ApiDoc;
 import com.boco.doc.model.ApiMethodDoc;
-import com.boco.doc.utils.StringUtils;
 import com.thoughtworks.qdox.JavaProjectBuilder;
 import com.thoughtworks.qdox.model.*;
 
@@ -130,7 +130,7 @@ public class SourceBuilder {
         List<ApiMethodDoc> methodDocList = new ArrayList<>(methods.size());
         for (JavaMethod method : methods) {
             ApiMethodDoc apiMethodDoc = new ApiMethodDoc();
-            if(StringUtils.isEmpty(method.getComment())&&isStrict){
+            if(StringUtil.isEmpty(method.getComment())&&isStrict){
                 throw new RuntimeException("Unable to find comment for  method " + method.getName()+" from "+cls.getName());
             }
             apiMethodDoc.setDesc(method.getComment());
@@ -175,7 +175,7 @@ public class SourceBuilder {
     public String buildMethodReturn(JavaMethod method, ApiMethodDoc apiMethodDoc) {
         String returnType = method.getReturnType().getGenericCanonicalName();
         String typeName = method.getReturnType().getFullyQualifiedName();
-        if (StringUtils.isNotEmpty(returnType)) {
+        if (StringUtil.isNotEmpty(returnType)) {
             String gicName = null;
             //反射存在
             StringBuilder params0 = new StringBuilder();
@@ -269,7 +269,7 @@ public class SourceBuilder {
         Map<String, String> paramTagMap = new HashMap<>();
         for (DocletTag docletTag : paramTags) {
             String value = docletTag.getValue();
-            if (StringUtils.isEmpty(value)) {
+            if (StringUtil.isEmpty(value)) {
                 throw new RuntimeException("ERROR: #" + javaMethod.getName()
                         + "() - bad @param javadoc from "+className);
             }

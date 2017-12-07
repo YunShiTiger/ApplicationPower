@@ -1,11 +1,13 @@
 package com.boco.power.builder;
 
+import com.boco.common.util.DateTimeUtil;
+import com.boco.common.util.StringUtil;
 import com.boco.power.constant.ConstVal;
 import com.boco.power.constant.GeneratorConstant;
 import com.boco.power.utils.BeetlTemplateUtil;
-import com.boco.power.utils.DateTimeUtil;
+
 import com.boco.power.utils.GeneratorProperties;
-import com.boco.power.utils.StringUtils;
+
 import org.beetl.core.Template;
 
 /**
@@ -22,8 +24,8 @@ public class ServiceTestBuilder {
      * @return
      */
     public String generateServiceTest(String tableName) {
-        String entitySimpleName = StringUtils.toCapitalizeCamelCase(tableName);//类名
-        String firstLowName = StringUtils.firstToLowerCase(entitySimpleName);
+        String entitySimpleName = StringUtil.toCapitalizeCamelCase(tableName);//类名
+        String firstLowName = StringUtil.firstToLowerCase(entitySimpleName);
         Template serviceTestTemplate = BeetlTemplateUtil.getByName(ConstVal.TPL_SERVICE_TEST);
         serviceTestTemplate.binding(GeneratorConstant.AUTHOR, System.getProperty("user.name"));//作者
         serviceTestTemplate.binding(GeneratorConstant.FIRST_LOWER_NAME, firstLowName);

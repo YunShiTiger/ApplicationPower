@@ -1,7 +1,7 @@
 package com.boco.power.database;
 
 
-import com.boco.power.utils.StringUtils;
+import com.boco.common.util.StringUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class OracleProvider implements DbProvider {
         List<TableInfo> tableList;
         StringBuilder sql = new StringBuilder();
         sql.append("select * from USER_TAB_COMMENTS WHERE 1=1");
-        if (StringUtils.isNotEmpty(tableName)) {
+        if (StringUtil.isNotEmpty(tableName)) {
             sql.append(" AND TABLE_NAME LIK ");
             sql.append("'%").append(tableName).append("%'");
 
