@@ -41,8 +41,7 @@ public class ${entitySimpleName}ControllerTest extends ControllerBaseTest {
 	@Test
 	public void testAdd() throws Exception {
 		MvcResult result = mockMvc.perform(post("/${firstLowerName}/add")
- 			.contentType(MediaType.APPLICATION_JSON)
- 			.param("param1", "pm1")
+ 			.contentType(MediaType.APPLICATION_JSON)${params}
  		).andExpect(status().isOk()).andDo(print()).andReturn();
 		System.out.println("result:"+result.getResponse().getContentAsString());
 	}
@@ -70,7 +69,11 @@ public class ${entitySimpleName}ControllerTest extends ControllerBaseTest {
      */
 	@Test
 	public void testUpdate() throws Exception {
-
+        MvcResult result = mockMvc.perform(post("/${firstLowerName}/update")
+         	.contentType(MediaType.APPLICATION_JSON)
+         	${params}
+        ).andExpect(status().isOk()).andDo(print()).andReturn();
+        System.out.println("result:"+result.getResponse().getContentAsString());
 	}
 	<%}%>
     <%if(delete){ %>

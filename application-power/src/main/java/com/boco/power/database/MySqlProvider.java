@@ -1,6 +1,7 @@
 package com.boco.power.database;
 
 import com.boco.common.util.StringUtil;
+import com.boco.power.utils.ColumnInfoCacheUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,6 +15,12 @@ import java.util.Map;
  * @author sunyu 2016/12/11.
  */
 public class MySqlProvider implements DbProvider {
+
+    /**
+     *
+     * @param tableName
+     * @return
+     */
     @Override
     public Map<String, Column> getColumnsInfo(String tableName) {
         Map<String, Column> colMap = new LinkedHashMap<>();
@@ -38,6 +45,8 @@ public class MySqlProvider implements DbProvider {
                     column.setAutoIncrement(true);
                 }
                 colMap.put(columnName, column);
+                //缓存
+                ColumnInfoCacheUtil.setColumn(columnName,column);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
