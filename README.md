@@ -11,6 +11,7 @@ ApplicationPower 是一个基于数据库单表Crud操作的项目生成器，�
     4. v1.3版本升级mybatis和druid的版本，项目框架摒弃log4j，全面将日志升级到log4j2框架，mysql驱动升级到6.x,支持创建springboot项目。
     5. v1.4版本升级实现生成方法可自由控制(ps:参考generator.properties中配置)，基础方法增加一个返回List<Map<String,Object>>的方法。
     6. v1.4.1版本升级springboot和其他依赖的版本，修改springboot测试模板错误，springboot项目增加springloaded热部署插件。
+    7. v1.4.2版本优化生成代码时对数据库的连接次数，restful接口单元测试生成中add和update方法增加自动添加参数和赋予随机值的功能
 ## 功能
   1. 根据连接的数据生成dao,model,service,controller,mapper,controllerTest,serviceTest代码
   2. 项目的maven web基础骨架
