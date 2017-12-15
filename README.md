@@ -4,6 +4,10 @@ ApplicationPower 是一个基于数据库单表Crud操作的项目生成器，�
         ApplicationPower是基于beetl模板来生成源代码的，因此可以灵活的修改模板来生成代码定义自己的开发接口规范。ApplicationPower相对
     mybatis generator来说配置更少、代码灵活性和可控性更高。<br/>
     **重点：** ApplicationPower目前已经完全支持生成Springboot+Mybatis框架的Springboot项目。
+## 结构说明
+   1. apidoc是一个未来将使用原生doc注释来生成markdown api文档的项目，目前不可用
+   2. common-util是开发中常用的一些工具类，目前文档比较详细，也是application-power所依赖的模块，在使用application-power前需要将它安装到你的本地。
+   3. application-power是整个项目的核心，专门用于生成Springboot微服务架构项目和Spring mvc+mybatis架构项目的脚手架，
 ## 版本说明
     1. v1.0版本的CommonResult依赖于boco-health-common模块
     2. v1.1版本的CommonResult改为依赖独立模块Common-util
@@ -12,6 +16,7 @@ ApplicationPower 是一个基于数据库单表Crud操作的项目生成器，�
     5. v1.4版本升级实现生成方法可自由控制(ps:参考generator.properties中配置)，基础方法增加一个返回List<Map<String,Object>>的方法。
     6. v1.4.1版本升级springboot和其他依赖的版本，修改springboot测试模板错误，springboot项目增加springloaded热部署插件。
     7. v1.4.2版本优化生成代码时对数据库的连接次数，restful接口单元测试生成中add和update方法增加自动添加参数和赋予随机值的功能
+    8. v1.5版本增加springboot项目基于assembly的服务化打包功能，完备的服务脚本使得在window或linux系统启动和运维项目更轻松
 ## 功能
   1. 根据连接的数据生成dao,model,service,controller,mapper,controllerTest,serviceTest代码
   2. 项目的maven web基础骨架
@@ -60,6 +65,11 @@ ApplicationPower 是一个基于数据库单表Crud操作的项目生成器，�
   #是否需要生成mybatis mapper配置文件的ResultMap
   #默认不生成result
   generator.resultMap=false
+
+  # @since 1.5
+  # 打包springboot时是否采用assembly
+  # 如果采用则将生成一系列的相关配置和一系列的部署脚本
+  generator.package.assembly=false
 ```
   3.修改数据库配置jdbc.properties
 ```

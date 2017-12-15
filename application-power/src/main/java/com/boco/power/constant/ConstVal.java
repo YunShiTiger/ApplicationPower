@@ -10,6 +10,11 @@ public class ConstVal {
     public static final String JAVA_PATH = "src\\main\\java";
     public static final String RESOURCE_DIR = "src\\main\\resources";
 
+    public static final String ASSEMBLY_DIR = "src\\main\\assembly";
+    public static final String ASSEMBLY_BIN = "src\\main\\assembly\\bin";
+    public static final String ASSEMBLY_CFG = "src\\main\\assembly\\config";
+
+
     public static final String STRING_BOOT_STATIC_DIR = RESOURCE_DIR + "\\static";
     public static final String STRING_BOOT_EORRO_DIR = STRING_BOOT_STATIC_DIR + "\\errors";
 
@@ -78,6 +83,7 @@ public class ConstVal {
     public static final String TPL_SPRING_MVC = "config\\spring-mvc.btl";
     public static final String TPL_LOF4J = "config\\log4j.btl";
     public static final String TPL_LOF4J2 = "config\\log4j2.btl";
+    public static final String TPL_ASSEMBLY_LOG4J2 = TPL_LOF4J2;
     public static final String TPL_MYBATIS_CONFIG = "config\\mybatis-config.btl";
     public static final String TPL_400 = "error\\400.btl";
     public static final String TPL_404 = "error\\404.btl";
@@ -86,7 +92,10 @@ public class ConstVal {
 
     public static final String TPL_SPRING_BOOT_POM = "config\\springboot-pom.btl";
     public static final String TPL_SPRING_BOOT_CFG_YML = "config\\application.btl";
+    public static final String TPL_ASSEMBLY_SPRING_BOOT_YML = TPL_SPRING_BOOT_CFG_YML;
     public static final String TPL_SPRING_BOOT_MAIN = "SpringBootMainApplication.btl";
+
+    public static final String TPL_ASSEMBLY_XML = "template/assembly/assembly.xml";
 
     public static final String JAVA_TMPDIR = "java.io.tmpdir";
 

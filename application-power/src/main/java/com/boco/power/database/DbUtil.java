@@ -23,6 +23,7 @@ public class DbUtil {
     public static Connection getConnection() {
         try {
             Class.forName(DRIVER);
+            DriverManager.setLoginTimeout(1000);
             return DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

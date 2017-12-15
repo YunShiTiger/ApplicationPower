@@ -16,6 +16,12 @@ public class SpringBootProjectConfig {
     private String log4j2 = resource + "\\log4j2.xml";
     private String applicationYml = resource + "\\application.yml";
 
+    private String assemblyRoot = "src\\main\\assembly";
+    private String assemblyBin = "src\\main\\assembly\\bin";
+    private String assemblyCfg = "src\\main\\assembly\\config";
+    private String log4j2Assembly = assemblyCfg + "\\log4j2.xml";
+    private String applicationYmlAssembly = assemblyCfg + "\\application.yml";
+
 
     public String getResource() {
         return resource;
@@ -87,5 +93,25 @@ public class SpringBootProjectConfig {
 
     public void setApplicationYml(String applicationYml) {
         this.applicationYml = applicationYml;
+    }
+
+    public String getAssemblyRoot() {
+        return assemblyRoot;
+    }
+
+    public String getAssemblyBin() {
+        return assemblyBin;
+    }
+
+    public String getAssemblyCfg() {
+        return assemblyCfg;
+    }
+
+    public String getLog4j2Assembly() {
+        return log4j2Assembly;
+    }
+
+    public String getApplicationYmlAssembly() {
+        return applicationYmlAssembly;
     }
 }

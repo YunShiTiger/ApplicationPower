@@ -94,6 +94,14 @@ public class GeneratorProperties {
     }
 
     /**
+     * 是否采用assembly打包
+     * @return
+     */
+    public static Boolean getAssembly(){
+        return Boolean.valueOf(props.getProperty("generator.package.assembly"));
+    }
+
+    /**
      * 获取需要生成的方法
      * @return
      */
@@ -115,10 +123,5 @@ public class GeneratorProperties {
             map.put(str,true);
         }
         return map;
-    }
-
-    public static void main(String[] args) {
-        Map<String,Boolean> map = getGenerateMethods();
-        System.out.println(map);
     }
 }

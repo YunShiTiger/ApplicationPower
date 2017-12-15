@@ -5,6 +5,7 @@ import com.boco.common.util.FileUtil;
 import com.boco.common.util.StringUtil;
 import com.boco.power.constant.ConstVal;
 import com.boco.power.constant.GeneratorConstant;
+import com.boco.power.constant.SpringBootProjectConfig;
 import com.boco.power.database.Column;
 import com.boco.power.database.DbProvider;
 import com.boco.power.database.TableInfo;
@@ -53,6 +54,8 @@ public class CodeWriter extends AbstractCodeWriter {
         writeCode(config);
         //创建项目所需基础类
         writeSpringBootBaseCode(config);
+        //创建assembly配置
+        writeAssemblyConfig(config,new SpringBootProjectConfig());
 
     }
 
@@ -101,8 +104,10 @@ public class CodeWriter extends AbstractCodeWriter {
                 template.binding("jacksonVersion", "${jackson.version}");
                 template.binding("slf4jVersion", "${slf4j.version}");
                 template.binding("log4j2Version", "${log4j2.version}");
+                template.binding("useAssembly",GeneratorProperties.getAssembly());
                 //log4j2
                 template.binding("LOG_HOME", "${LOG_HOME}");
+                template.binding("LOG_PATH","${sys:logging.path}");
                 template.binding("CATALINA_HOME", "${CATALINA_HOME}");
                 //mybatis config
                 template.binding("cacheEnabled", GeneratorProperties.enableCache());
@@ -179,6 +184,29 @@ public class CodeWriter extends AbstractCodeWriter {
         template.binding(GeneratorConstant.CREATE_TIME, DateTimeUtil.getTime());//创建时间
         String basePackagePath = PathUtil.joinPath(config.getProjectPath().getJavaSrcPath(), basePackage);
         FileUtil.writeFileNotAppend(template.render(), basePackagePath + "\\SpringBootMainApplication.java");
+    }
+
+    private void writeAssemblyConfig(ConfigBuilder config, SpringBootProjectConfig projectConfig){
+        if(GeneratorProperties.getAssembly()){
+            Map<String,String> configPath = config.getBaseConfigPathInfo();
+            //创建脚本
+            String binPath = configPath.get(ConstVal.ASSEMBLY_BIN);
+            Map<String,String> scripts = new ScriptBuilder().generateScripts();
+            for(Map.Entry<String,String> entry:scripts.entrySet()){
+                FileUtil.writeFileNotAppend(entry.getValue(),binPath+"\\"+entry.getKey());
+            }
+            //复制assembly.xml
+            String assemblyRoot = configPath.get(ConstVal.ASSEMBLY_DIR);
+            String assemblyXml = Thread.currentThread().getContextClassLoader().getResource(ConstVal.TPL_ASSEMBLY_XML).getPath();
+            FileUtil.nioTransferCopy(new File(assemblyXml), new File(assemblyRoot+"\\assembly.xml"));
+            //拷贝配置文件
+            String basePath = config.getProjectPath().getBasePath();
+
+            String ymlPath = PathUtil.connectPath(basePath, projectConfig.getApplicationYmlAssembly());
+            FileUtil.nioTransferCopy(new File(PathUtil.connectPath(basePath,projectConfig.getApplicationYml())),new File(ymlPath));
+            String log4j2Path = PathUtil.connectPath(basePath,projectConfig.getLog4j2Assembly());
+            FileUtil.nioTransferCopy(new File(PathUtil.connectPath(basePath,projectConfig.getLog4j2())),new File(log4j2Path));
+        }
     }
 
     /**

@@ -1,7 +1,10 @@
 package com.boco.common.util;
 
 import java.io.*;
+import java.net.URL;
 import java.nio.channels.FileChannel;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by yu on 2017/3/9.
@@ -217,4 +220,15 @@ public class FileUtil {
         return fileContent.toString();
     }
 
+    /**
+     * 获取文件加下的文件
+     * @param folder
+     * @return
+     */
+    public static File[] getResourceFolderFiles (String folder) {
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        URL url = loader.getResource(folder);
+        String path = url.getPath();
+        return new File(path).listFiles();
+    }
 }

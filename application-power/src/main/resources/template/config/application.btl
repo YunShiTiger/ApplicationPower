@@ -28,3 +28,7 @@ mybatis:
   mapper-locations: classpath*:${mappingDir}/mapping/*.xml
 server:
   port: 8080
+  undertow:
+     accesslog:
+      enabled: true
+      dir: ../logs

@@ -221,10 +221,14 @@ public class ConfigBuilder {
      */
     private void handlerSpringBootConfigPath(SpringBootProjectConfig config) {
         String basePath = projectPath.getBasePath();
-        baseConfigPathInfo = new HashMap<>(3);
-
+        baseConfigPathInfo = new HashMap<>(5);
         baseConfigPathInfo.put(ConstVal.RESOURCE_PATH, connectPath(basePath, config.getResource()));
         baseConfigPathInfo.put(ConstVal.STRING_BOOT_EORRO_DIR, connectPath(basePath, config.getErrorPath()));
+        if(GeneratorProperties.getAssembly()){
+            baseConfigPathInfo.put(ConstVal.ASSEMBLY_DIR,connectPath(basePath,config.getAssemblyRoot()));
+            baseConfigPathInfo.put(ConstVal.ASSEMBLY_BIN,connectPath(basePath,config.getAssemblyBin()));
+            baseConfigPathInfo.put(ConstVal.ASSEMBLY_CFG,connectPath(basePath,config.getAssemblyCfg()));
+        }
     }
 
     private void handlerBaseConfigPath(ProjectConfig config) {
