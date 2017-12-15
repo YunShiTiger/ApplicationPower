@@ -6,11 +6,8 @@ import com.boco.common.util.StringUtil;
 import com.boco.power.constant.ConstVal;
 import com.boco.power.constant.GeneratorConstant;
 import com.boco.power.database.Column;
-import com.boco.power.database.DbProvider;
 import com.boco.power.database.TableInfo;
-import com.boco.power.factory.DbProviderFactory;
 import com.boco.power.utils.BeetlTemplateUtil;
-
 import com.boco.power.utils.GeneratorProperties;
 import org.beetl.core.Template;
 
@@ -28,12 +25,10 @@ public class ModelBuilder {
      * @param tableInfo
      * @return
      */
-    public String generateModel(TableInfo tableInfo) {
+    public String generateModel(TableInfo tableInfo,Map<String, Column> columnMap) {
         String tableName = tableInfo.getName();
         String tableTemp = StringUtil.removePrefix(tableName, GeneratorProperties.tablePrefix());
         String entitySimpleName = StringUtil.toCapitalizeCamelCase(tableTemp);//类名
-        DbProvider dbProvider = new DbProviderFactory().getInstance();
-        Map<String, Column> columnMap = dbProvider.getColumnsInfo(tableName);
         String fields = generateFields(columnMap);
         String gettersAndSetters = this.generateSetAndGetMethods(columnMap);
         String imports = this.generateImport(columnMap);

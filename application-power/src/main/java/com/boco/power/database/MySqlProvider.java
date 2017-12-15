@@ -1,7 +1,6 @@
 package com.boco.power.database;
 
 import com.boco.common.util.StringUtil;
-import com.boco.power.utils.ColumnInfoCacheUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -45,8 +44,6 @@ public class MySqlProvider implements DbProvider {
                     column.setAutoIncrement(true);
                 }
                 colMap.put(columnName, column);
-                //缓存
-                ColumnInfoCacheUtil.setColumn(columnName,column);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

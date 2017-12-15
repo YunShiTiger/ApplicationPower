@@ -19,12 +19,10 @@ import java.util.Map;
  */
 public class MapperBuilder {
 
-    public String generateMapper(String tableName) {
+    public String generateMapper(String tableName,Map<String, Column> columnMap) {
         String tableTemp = StringUtil.removePrefix(tableName, GeneratorProperties.tablePrefix());
         String entitySimpleName = StringUtil.toCapitalizeCamelCase(tableTemp);//类名
         String firstLowName = StringUtil.firstToLowerCase(entitySimpleName);
-        DbProvider dbProvider = new DbProviderFactory().getInstance();
-        Map<String, Column> columnMap = dbProvider.getColumnsInfo(tableName);
         String insertSql = generateInsertSql(columnMap, tableName);
         String batchInsertSql = generateBatchInsertSql(columnMap, tableName);
         String updateSql = generateConditionUpdateSql(columnMap, tableName);

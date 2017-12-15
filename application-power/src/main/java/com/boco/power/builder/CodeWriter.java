@@ -5,7 +5,10 @@ import com.boco.common.util.FileUtil;
 import com.boco.common.util.StringUtil;
 import com.boco.power.constant.ConstVal;
 import com.boco.power.constant.GeneratorConstant;
+import com.boco.power.database.Column;
+import com.boco.power.database.DbProvider;
 import com.boco.power.database.TableInfo;
+import com.boco.power.factory.DbProviderFactory;
 import com.boco.power.utils.BeetlTemplateUtil;
 import com.boco.power.utils.GeneratorProperties;
 import com.boco.power.utils.PathUtil;
@@ -186,8 +189,10 @@ public class CodeWriter extends AbstractCodeWriter {
     private void writeCode(ConfigBuilder config) {
         Map<String, String> dirMap = config.getPathInfo();
         List<TableInfo> tables = config.getTableInfo();
+        DbProvider dbProvider = new DbProviderFactory().getInstance();
         for (TableInfo tableInfo : tables) {
             String table = tableInfo.getName();
+            Map<String, Column> columnMap = dbProvider.getColumnsInfo(table);
             //实体名需要移除表前缀
             String tableTemp = StringUtil.removePrefix(table, GeneratorProperties.tablePrefix());
             String entityName = StringUtil.toCapitalizeCamelCase(tableTemp);
@@ -199,7 +204,7 @@ public class CodeWriter extends AbstractCodeWriter {
                     FileUtil.writeFileNotAppend(daoCode, value + "\\" + entityName + "Dao.java");
                 }
                 if (ConstVal.ENTITY_PATH.equals(key)) {
-                    String modelCode = new ModelBuilder().generateModel(tableInfo);
+                    String modelCode = new ModelBuilder().generateModel(tableInfo,columnMap);
                     FileUtil.writeFileNotAppend(modelCode, value + "\\" + entityName + ".java");
                 }
                 if (ConstVal.SERVICE_PATH.equals(key)) {
@@ -217,12 +222,12 @@ public class CodeWriter extends AbstractCodeWriter {
                     FileUtil.writeFileNotAppend(controllerCode, value + "\\" + entityName + "Controller.java");
                 }
                 if (ConstVal.CONTROLLER_TEST_PATH.equals(key)) {
-                    String controllerCode = new ControllerTestBuilder().generateControllerTest(entityName);
+                    String controllerCode = new ControllerTestBuilder().generateControllerTest(entityName,columnMap);
                     FileUtil.writeFileNotAppend(controllerCode, value + "\\" + entityName + "ControllerTest.java");
                 }
 
                 if (ConstVal.MAPPER_PATH.equals(key)) {
-                    String mapperCode = new MapperBuilder().generateMapper(table);
+                    String mapperCode = new MapperBuilder().generateMapper(table,columnMap);
                     FileUtil.writeFileNotAppend(mapperCode, value + "\\" + entityName + "Dao.xml");
                 }
 
