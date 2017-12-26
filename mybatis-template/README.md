@@ -1,5 +1,5 @@
 mybatis-template主要作用是重写了mybatis的SqlSessionTemplate，
-该来自 [](https://github.com/igool/spring-jta-mybatis) 非常感谢源作者开放的源代码。目前网络上多数
+[代码源出处](https://github.com/igool/spring-jta-mybatis) 非常感谢源作者开放的源代码。目前网络上多数
 基于分布式事务的动态数据源切或多或少都有问题，该解决方法目前测试有效。
 ```
 <dependency>
