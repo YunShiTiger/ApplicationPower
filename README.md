@@ -8,6 +8,7 @@ ApplicationPower 是一个基于数据库单表Crud操作的项目生成器，�
    1. apidoc是一个未来将使用原生doc注释来生成markdown api文档的项目，目前不可用
    2. common-util是开发中常用的一些工具类，目前文档比较详细，也是application-power所依赖的模块，在使用application-power前需要将它安装到你的本地。
    3. application-power是整个项目的核心，专门用于生成Springboot微服务架构项目和Spring mvc+mybatis架构项目的脚手架，
+   4. datasource-aspect是spring web应用下多数据源动态切换的通用模块
 ## 版本说明
     1. v1.0版本的CommonResult依赖于boco-health-common模块
     2. v1.1版本的CommonResult改为依赖独立模块Common-util

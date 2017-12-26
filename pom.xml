@@ -12,6 +12,7 @@
         <module>application-power</module>
         <module>apidoc</module>
         <module>Common-util</module>
+        <module>datasource-aspect</module>
     </modules>
 
 
