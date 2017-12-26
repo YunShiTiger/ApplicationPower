@@ -28,6 +28,6 @@ public class DbAspect extends DataSourceAspect {
     }
 }
 
-``
-** 重点：** 另一点需要注意的是在多数据源动态切换的环境中DataSourceAspect使用的CustomDataSource注解触发可能会不起作用，仅有execution生效，
+```
+**重点：** 另一点需要注意的是在多数据源动态切换的环境中DataSourceAspect使用的CustomDataSource注解触发可能会不起作用，仅有execution生效，
 遇到这种情况可以重写DataSourceAspect的datasourceAspect方法修改Pointcut

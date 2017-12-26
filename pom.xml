@@ -13,6 +13,7 @@
         <module>apidoc</module>
         <module>Common-util</module>
         <module>datasource-aspect</module>
+        <module>mybatis-template</module>
     </modules>
 
 
