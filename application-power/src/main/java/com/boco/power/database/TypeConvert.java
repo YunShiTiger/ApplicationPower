@@ -38,6 +38,9 @@ public class TypeConvert {
             case Types.FLOAT: //6
                 dataType = "Float";
                 break;
+            case Types.REAL: //7
+                 dataType= "Float";
+                 break;
             case Types.DECIMAL:    //3
                 dataType = "BigDecimal";
                 break;
