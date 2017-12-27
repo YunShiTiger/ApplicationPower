@@ -1,0 +1,14 @@
+package ${basePackage}.constants;
+
+
+public class DataSourceKey {
+    /**
+     * 数据库1
+     */
+    public static final String ONE = "one";
+
+    /**
+     * 数据库2
+     */
+    public static final String TWO = "two";
+}

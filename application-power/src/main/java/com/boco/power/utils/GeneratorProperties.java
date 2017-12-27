@@ -3,7 +3,9 @@ package com.boco.power.utils;
 import com.boco.common.util.StringUtil;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author sunyu 2016/12/5.
@@ -99,6 +101,30 @@ public class GeneratorProperties {
      */
     public static Boolean getAssembly(){
         return Boolean.valueOf(props.getProperty("generator.package.assembly"));
+    }
+
+    /**
+     * 分布式事务
+     * @return
+     */
+    public static Boolean isJTA(){
+        return Boolean.valueOf(props.getProperty("generator.jta"));
+    }
+
+    /**
+     *  获取多数据源
+     * @return
+     */
+    public static Set<String> getMultipleDataSource() {
+        String datasourceStr = props.getProperty("generator.multiple.datasource");
+        Set<String> dataSourceSet = new HashSet<>();
+        if(StringUtil.isNotEmpty(datasourceStr)){
+            String[] dataSources = datasourceStr.split(",");
+            for(String str:dataSources){
+                dataSourceSet.add(str);
+            }
+        }
+        return dataSourceSet;
     }
 
     /**
