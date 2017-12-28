@@ -22,6 +22,8 @@ public class SpringBootProjectConfig {
     private String log4j2Assembly = assemblyCfg + "\\log4j2.xml";
     private String applicationYmlAssembly = assemblyCfg + "\\application.yml";
 
+    private static final String jpaPath = "config";
+
 
     public String getResource() {
         return resource;

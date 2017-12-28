@@ -24,7 +24,6 @@ import ${basePackage}.dao.${entitySimpleName}Dao;
 import ${basePackage}.service.${entitySimpleName}Service;
 
 /**
- * Created by ApplicationPower.
  * @author ${authorName} on ${createTime}.
  */
 @Service("${firstLowerName}Service")
@@ -46,8 +45,9 @@ public class ${entitySimpleName}ServiceImpl  implements ${entitySimpleName}Servi
         	${firstLowerName}Dao.save(entity);
         	result.setSuccess(true);
         } catch (Exception e) {
-        	result.setMessage("添加数据失败");
         	logger.error("${entitySimpleName}Service添加数据异常：",e);
+        	//抛出异常方便事务管理，并且会被RestExceptionHandler自动处理
+        	throw new RuntimeException("添加数据失败");
         }
         return result;
 	}
@@ -61,8 +61,8 @@ public class ${entitySimpleName}ServiceImpl  implements ${entitySimpleName}Servi
             ${firstLowerName}Dao.update(entity);
             result.setSuccess(true);
         } catch (Exception e) {
-            result.setMessage("修改数据失败");
             logger.error("${entitySimpleName}Service修改数据异常：",e);
+            throw new RuntimeException("修改数据失败");
         }
         return result;
 	}
@@ -76,8 +76,8 @@ public class ${entitySimpleName}ServiceImpl  implements ${entitySimpleName}Servi
             ${firstLowerName}Dao.delete(id);
             result.setSuccess(true);
         } catch (Exception e) {
-            result.setMessage("删除数据失败");
             logger.error("${entitySimpleName}Service删除数据异常：",e);
+            throw new RuntimeException("删除数据异常");
         }
         return result;
 	}

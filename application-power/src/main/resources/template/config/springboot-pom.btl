@@ -51,13 +51,13 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
-            <version>1.1.5</version>
+            <version>1.1.6</version>
         </dependency>
         <!-- mysql driver-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>6.0.5</version>
+            <version>6.0.6</version>
         </dependency>
 
 
@@ -95,13 +95,33 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
          <!--log4j2 Asynchronous Loggers requires disruptor-->
         <dependency>
             <groupId>com.lmax</groupId>
             <artifactId>disruptor</artifactId>
             <version>3.3.6</version>
         </dependency>
-          <!--导入公共模块-->
+
+         <%if(useJTA){ %>
+        <!--atomikos transaction management-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jta-atomikos</artifactId>
+        </dependency>
+        <%} %>
+        <% if(isMultipleDataSource){%>
+        <!--https://gitee.com/sunyurepository/ApplicationPower-->
+        <dependency>
+            <groupId>com.power.mybatis</groupId>
+            <artifactId>mybatis-template</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <%}%>
+          <!--https://gitee.com/sunyurepository/ApplicationPower-->
         <dependency>
             <groupId>com.boco.sp</groupId>
             <artifactId>Common-util</artifactId>

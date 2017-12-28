@@ -10,6 +10,8 @@ import com.boco.power.utils.GeneratorProperties;
 
 import org.beetl.core.Template;
 
+import java.util.Set;
+
 /**
  * 生成dao层
  *
@@ -30,6 +32,15 @@ public class DaoBuilder {
         daoTemplate.binding(GeneratorConstant.BASE_PACKAGE, GeneratorProperties.basePackage());//基包名
         daoTemplate.binding(GeneratorConstant.CREATE_TIME, DateTimeUtil.getTime());//创建时间
         daoTemplate.binding(GeneratorProperties.getGenerateMethods());//过滤方法
+        daoTemplate.binding(GeneratorConstant.IS_MULTIPLE_DATA_SOURCE,GeneratorProperties.isMultipleDataSource());
+        Set<String> dataSource = GeneratorProperties.getMultipleDataSource();
+        int i = 0;
+        for(String str:dataSource){
+            if(i==0){
+                daoTemplate.binding("defaultDataSource",str.toUpperCase());
+                break;
+            }
+        }
         return daoTemplate.render();
     }
 }

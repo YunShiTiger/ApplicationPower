@@ -94,4 +94,9 @@ public class GeneratorConstant {
      * toString方法
      */
     public static final String TO_STRING = "toString";
+
+    /**
+     *
+     */
+    public static final String IS_MULTIPLE_DATA_SOURCE = "isMultipleDataSource";
 }

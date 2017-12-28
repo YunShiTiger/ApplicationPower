@@ -5,7 +5,6 @@ ${modelImports}
 
 /**
  * Table:${tableComment}
- * Created by ApplicationPower.
  * @author ${authorName} on ${createTime}.
  */
 public class ${entitySimpleName} implements Serializable {

@@ -10,6 +10,7 @@ public class ConstVal {
     public static final String JAVA_PATH = "src\\main\\java";
     public static final String RESOURCE_DIR = "src\\main\\resources";
 
+    //assembly路径配置
     public static final String ASSEMBLY_DIR = "src\\main\\assembly";
     public static final String ASSEMBLY_BIN = "src\\main\\assembly\\bin";
     public static final String ASSEMBLY_CFG = "src\\main\\assembly\\config";
@@ -27,6 +28,12 @@ public class ConstVal {
     public static final String CONTROLLER_TEST = "controllerTest";
     public static final String SERVICE_TEST = "serviceTest";
     public static final String DATE_CONVERTER = "DateConverter";
+    public static final String REST_EXCEPTION = "RestExceptionHandler";
+
+    //多数据源配置
+    public static final String ASPECT = "spect";
+    public static final String DATA_SOURCE_FIG = "datasource_cfg";
+    public static final String CONSTANTS = "constants";
 
     public static final String JDBC = "jdbc.properties";
 
@@ -42,6 +49,7 @@ public class ConstVal {
     public static final String SERVICE_TEST_PATH = "service_test_path";
     public static final String DATE_CONVERTER_PATH = "date_converter_path";
     public static final String ERROR_PATH = "error_path";
+    public static final String REST_ERROR_PATH = "rest_error_path";
     public static final String SPRINGBOOT_MAIN_PATH = "spring_boot_main_path";
     public static final String RESOURCE_PATH = "resource_path";
     public static final String WEB_INFO_PATH = "web_info_path";
@@ -76,6 +84,7 @@ public class ConstVal {
     public static final String TPL_CONTROLLER_BASE_TEST = "ControllerBaseTest.btl";
     public static final String TPL_SPRING_BOOT_CONTROLLER_BASE_TEST = "SpringBootBaseControllerTest.btl";
     public static final String TPL_SERVICE_BASE_TEST = "ServiceBaseTest.btl";
+    public static final String TPL_SPRING_BOOT_SERVICE_BASE_TEST = "SpringBootServiceBaseTest.btl";
 
     public static final String TPL_POM = "config\\pom.btl";
     public static final String TPL_WEB_XML = "config\\web.btl";
@@ -92,10 +101,20 @@ public class ConstVal {
 
     public static final String TPL_SPRING_BOOT_POM = "config\\springboot-pom.btl";
     public static final String TPL_SPRING_BOOT_CFG_YML = "config\\application.btl";
+    public static final String TPL_MULTIPLE_DATASOURCE_YML = "config\\application-multiple-db.btl";
     public static final String TPL_ASSEMBLY_SPRING_BOOT_YML = TPL_SPRING_BOOT_CFG_YML;
     public static final String TPL_SPRING_BOOT_MAIN = "SpringBootMainApplication.btl";
 
     public static final String TPL_ASSEMBLY_XML = "template/assembly/assembly.xml";
+
+    //多数据源模板定义(针对springboot)
+    public static final String TPL_DATASOURCE_CFG = "datasource\\AbstractDataSourceConfig.btl";
+    public static final String TPL_DATASOURCE_KEY = "datasource\\DataSourceKey.btl";
+    public static final String TPL_DATASOURCE_ASPECT = "datasource\\DbAspect.btl";
+    public static final String TPL_JTA = "datasource\\TransactionManagerConfig.btl";
+    public static final String TPL_SPRINGBOOT_MYBATIS_CFG = "datasource\\MyBatisConfig.btl";
+
+    public static final String TPL_REST_ERROR = "error\\RestExceptionHandler.btl";
 
     public static final String JAVA_TMPDIR = "java.io.tmpdir";
 

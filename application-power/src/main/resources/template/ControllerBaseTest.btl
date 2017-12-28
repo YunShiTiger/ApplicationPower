@@ -7,7 +7,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 /**
  * controller测试基础类
- * Created by ApplicationPower.
  * @author ${authorName} on ${createTime}.
  */
 @RunWith(SpringJUnit4ClassRunner.class)

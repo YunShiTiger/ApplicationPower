@@ -17,7 +17,6 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 
 /**
  * controller restful接口单元测试
- * Created by ApplicationPower.
  * @author ${authorName} on ${createTime}.
  *
  */

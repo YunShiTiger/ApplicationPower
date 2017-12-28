@@ -1,7 +1,7 @@
 package com.power.datasource.aspect;
 
 
-import com.power.datasource.annotations.CustomDataSource;
+import com.power.datasource.annotations.TargetDataSource;
 import com.power.datasource.database.DataSourceContextHolder;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -16,7 +16,7 @@ public class DataSourceAspect {
     protected static final ThreadLocal<String> preDatasourceHolder = new ThreadLocal<>();
 
 
-    @Pointcut("@annotation(com.power.datasource.annotations.CustomDataSource)")
+    @Pointcut("@annotation(com.power.datasource.annotations.TargetDataSource)")
     protected void datasourceAspect() {
 
     }
@@ -75,7 +75,7 @@ public class DataSourceAspect {
                                                String methodName) {
         Method m = findUniqueMethod(targetClass, methodName);
         if (m != null) {
-            CustomDataSource choDs = m.getAnnotation(CustomDataSource.class);
+            TargetDataSource choDs = m.getAnnotation(TargetDataSource.class);
             return resolveDataSourceName(choDs);
         }
         return null;
@@ -97,8 +97,8 @@ public class DataSourceAspect {
      * @return
      */
     private String resolveDataSourceFromClass(Class targetClass) {
-        CustomDataSource classAnnotation = (CustomDataSource) targetClass
-                .getAnnotation(CustomDataSource.class);
+        TargetDataSource classAnnotation = (TargetDataSource) targetClass
+                .getAnnotation(TargetDataSource.class);
         return null != classAnnotation ? resolveDataSourceName(classAnnotation) : null;
     }
 
@@ -107,7 +107,7 @@ public class DataSourceAspect {
      * @param ds
      * @return
      */
-    private String resolveDataSourceName(CustomDataSource ds) {
+    private String resolveDataSourceName(TargetDataSource ds) {
         return ds == null ? null : ds.value();
     }
 

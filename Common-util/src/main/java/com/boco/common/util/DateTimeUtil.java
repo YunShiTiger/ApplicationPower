@@ -173,7 +173,7 @@ public class DateTimeUtil {
      */
     public static String getTime() {
         Date now = new Date();
-        return parseDateToStr(now, "yyyy年MM月dd日 E  HH:mm:ss");
+        return parseDateToStr(now, "yyyy/MM/dd");
     }
 
     /**

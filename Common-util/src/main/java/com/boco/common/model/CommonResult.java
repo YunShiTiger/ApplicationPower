@@ -59,6 +59,16 @@ public class CommonResult<T> implements Serializable {
 	public CommonResult(boolean success){
 		this.success = success;
 	}
+
+	/**
+	 *
+	 * @param code
+	 * @param message
+	 */
+	public CommonResult(int code,String message){
+		this.code = code;
+		this.message = message;
+	}
 	/**
 	 * 
 	 * @param success

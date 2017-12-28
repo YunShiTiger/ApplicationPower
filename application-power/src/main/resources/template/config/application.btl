@@ -20,6 +20,12 @@ spring:
     testWhileIdle: true
     testOnBorrow: false
     testOnReturn: false
+  <%if(isJTA){%>
+  # transaction manager
+  jta:
+    log-dir: classpath:tx-logs
+    transaction-manager-id: txManager
+  <%}%>
 
 
 mybatis:

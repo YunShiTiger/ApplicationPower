@@ -40,13 +40,13 @@ public abstract class AbstractDataSourceConfig {
         prop.put("maxPoolPreparedStatementPerConnectionSize",
                 env.getProperty(prefix + "maxPoolPreparedStatementPerConnectionSize", Integer.class));
         prop.put("validationQuery", env.getProperty(prefix + "validationQuery"));
-//        prop.put("validationQueryTimeout", env.getProperty(prefix + "validationQueryTimeout", Integer.class));
-//        prop.put("testOnBorrow", env.getProperty(prefix + "testOnBorrow", Boolean.class));
-//        prop.put("testOnReturn", env.getProperty(prefix + "testOnReturn", Boolean.class));
-//        prop.put("testWhileIdle", env.getProperty(prefix + "testWhileIdle", Boolean.class));
-//        prop.put("timeBetweenEvictionRunsMillis", env.getProperty(prefix + "timeBetweenEvictionRunsMillis", Integer.class));
-//        prop.put("minEvictableIdleTimeMillis", env.getProperty(prefix + "minEvictableIdleTimeMillis", Integer.class));
-//        prop.put("filters", env.getProperty(prefix + "filters"));
+        prop.put("validationQueryTimeout", env.getProperty(prefix + "validationQueryTimeout", Integer.class));
+        prop.put("testOnBorrow", env.getProperty(prefix + "testOnBorrow", Boolean.class));
+        prop.put("testOnReturn", env.getProperty(prefix + "testOnReturn", Boolean.class));
+        prop.put("testWhileIdle", env.getProperty(prefix + "testWhileIdle", Boolean.class));
+        prop.put("timeBetweenEvictionRunsMillis", env.getProperty(prefix + "timeBetweenEvictionRunsMillis", Integer.class));
+        prop.put("minEvictableIdleTimeMillis", env.getProperty(prefix + "minEvictableIdleTimeMillis", Integer.class));
+        prop.put("filters", env.getProperty(prefix + "filters"));
         return prop;
     }
 }

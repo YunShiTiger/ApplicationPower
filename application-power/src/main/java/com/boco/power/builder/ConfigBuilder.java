@@ -68,9 +68,9 @@ public class ConfigBuilder {
         initProjectPath();
         //包配置
         if (null == packageConfig) {
-            handlerPackage(new PackageConfig());
+            handlerPackage(new PackageConfig(),false);
         } else {
-            handlerPackage(packageConfig);
+            handlerPackage(packageConfig,false);
         }
         //创建工程所需配置
         if (null == projectConfig) {
@@ -98,9 +98,9 @@ public class ConfigBuilder {
         initProjectPath();
         //包配置
         if (null == packageConfig) {
-            handlerPackage(new PackageConfig());
+            handlerPackage(new PackageConfig(),true);
         } else {
-            handlerPackage(packageConfig);
+            handlerPackage(packageConfig,true);
         }
         //创建工程所需配置
         if (null == projectConfig) {
@@ -130,7 +130,7 @@ public class ConfigBuilder {
      *
      * @param config
      */
-    private void handlerPackage(PackageConfig config) {
+    private void handlerPackage(PackageConfig config,boolean isSpringBoot) {
         packageInfo = new HashMap<>(8);
         pathInfo = new LinkedHashMap<>(8);
 
@@ -172,6 +172,22 @@ public class ConfigBuilder {
         }
         packageInfo.put(ConstVal.DATE_CONVERTER, joinPackage(basePackage, config.getConverter()));
         pathInfo.put(ConstVal.DATE_CONVERTER_PATH, joinPath(javaDir, packageInfo.get(ConstVal.DATE_CONVERTER)));
+        packageInfo.put(ConstVal.REST_EXCEPTION,joinPackage(basePackage, config.getRestError()));
+        pathInfo.put(ConstVal.REST_ERROR_PATH, joinPath(javaDir, packageInfo.get(ConstVal.REST_EXCEPTION)));
+        if(GeneratorProperties.getMultipleDataSource().size()>0){
+            packageInfo.put(ConstVal.ASPECT,joinPackage(basePackage,config.getAspect()));
+            pathInfo.put(ConstVal.ASPECT,joinPath(javaDir,packageInfo.get(ConstVal.ASPECT)));
+            packageInfo.put(ConstVal.CONSTANTS,joinPackage(basePackage,config.getConstants()));
+            pathInfo.put(ConstVal.CONSTANTS,joinPath(javaDir,packageInfo.get(ConstVal.CONSTANTS)));
+            if(isSpringBoot){
+                packageInfo.put(ConstVal.DATA_SOURCE_FIG,joinPackage(basePackage,config.getConfig()));
+                pathInfo.put(ConstVal.DATA_SOURCE_FIG,joinPath(javaDir,packageInfo.get(ConstVal.DATA_SOURCE_FIG)));
+            }
+        }
+        if(GeneratorProperties.isJTA()){
+            packageInfo.put(ConstVal.DATA_SOURCE_FIG,joinPackage(basePackage,config.getConfig()));
+            pathInfo.put(ConstVal.DATA_SOURCE_FIG,joinPath(javaDir,packageInfo.get(ConstVal.DATA_SOURCE_FIG)));
+        }
     }
 
     /**
@@ -206,7 +222,11 @@ public class ConfigBuilder {
         String basePath = projectPath.getBasePath();
         baseConfigFilesPath = new HashMap<>(10);
         baseConfigFilesPath.put(ConstVal.TPL_SPRING_BOOT_POM, connectPath(basePath, config.getPom()));
-        baseConfigFilesPath.put(ConstVal.TPL_SPRING_BOOT_CFG_YML, connectPath(basePath, config.getApplicationYml()));
+        if(GeneratorProperties.isMultipleDataSource()){
+            baseConfigFilesPath.put(ConstVal.TPL_MULTIPLE_DATASOURCE_YML,connectPath(basePath, config.getApplicationYml()));
+        }else {
+            baseConfigFilesPath.put(ConstVal.TPL_SPRING_BOOT_CFG_YML, connectPath(basePath, config.getApplicationYml()));
+        }
         baseConfigFilesPath.put(ConstVal.TPL_LOF4J2, connectPath(basePath, config.getLog4j2()));
         baseConfigFilesPath.put(ConstVal.TPL_MYBATIS_CONFIG, connectPath(basePath, config.getMybatisConfig()));
         baseConfigFilesPath.put(ConstVal.TPL_400, connectPath(basePath, config.getHtml400()));
@@ -229,6 +249,7 @@ public class ConfigBuilder {
             baseConfigPathInfo.put(ConstVal.ASSEMBLY_BIN,connectPath(basePath,config.getAssemblyBin()));
             baseConfigPathInfo.put(ConstVal.ASSEMBLY_CFG,connectPath(basePath,config.getAssemblyCfg()));
         }
+
     }
 
     private void handlerBaseConfigPath(ProjectConfig config) {
