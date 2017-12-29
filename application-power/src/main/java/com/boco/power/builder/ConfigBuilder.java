@@ -216,6 +216,11 @@ public class ConfigBuilder {
         baseConfigFilesPath.put(ConstVal.TPL_404, connectPath(basePath, config.getHtml404()));
         baseConfigFilesPath.put(ConstVal.TPL_500, connectPath(basePath, config.getHtml500()));
         baseConfigFilesPath.put(ConstVal.TPL_SPRING_MVC, connectPath(basePath, config.getSpringMvc()));
+        if(GeneratorProperties.isMultipleDataSource()){
+            baseConfigFilesPath.put(ConstVal.TPL_SPRING_MYBATIS_MULTIPLE, connectPath(basePath, config.getSpringMybatis()));
+        }else {
+            baseConfigFilesPath.put(ConstVal.TPL_SPRING_MYBATIS, connectPath(basePath, config.getSpringMybatis()));
+        }
         baseConfigFilesPath.put(ConstVal.TPL_SPRING_MYBATIS, connectPath(basePath, config.getSpringMybatis()));
         baseConfigFilesPath.put(ConstVal.TPL_MYBATIS_CONFIG, connectPath(basePath, config.getMybatisConfig()));
         baseConfigFilesPath.put(ConstVal.TPL_WEB_XML, connectPath(basePath, config.getWebXml()));

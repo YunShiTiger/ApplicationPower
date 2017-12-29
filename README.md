@@ -3,7 +3,7 @@ ApplicationPower 是一个基于数据库单表Crud操作的项目生成器，�
     jetty web容器，eclipse使用jetty:run命令即可运行，idea的用户只需点击maven projects下的plugins中找到jetty run即可启动项目。<br/>
         ApplicationPower是基于beetl模板来生成源代码的，因此可以灵活的修改模板来生成代码定义自己的开发接口规范。ApplicationPower相对
     mybatis generator来说配置更少、代码灵活性和可控性更高。<br/>
-    **重点：** ApplicationPower目前已经完全支持生成Springboot+Mybatis框架的Springboot项目。
+    **重点：** ApplicationPower目前已经完全支持生成Springboot+Mybatis框架的Springboot项目，推荐使用生成springboot，后期项目对springmvc生成维护会减少。
 ## 结构说明
    1. apidoc是一个未来将使用原生doc注释来生成markdown api文档的项目，目前不可用
    2. common-util是开发中常用的一些工具类，目前文档比较详细，也是application-power所依赖的模块，在使用application-power前需要将它安装到你的本地。
@@ -19,6 +19,7 @@ ApplicationPower 是一个基于数据库单表Crud操作的项目生成器，�
     6. v1.4.1版本升级springboot和其他依赖的版本，修改springboot测试模板错误，springboot项目增加springloaded热部署插件。
     7. v1.4.2版本优化生成代码时对数据库的连接次数，restful接口单元测试生成中add和update方法增加自动添加参数和赋予随机值的功能
     8. v1.5版本增加springboot项目基于assembly的服务化打包功能，完备的服务脚本使得在window或linux系统启动和运维项目更轻松
+    9. v1.6版本增加配置来支持springmvc和springboot多数据源动态切换和分布式事务支持，快随构建一个数据一致性架构的项目
 ## 功能
   1. 根据连接的数据生成dao,model,service,controller,mapper,controllerTest,serviceTest代码
   2. 项目的maven web基础骨架
@@ -72,6 +73,15 @@ ApplicationPower 是一个基于数据库单表Crud操作的项目生成器，�
   # 打包springboot时是否采用assembly
   # 如果采用则将生成一系列的相关配置和一系列的部署脚本
   generator.package.assembly=false
+
+  #@since 1.6
+  # 多数据源多个数据数据源用逗号隔开，不需要多数据源环境则空出来
+  # 对于多数据源会集成分布式事务
+  generator.multiple.datasource=one,two
+
+  # @since 1.6
+  # jta-atomikos分布式事务支持
+  generator.jta=true
 ```
   3.修改数据库配置jdbc.properties
 ```

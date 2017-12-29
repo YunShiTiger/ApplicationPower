@@ -98,6 +98,7 @@ public class ConstVal {
     public static final String TPL_POM = "config\\pom.btl";
     public static final String TPL_WEB_XML = "config\\web.btl";
     public static final String TPL_SPRING_MYBATIS = "config\\spring-mybatis.btl";
+    public static final String TPL_SPRING_MYBATIS_MULTIPLE = "config\\spring-mybatis-multiple.btl";
     public static final String TPL_SPRING_MVC = "config\\spring-mvc.btl";
     public static final String TPL_LOF4J = "config\\log4j.btl";
     public static final String TPL_LOF4J2 = "config\\log4j2.btl";
