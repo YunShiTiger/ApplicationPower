@@ -1,6 +1,5 @@
 package com.boco.power.builder;
 
-import com.boco.common.util.DateTimeUtil;
 import com.boco.common.util.StringUtil;
 import com.boco.power.constant.ConstVal;
 import com.boco.power.constant.GeneratorConstant;
@@ -18,10 +17,8 @@ public class SpringBootMybatisCfgBuilder {
         String basePackage = GeneratorProperties.basePackage();
         Map<String,String> code = createCode(ds);
         Template template = BeetlTemplateUtil.getByName(ConstVal.TPL_SPRINGBOOT_MYBATIS_CFG);
-        template.binding(GeneratorConstant.BASE_PACKAGE, basePackage);
+        template.binding(GeneratorConstant.COMMON_VARIABLE);
         template.binding("mappingDir", basePackage.replaceAll("[.]", "/"));
-        template.binding(GeneratorConstant.AUTHOR, System.getProperty("user.name"));
-        template.binding(GeneratorConstant.CREATE_TIME, DateTimeUtil.getTime());//创建时间
         template.binding(code);
         return template.render();
     }

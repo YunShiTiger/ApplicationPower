@@ -1,7 +1,5 @@
 package com.boco.power.builder;
 
-import com.alibaba.fastjson.JSON;
-import com.boco.common.util.DateTimeUtil;
 import com.boco.common.util.FileUtil;
 import com.boco.common.util.StringUtil;
 import com.boco.power.constant.ConstVal;
@@ -11,7 +9,6 @@ import com.boco.power.database.Column;
 import com.boco.power.database.DbProvider;
 import com.boco.power.database.TableInfo;
 import com.boco.power.factory.DbProviderFactory;
-import com.boco.power.model.MultipleDataSource;
 import com.boco.power.utils.BeetlTemplateUtil;
 import com.boco.power.utils.GeneratorProperties;
 import com.boco.power.utils.PathUtil;
@@ -19,7 +16,6 @@ import com.boco.power.utils.PropertiesUtils;
 import org.beetl.core.Template;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -150,9 +146,7 @@ public class CodeWriter extends AbstractCodeWriter {
                     templateName = ConstVal.TPL_SPRING_BOOT_SERVICE_BASE_TEST;
                 }
                 Template template = BeetlTemplateUtil.getByName(templateName);
-                template.binding(GeneratorConstant.BASE_PACKAGE, basePackage);
-                template.binding(GeneratorConstant.AUTHOR, System.getProperty("user.name"));//作者
-                template.binding(GeneratorConstant.CREATE_TIME, DateTimeUtil.getTime());//创建时间
+                template.binding(GeneratorConstant.COMMON_VARIABLE);
                 FileUtil.writeFileNotAppend(template.render(), value + "\\ServiceBaseTest.java");
             }
             if (ConstVal.CONTROLLER_TEST_PATH.equals(key)) {
@@ -161,23 +155,17 @@ public class CodeWriter extends AbstractCodeWriter {
                     templateName = ConstVal.TPL_SPRING_BOOT_CONTROLLER_BASE_TEST;
                 }
                 Template template = BeetlTemplateUtil.getByName(templateName);
-                template.binding(GeneratorConstant.BASE_PACKAGE, basePackage);
-                template.binding(GeneratorConstant.AUTHOR, System.getProperty("user.name"));//作者
-                template.binding(GeneratorConstant.CREATE_TIME, DateTimeUtil.getTime());//创建时间
+                template.binding(GeneratorConstant.COMMON_VARIABLE);
                 FileUtil.writeFileNotAppend(template.render(), value + "\\ControllerBaseTest.java");
             }
             if (ConstVal.DATE_CONVERTER_PATH.equals(key)) {
                 Template template = BeetlTemplateUtil.getByName(ConstVal.TPL_DATE_CONVERTER);
-                template.binding(GeneratorConstant.BASE_PACKAGE, basePackage);
-                template.binding(GeneratorConstant.AUTHOR, System.getProperty("user.name"));//作者
-                template.binding(GeneratorConstant.CREATE_TIME, DateTimeUtil.getTime());//创建时间
+                template.binding(GeneratorConstant.COMMON_VARIABLE);
                 FileUtil.writeFileNotAppend(template.render(), value + "\\DateConverter.java");
             }
             if(ConstVal.REST_ERROR_PATH.contains(key)){
                 Template template = BeetlTemplateUtil.getByName(ConstVal.TPL_REST_ERROR);
-                template.binding(GeneratorConstant.BASE_PACKAGE, basePackage);
-                template.binding(GeneratorConstant.AUTHOR, System.getProperty("user.name"));//作者
-                template.binding(GeneratorConstant.CREATE_TIME, DateTimeUtil.getTime());//创建时间
+                template.binding(GeneratorConstant.COMMON_VARIABLE);
                 FileUtil.writeFileNotAppend(template.render(), value + "\\RestExceptionHandler.java");
             }
         }
@@ -193,9 +181,7 @@ public class CodeWriter extends AbstractCodeWriter {
         writeBaseCode(config,true);
         //创建启动的主类
         Template template = BeetlTemplateUtil.getByName(ConstVal.TPL_SPRING_BOOT_MAIN);
-        template.binding(GeneratorConstant.BASE_PACKAGE, basePackage);
-        template.binding(GeneratorConstant.AUTHOR, System.getProperty("user.name"));
-        template.binding(GeneratorConstant.CREATE_TIME, DateTimeUtil.getTime());//创建时间
+        template.binding(GeneratorConstant.COMMON_VARIABLE);
         String basePackagePath = PathUtil.joinPath(config.getProjectPath().getJavaSrcPath(), basePackage);
         FileUtil.writeFileNotAppend(template.render(), basePackagePath + "\\SpringBootMainApplication.java");
     }
@@ -206,17 +192,13 @@ public class CodeWriter extends AbstractCodeWriter {
         Set<String> dataSources = GeneratorProperties.getMultipleDataSource();
         if(GeneratorProperties.isJTA()||dataSources.size()>0){
             Template jtaTpl = BeetlTemplateUtil.getByName(ConstVal.TPL_JTA);
-            jtaTpl.binding(GeneratorConstant.BASE_PACKAGE, basePackage);
-            jtaTpl.binding(GeneratorConstant.AUTHOR, System.getProperty("user.name"));
-            jtaTpl.binding(GeneratorConstant.CREATE_TIME, DateTimeUtil.getTime());//创建时间
+            jtaTpl.binding(GeneratorConstant.COMMON_VARIABLE);
             FileUtil.writeFileNotAppend(jtaTpl.render(),dirMap.get(ConstVal.DATA_SOURCE_FIG)+"\\TransactionManagerConfig.java");
         }
         if(dataSources.size()>0){
             String configPath = dirMap.get(ConstVal.DATA_SOURCE_FIG);
             Template aspectTpl = BeetlTemplateUtil.getByName(ConstVal.TPL_DATASOURCE_ASPECT);
-            aspectTpl.binding(GeneratorConstant.BASE_PACKAGE, basePackage);
-            aspectTpl.binding(GeneratorConstant.AUTHOR, System.getProperty("user.name"));
-            aspectTpl.binding(GeneratorConstant.CREATE_TIME, DateTimeUtil.getTime());//创建时间
+            aspectTpl.binding(GeneratorConstant.COMMON_VARIABLE);
             FileUtil.writeFileNotAppend(aspectTpl.render(),dirMap.get(ConstVal.ASPECT)+"\\DbAspect.java");
 
             DataSourceKeyBuilder sourceKeyBuilder = new DataSourceKeyBuilder();
@@ -224,9 +206,7 @@ public class CodeWriter extends AbstractCodeWriter {
             FileUtil.writeFileNotAppend(dataSourceTpl,dirMap.get(ConstVal.CONSTANTS)+"\\DataSourceKey.java");
 
             Template abstractCfg = BeetlTemplateUtil.getByName(ConstVal.TPL_DATASOURCE_CFG);
-            abstractCfg.binding(GeneratorConstant.BASE_PACKAGE, basePackage);
-            abstractCfg.binding(GeneratorConstant.AUTHOR, System.getProperty("user.name"));
-            abstractCfg.binding(GeneratorConstant.CREATE_TIME, DateTimeUtil.getTime());//创建时间
+            abstractCfg.binding(GeneratorConstant.COMMON_VARIABLE);
             FileUtil.writeFileNotAppend(abstractCfg.render(),configPath+"\\AbstractDataSourceConfig.java");
 
             SpringBootMybatisCfgBuilder builder = new SpringBootMybatisCfgBuilder();
@@ -263,7 +243,7 @@ public class CodeWriter extends AbstractCodeWriter {
      * @param config
      */
     private void writeCode(ConfigBuilder config) {
-        Map<String, String> dirMap = config.getPathInfo();
+        Map<String, String> dirMap = config.getMybatisGenPath();
         List<TableInfo> tables = config.getTableInfo();
         DbProvider dbProvider = new DbProviderFactory().getInstance();
         for (TableInfo tableInfo : tables) {
@@ -275,38 +255,14 @@ public class CodeWriter extends AbstractCodeWriter {
             for (Map.Entry<String, String> entry : dirMap.entrySet()) {
                 String value = entry.getValue();
                 String key = entry.getKey();
-                if (ConstVal.DAO_PATH.equals(key)) {
-                    String daoCode = new DaoBuilder().generateDao(entityName);
-                    FileUtil.writeFileNotAppend(daoCode, value + "\\" + entityName + "Dao.java");
+                IBuilder builder = null;
+                try {
+                    builder = (IBuilder)Class.forName(key).newInstance();
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
-                if (ConstVal.ENTITY_PATH.equals(key)) {
-                    String modelCode = new ModelBuilder().generateModel(tableInfo,columnMap);
-                    FileUtil.writeFileNotAppend(modelCode, value + "\\" + entityName + ".java");
-                }
-                if (ConstVal.SERVICE_PATH.equals(key)) {
-                    String serviceCode = new ServiceBuilder().generateService(entityName);
-                    FileUtil.writeFileNotAppend(serviceCode, value + "\\" + entityName + "Service.java");
-                    String serviceImplCode = new ServiceImplBuilder().generateServiceImpl(entityName);
-                    FileUtil.writeFileNotAppend(serviceImplCode, value + "\\impl\\" + entityName + "ServiceImpl.java");
-                }
-                if (ConstVal.SERVICE_TEST_PATH.equals(key)) {
-                    String serviceTestCode = new ServiceTestBuilder().generateServiceTest(entityName);
-                    FileUtil.writeFileNotAppend(serviceTestCode, value + "\\" + entityName + "ServiceTest.java");
-                }
-                if (ConstVal.CONTROLLER_PATH.equals(key)) {
-                    String controllerCode = new ControllerBuilder().generateController(entityName);
-                    FileUtil.writeFileNotAppend(controllerCode, value + "\\" + entityName + "Controller.java");
-                }
-                if (ConstVal.CONTROLLER_TEST_PATH.equals(key)) {
-                    String controllerCode = new ControllerTestBuilder().generateControllerTest(entityName,columnMap);
-                    FileUtil.writeFileNotAppend(controllerCode, value + "\\" + entityName + "ControllerTest.java");
-                }
-
-                if (ConstVal.MAPPER_PATH.equals(key)) {
-                    String mapperCode = new MapperBuilder().generateMapper(table,columnMap);
-                    FileUtil.writeFileNotAppend(mapperCode, value + "\\" + entityName + "Dao.xml");
-                }
-
+                String template = builder.generateTemplate(tableInfo,columnMap);
+                FileUtil.writeFileNotAppend(template, String.format(value,entityName));
             }
         }
     }

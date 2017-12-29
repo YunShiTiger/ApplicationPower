@@ -5,6 +5,7 @@ import com.boco.power.constant.ConstVal;
 import com.boco.power.constant.GeneratorConstant;
 import com.boco.power.database.Column;
 import com.boco.power.database.DbProvider;
+import com.boco.power.database.TableInfo;
 import com.boco.power.factory.DbProviderFactory;
 import com.boco.power.utils.BeetlTemplateUtil;
 import com.boco.power.utils.GeneratorProperties;
@@ -17,9 +18,11 @@ import java.util.Map;
  *
  * @author sunyu on 2016/12/7.
  */
-public class MapperBuilder {
+public class MapperBuilder implements IBuilder {
 
-    public String generateMapper(String tableName,Map<String, Column> columnMap) {
+    @Override
+    public String generateTemplate(TableInfo tableInfo, Map<String, Column> columnMap) {
+        String tableName = tableInfo.getName();
         String tableTemp = StringUtil.removePrefix(tableName, GeneratorProperties.tablePrefix());
         String entitySimpleName = StringUtil.toCapitalizeCamelCase(tableTemp);//类名
         String firstLowName = StringUtil.firstToLowerCase(entitySimpleName);

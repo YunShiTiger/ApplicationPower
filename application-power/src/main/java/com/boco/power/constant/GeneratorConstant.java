@@ -1,11 +1,24 @@
 package com.boco.power.constant;
 
+import com.boco.common.util.DateTimeUtil;
+import com.boco.power.utils.GeneratorProperties;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 代码创建工具，模板变量
  *
  * @author on 2016/12/7.
  */
 public class GeneratorConstant {
+
+    public static final Map<String,Object> COMMON_VARIABLE = new HashMap<>();
+    static {
+        COMMON_VARIABLE.put(GeneratorConstant.BASE_PACKAGE, GeneratorProperties.basePackage());
+        COMMON_VARIABLE.put(GeneratorConstant.AUTHOR, System.getProperty("user.name"));
+        COMMON_VARIABLE.put(GeneratorConstant.CREATE_TIME, DateTimeUtil.getTime());
+    }
 
     /**
      * 代码作者

@@ -1,11 +1,8 @@
 package com.boco.power.builder;
 
-import com.boco.common.util.DateTimeUtil;
 import com.boco.common.util.StringUtil;
 import com.boco.power.constant.GeneratorConstant;
 import com.boco.power.utils.BeetlTemplateUtil;
-
-
 import org.beetl.core.Template;
 
 /**
@@ -22,8 +19,7 @@ public class JqueryPluginBuilder {
      */
     public  String writeBuilder(String pluginName){
         Template daoTemplate = BeetlTemplateUtil.getByName(TPL_PLUGIN);
-        daoTemplate.binding(GeneratorConstant.AUTHOR, System.getProperty("user.name"));//作者
-        daoTemplate.binding(GeneratorConstant.CREATE_TIME, DateTimeUtil.getTime());//创建时间
+        daoTemplate.binding(GeneratorConstant.COMMON_VARIABLE);//作者
         daoTemplate.binding(PLUGIN_NAME,pluginName);//类名
         daoTemplate.binding(PLUGIN_NAME_UPER, StringUtil.firstToUpperCase(pluginName));//基包名
         return  daoTemplate.render();

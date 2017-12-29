@@ -1,9 +1,6 @@
 package com.boco.power.builder;
 
-import com.boco.power.constant.ConstVal;
-import com.boco.power.constant.PackageConfig;
-import com.boco.power.constant.ProjectConfig;
-import com.boco.power.constant.SpringBootProjectConfig;
+import com.boco.power.constant.*;
 import com.boco.power.database.DbProvider;
 import com.boco.power.database.TableInfo;
 import com.boco.power.model.ProjectPath;
@@ -21,6 +18,10 @@ public class ConfigBuilder {
      */
     private Map<String, String> pathInfo;
 
+    /**
+     * 用于注入mvc代码层的路径，不包含其他配置类和配置文件路径
+     */
+    private Map<String,String> mybatisGenPath;
     /**
      * 包配置详情
      */
@@ -133,6 +134,7 @@ public class ConfigBuilder {
     private void handlerPackage(PackageConfig config,boolean isSpringBoot) {
         packageInfo = new HashMap<>(8);
         pathInfo = new LinkedHashMap<>(8);
+        mybatisGenPath = new LinkedHashMap<>(8);
 
         String basePackage = GeneratorProperties.basePackage();
         String javaDir = projectPath.getJavaSrcPath();
@@ -150,24 +152,32 @@ public class ConfigBuilder {
                 packageInfo.put(ConstVal.SERVICEIMPL, joinPackage(basePackage, config.getServiceImpl()));
                 pathInfo.put(ConstVal.SERVICE_PATH, joinPath(javaDir, packageInfo.get(ConstVal.SERVICE)));
                 pathInfo.put(ConstVal.SERVICEIMPL_PATH, joinPath(javaDir, packageInfo.get(ConstVal.SERVICEIMPL)));
+                mybatisGenPath.put(BuilderCfg.SERVICE_BUILDER,joinJavaFilePath(packageInfo.get(ConstVal.SERVICE),ConstVal.SERVICE_SUBFIX));
+                mybatisGenPath.put(BuilderCfg.SERVICEIMPL_BUILER,joinJavaFilePath(packageInfo.get(ConstVal.SERVICEIMPL),ConstVal.SERVICEIMPL_SUBFIX));
             } else if (ConstVal.SERVICE_TEST.equals(str)) {
                 packageInfo.put(ConstVal.SERVICE_TEST, joinPackage(basePackage, config.getService()));
                 pathInfo.put(ConstVal.SERVICE_TEST_PATH, joinPath(testDir, packageInfo.get(ConstVal.SERVICE_TEST)));
+                mybatisGenPath.put(BuilderCfg.SERVICE_TEST_BUILER,joinFinalPath(testDir,packageInfo.get(ConstVal.SERVICE_TEST),ConstVal.SERVICE_TEST_SUBFIX));
             } else if (ConstVal.CONTROLLER_TEST.equals(str)) {
                 packageInfo.put(ConstVal.CONTROLLER_TEST, joinPackage(basePackage, config.getController()));
                 pathInfo.put(ConstVal.CONTROLLER_TEST_PATH, joinPath(testDir, packageInfo.get(ConstVal.CONTROLLER_TEST)));
+                mybatisGenPath.put(BuilderCfg.CONTROLLER_TEST_BUILER,joinFinalPath(testDir,packageInfo.get(ConstVal.CONTROLLER_TEST),ConstVal.CONTROLLER_TEST_SUBFIX));
             } else if (ConstVal.DAO.equals(str)) {
                 packageInfo.put(ConstVal.DAO, joinPackage(basePackage, config.getDao()));
                 pathInfo.put(ConstVal.DAO_PATH, joinPath(javaDir, packageInfo.get(ConstVal.DAO)));
+                mybatisGenPath.put(BuilderCfg.DAO_BUILER,joinJavaFilePath(packageInfo.get(ConstVal.DAO),ConstVal.DAO_SUBFIX));
             } else if (ConstVal.ENTITY.equals(str)) {
                 packageInfo.put(ConstVal.ENTITY, joinPackage(basePackage, config.getEntity()));
                 pathInfo.put(ConstVal.ENTITY_PATH, joinPath(javaDir, packageInfo.get(ConstVal.ENTITY)));
+                mybatisGenPath.put(BuilderCfg.MODEL_BUILER,joinJavaFilePath(packageInfo.get(ConstVal.ENTITY),ConstVal.JAVA_SUFFIX));
             } else if (ConstVal.MAPPER.equals(str)) {
                 packageInfo.put(ConstVal.MAPPER, joinPackage(basePackage, config.getMapper()));
                 pathInfo.put(ConstVal.MAPPER_PATH, joinPath(resourceDir, packageInfo.get(ConstVal.MAPPER)));
+                mybatisGenPath.put(BuilderCfg.MAPPER_BUILDER,joinFinalPath(resourceDir,packageInfo.get(ConstVal.MAPPER),ConstVal.MAPPER_SUBFIX));
             } else if (ConstVal.CONTROLLER.equals(str)) {
                 packageInfo.put(ConstVal.CONTROLLER, joinPackage(basePackage, config.getController()));
                 pathInfo.put(ConstVal.CONTROLLER_PATH, joinPath(javaDir, packageInfo.get(ConstVal.CONTROLLER)));
+                mybatisGenPath.put(BuilderCfg.CONTROLLER_BUILER,joinJavaFilePath(packageInfo.get(ConstVal.CONTROLLER),ConstVal.CONTROLLER_SUBFIX));
             }
         }
         packageInfo.put(ConstVal.DATE_CONVERTER, joinPackage(basePackage, config.getConverter()));
@@ -273,6 +283,21 @@ public class ConfigBuilder {
     }
 
     /**
+     * 配置出最终的连接路径
+     * @param packageName
+     * @param postfix
+     * @return
+     */
+    private String joinJavaFilePath(String packageName,String postfix){
+        String javaDir = projectPath.getJavaSrcPath();
+        return PathUtil.joinPath(javaDir, packageName)+"\\%s"+postfix;
+    }
+
+    private String joinFinalPath(String parentDir, String packageName,String postfix){
+        return PathUtil.joinPath(parentDir, packageName)+"\\%s"+postfix;
+    }
+
+    /**
      * 两个路径的连接
      *
      * @param parentDir
@@ -316,5 +341,9 @@ public class ConfigBuilder {
 
     public ProjectPath getProjectPath() {
         return projectPath;
+    }
+
+    public Map<String, String> getMybatisGenPath() {
+        return mybatisGenPath;
     }
 }

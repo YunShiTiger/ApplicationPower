@@ -1,11 +1,11 @@
 package com.boco.power.builder;
 
-import com.boco.common.util.DateTimeUtil;
 import com.boco.common.util.RandomUtil;
 import com.boco.common.util.StringUtil;
 import com.boco.power.constant.ConstVal;
 import com.boco.power.constant.GeneratorConstant;
 import com.boco.power.database.Column;
+import com.boco.power.database.TableInfo;
 import com.boco.power.utils.BeetlTemplateUtil;
 import com.boco.power.utils.GeneratorProperties;
 import org.beetl.core.Template;
@@ -17,26 +17,22 @@ import java.util.Map;
  *
  * @author sunyu on 2016/12/7.
  */
-public class ControllerTestBuilder {
+public class ControllerTestBuilder implements IBuilder {
+
+
 
     private static final String controllerTestParams = "params";
 
-    /**
-     * 表名
-     *
-     * @param tableName
-     * @param columnMap
-     * @return
-     */
-    public String generateControllerTest(String tableName,Map<String,Column> columnMap) {
-        String entitySimpleName = StringUtil.toCapitalizeCamelCase(tableName);//类名
+    @Override
+    public String generateTemplate(TableInfo tableInfo, Map<String, Column> columnMap) {
+        //实体名需要移除表前缀
+        String tableTemp = StringUtil.removePrefix(tableInfo.getName(), GeneratorProperties.tablePrefix());
+        String entitySimpleName = StringUtil.toCapitalizeCamelCase(tableTemp);//类名
         String firstLowName = StringUtil.firstToLowerCase(entitySimpleName);//类实例变量名
         Template controllerTemplate = BeetlTemplateUtil.getByName(ConstVal.TPL_CONTROLLER_TEST);
-        controllerTemplate.binding(GeneratorConstant.AUTHOR, System.getProperty("user.name"));//作者
+        controllerTemplate.binding(GeneratorConstant.COMMON_VARIABLE);//作者
         controllerTemplate.binding(GeneratorConstant.FIRST_LOWER_NAME, firstLowName);
         controllerTemplate.binding(GeneratorConstant.ENTITY_SIMPLE_NAME, entitySimpleName);//类名
-        controllerTemplate.binding(GeneratorConstant.BASE_PACKAGE, GeneratorProperties.basePackage());//基包名
-        controllerTemplate.binding(GeneratorConstant.CREATE_TIME, DateTimeUtil.getTime());//创建时间
         controllerTemplate.binding(controllerTestParams,generateParams(columnMap));
         controllerTemplate.binding(GeneratorProperties.getGenerateMethods());
         return controllerTemplate.render();

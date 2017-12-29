@@ -6,6 +6,9 @@ package com.boco.power.constant;
  */
 public class ConstVal {
 
+    public static final String JAVA_SUFFIX = ".java";
+    public static final String XML_SUFFIX = ".xml";
+
     public static final String TEST_JAVA_PATH = "src\\test\\java";
     public static final String JAVA_PATH = "src\\main\\java";
     public static final String RESOURCE_DIR = "src\\main\\resources";
@@ -21,12 +24,19 @@ public class ConstVal {
 
     public static final String ENTITY = "model";
     public static final String SERVICE = "service";
+    public static final String SERVICE_SUBFIX = "Service.java";
     public static final String SERVICEIMPL = "ServiceImpl";
+    public static final String SERVICEIMPL_SUBFIX = "ServiceImpl.java";
     public static final String DAO = "dao";
+    public static final String DAO_SUBFIX = "Dao.java";
     public static final String MAPPER = "mapper";
+    public static final String MAPPER_SUBFIX = "Dao.xml";
     public static final String CONTROLLER = "controller";
+    public static final String CONTROLLER_SUBFIX = "Controller.java";
     public static final String CONTROLLER_TEST = "controllerTest";
+    public static final String CONTROLLER_TEST_SUBFIX = "ControllerTest.java";
     public static final String SERVICE_TEST = "serviceTest";
+    public static final String SERVICE_TEST_SUBFIX = "ServiceTest.java";
     public static final String DATE_CONVERTER = "DateConverter";
     public static final String REST_EXCEPTION = "RestExceptionHandler";
 
@@ -67,8 +77,7 @@ public class ConstVal {
     public static final String JDBC_PATH = "jdbc_path";
 
 
-    public static final String JAVA_SUFFIX = ".java";
-    public static final String XML_SUFFIX = ".xml";
+
 
     //定义模板名
     public static final String TPL_ENTITY = "model.btl";

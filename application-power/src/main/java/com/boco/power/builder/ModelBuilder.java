@@ -1,7 +1,6 @@
 package com.boco.power.builder;
 
 
-import com.boco.common.util.DateTimeUtil;
 import com.boco.common.util.StringUtil;
 import com.boco.power.constant.ConstVal;
 import com.boco.power.constant.GeneratorConstant;
@@ -16,16 +15,10 @@ import java.util.*;
 /**
  * @author sunyu on 2016/12/6.
  */
-public class ModelBuilder {
+public class ModelBuilder implements IBuilder {
 
-
-    /**
-     * 生成model
-     *
-     * @param tableInfo
-     * @return
-     */
-    public String generateModel(TableInfo tableInfo,Map<String, Column> columnMap) {
+    @Override
+    public String generateTemplate(TableInfo tableInfo, Map<String, Column> columnMap) {
         String tableName = tableInfo.getName();
         String tableTemp = StringUtil.removePrefix(tableName, GeneratorProperties.tablePrefix());
         String entitySimpleName = StringUtil.toCapitalizeCamelCase(tableTemp);//类名
@@ -34,18 +27,18 @@ public class ModelBuilder {
         String imports = this.generateImport(columnMap);
         String toString = this.generateToStringMethod(entitySimpleName, columnMap);
         Template template = BeetlTemplateUtil.getByName(ConstVal.TPL_ENTITY);
-        template.binding(GeneratorConstant.AUTHOR, System.getProperty("user.name"));//作者
+        template.binding(GeneratorConstant.COMMON_VARIABLE);//作者
         template.binding(GeneratorConstant.ENTITY_SIMPLE_NAME, entitySimpleName);//类名
-        template.binding(GeneratorConstant.BASE_PACKAGE, GeneratorProperties.basePackage());//基包名
         template.binding(GeneratorConstant.FIELDS, fields);//字段
         template.binding(GeneratorConstant.GETTERS_AND_SETTERS, gettersAndSetters);//get和set方法
-        template.binding(GeneratorConstant.CREATE_TIME, DateTimeUtil.getTime());//创建时间
         template.binding(GeneratorConstant.TABLE_COMMENT, tableInfo.getRemarks());//表注释
         template.binding(GeneratorConstant.TO_STRING, toString);
         template.binding("SerialVersionUID", String.valueOf(UUID.randomUUID().getLeastSignificantBits()));
         template.binding("modelImports", imports);
         return template.render();
     }
+
+
 
     /**
      * 生成model的字段
